@@ -15,6 +15,7 @@ public:
 };
 class flat : public have_file
 {
+    string current_apartment_ID;
     apartment * current_apartment;
     int floor_num;
     int rooms;

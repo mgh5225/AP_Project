@@ -4,6 +4,8 @@
 using namespace std;
 class have_file
 {
+protected:
+    string ID;
 public:
    virtual long double total_price()=0;
     virtual ~have_file(){}

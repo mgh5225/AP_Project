@@ -7,7 +7,7 @@
 using namespace std;
 class log
 {
-    string ID;
+    string person_ID;
     tm IO_time;
     bool status;
 };
@@ -22,6 +22,7 @@ private:
     size_t password;
     long double balance;
     vector<log> logs;
+
 };
 
 #endif

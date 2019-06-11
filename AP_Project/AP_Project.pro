@@ -29,6 +29,7 @@ SOURCES += \
         ap.cpp
 
 HEADERS += \
+        C:\Program Files\boost\boost_1_70_0 \
         ap.h \
         apartment.h \
         building.h \

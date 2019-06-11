@@ -12,4 +12,13 @@
 #include "file.h"
 #include "sale_file.h"
 #include "rent_file.h"
+#include<map>
+#include<vector>
+
+extern vector<user*> users;
+extern vector<manager*> managers;
+extern vector<apartment*>apartments;
+extern vector<south_villa*>south_villas;
+extern vector<north_villa*>north_villas;
+////TODO map<string,vector<flat*>> flats when reading from apartment file                    map<string,vector<log>> logs when reading from persons
 #endif // HEADERS_H
