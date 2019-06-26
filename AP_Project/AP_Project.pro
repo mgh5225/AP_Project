@@ -29,7 +29,6 @@ SOURCES += \
         ap.cpp
 
 HEADERS += \
-        C:\Program Files\boost\boost_1_70_0 \
         ap.h \
         apartment.h \
         building.h \
@@ -44,7 +43,6 @@ HEADERS += \
         south_villa.h \
         user.h \
         villa.h
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

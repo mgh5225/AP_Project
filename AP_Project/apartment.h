@@ -7,7 +7,6 @@ class apartment : public building
 {
     bool lift;
     int floors;
-    vector<flat*> flats;
 public:
     long double total_price(){
         return base_price*total_area*0.8;
