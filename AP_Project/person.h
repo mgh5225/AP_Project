@@ -1,46 +1,59 @@
 #ifndef PERSON_H
 #define PERSON_H
-#include <string>
+#include <QString>
 #include <iostream>
 #include <time.h>
 #include <vector>
 #include <map>
 #include <fstream>
 #include <exception>
+#include <functional>
+#include <algorithm>
 using namespace std;
 class log
 {
-    string person_ID;
+    QString person_ID;
     tm IO_time;
     bool status;
 };
-class personException:public exception{
+enum class PEX{
+    BADUSERNAME,
+    BADPASSWORD
+};
 
+class personException:public exception{
+public:
+    PEX type;
+    personException& operator()(PEX _type){
+        type=_type;
+    }
 }personEX;
 
 class person{
 protected:
-    string ID;
-    string name;
+    QString ID;
+    QString name;
     tm birth_date;
     bool status;
-    string username;
+    QString username;
     size_t password;
     long double balance;
 public:
     person(){}
-    person(string _name,tm _birth_date,string _username,size_t _password){
+    person(QString _name,tm _birth_date,QString _username,QString _password){
         name=_name;
         birth_date=_birth_date;
         username=_username;
-        password=_password;
+        hash<string> ph;
+        password=ph(_password.toStdString());
         time_t now;
         time(&now);
         struct tm *t=localtime(&now);
-        ID=to_string(t->tm_year)+to_string(t->tm_mon)+to_string(t->tm_mday)+to_string(t->tm_hour)+to_string(t->tm_min)+to_string(t->tm_sec);
+        string temp=to_string(t->tm_year)+to_string(t->tm_mon)+to_string(t->tm_mday)+to_string(t->tm_hour)+to_string(t->tm_min)+to_string(t->tm_sec);
+        ID=QString::fromStdString(temp);
         balance=0;
     }
-    string get_id(){return ID;}
+    QString get_id(){return ID;}
     size_t get_pass(){return password;}
 };
 

@@ -4,7 +4,7 @@
 class file{
 protected:
     static long double commission;
-    string building_ID;
+    QString building_ID;
     have_file* building;
 public:
     virtual long double final_price()=0;

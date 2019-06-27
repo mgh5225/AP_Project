@@ -1,14 +1,49 @@
 #ifndef USER_H
 #define USER_H
 #include "person.h"
+#include <QJsonObject>
+#include <QDate>
+#include <QString>
+#include <sstream>
 class user:public person{
 
 public:
     user():person(){}
-     user(string,tm,string,size_t);
+    user(QString,tm,QString,QString);
+    void write(QJsonObject&);
+    void read(QJsonObject&);
 };
 
-user::user(string _name,tm _birth_date,string _username,size_t _password):person(_name,_birth_date,_username,_password){
+user::user(QString _name,tm _birth_date,QString _username,QString _password):person(_name,_birth_date,_username,_password){
 }
-
+void user::write(QJsonObject& json){
+    json["ID"]=ID;
+    json["name"]=name;
+    QJsonObject date;
+    date["year"]=birth_date.tm_year;
+    date["month"]=birth_date.tm_mon;
+    date["day"]=birth_date.tm_mday;
+    json["birth_date"]=date;
+    json["status"]=status;
+    json["username"]=username;
+    string temp=to_string(password);
+    json["password"]=QString::fromStdString(temp);
+    temp=to_string(balance);
+    json["balance"]=QString::fromStdString(temp);
+}
+void user::read(QJsonObject& json){
+    ID=json["ID"].toString();
+    name=json["name"].toString();
+    QJsonObject date;
+    date=json["birth_date"].toObject();
+    birth_date.tm_year=date["year"].toInt();
+    birth_date.tm_mon=date["month"].toInt();
+    birth_date.tm_mday=date["day"].toInt();
+    status=json["status"].toBool();
+    username=json["username"].toString();
+    QString temp=json["password"].toString();
+    string temp2=temp.toStdString();
+    stringstream ss(temp2);
+    ss>>password;
+}
 #endif // USER_H

@@ -1,11 +1,11 @@
 #ifndef HAVE_FILE_H
 #define HAVE_FILE_H
-#include <string>
+#include <QString>
 using namespace std;
 class have_file
 {
 protected:
-    string ID;
+    QString ID;
 public:
    virtual long double total_price()=0;
     virtual ~have_file(){}

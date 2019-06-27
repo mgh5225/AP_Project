@@ -14,12 +14,12 @@ public:
 };
 class flat : public have_file
 {
-    string current_apartment_ID;
+    QString current_apartment_ID;
     apartment * current_apartment;
     int floor_num;
     int rooms;
     long long building_area;
-    string picture;
+    QString picture;
 public:
     long double total_price(){
         return current_apartment->get_base_price()*building_area;
