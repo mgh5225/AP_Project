@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include <fstream>
+#include <exception>
 using namespace std;
 class log
 {
@@ -13,6 +14,10 @@ class log
     tm IO_time;
     bool status;
 };
+class personException:public exception{
+
+}personEX;
+
 class person{
 protected:
     string ID;
@@ -32,8 +37,7 @@ public:
         time_t now;
         time(&now);
         struct tm *t=localtime(&now);
-        string temp=to_string(t->tm_year)+to_string(t->tm_mon)+to_string(t->tm_mday)+to_string(t->tm_hour)+to_string(t->tm_min)+to_string(t->tm_sec);
-        ID=temp;
+        ID=to_string(t->tm_year)+to_string(t->tm_mon)+to_string(t->tm_mday)+to_string(t->tm_hour)+to_string(t->tm_min)+to_string(t->tm_sec);
         balance=0;
     }
     string get_id(){return ID;}
