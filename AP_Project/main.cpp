@@ -84,6 +84,16 @@ void unloading(){
     QJsonDocument savedoclog(logsjson);
     savelog.write(savedoclog.toJson());
 
+    QFile saverent(QStringLiteral("rents.json"));
+    saverent.open(QIODevice::WriteOnly);
+    QJsonDocument savedocrent(rentsjson);
+    saverent.write(savedocrent.toJson());
+
+    QFile savesale(QStringLiteral("sales.json"));
+    savesale.open(QIODevice::WriteOnly);
+    QJsonDocument savedocsale(salesjson);
+    savesale.write(savedocsale.toJson());
+
     saveuser.close();
     savemanager.close();
     saveapartment.close();
@@ -91,6 +101,9 @@ void unloading(){
     savenvilla.close();
     saveflat.close();
     savelog.close();
+    saverent.close();
+    savesale.close();
+
 
 }
 void loading(){
@@ -157,8 +170,8 @@ void loading(){
 
     QFile loadflat(QStringLiteral("flats.json"));
     loadflat.open(QIODevice::ReadOnly);
-    QByteArray flatdata=loadnvilla.readAll();
-    QJsonDocument flatdoc(QJsonDocument::fromJson(nvilladata));
+    QByteArray flatdata=loadflat.readAll();
+    QJsonDocument flatdoc(QJsonDocument::fromJson(flatdata));
     flat f;
     flatsjson=flatdoc.object();
     for (auto i=flatsjson.begin();i!=flatsjson.end();i++) {
@@ -179,8 +192,29 @@ void loading(){
        logs[l.get_person_ID()].push_back(l);
     }
 
+    QFile loadrent(QStringLiteral("rents.json"));
+    loadrent.open(QIODevice::ReadOnly);
+    QByteArray rentdata=loadrent.readAll();
+    QJsonDocument rentdoc(QJsonDocument::fromJson(rentdata));
+    rent_file r;
+    rentsjson=rentdoc.object();
+    for (auto i=rentsjson.begin();i!=rentsjson.end();i++) {
+       temp=i.value().toObject();
+       r.read(temp);
+       rents[r.get_building_ID()]=r;
+    }
 
-
+    QFile loadsale(QStringLiteral("sales.json"));
+    loadsale.open(QIODevice::ReadOnly);
+    QByteArray saledata=loadsale.readAll();
+    QJsonDocument saledoc(QJsonDocument::fromJson(saledata));
+    sale_file s;
+    salesjson=saledoc.object();
+    for (auto i=salesjson.begin();i!=salesjson.end();i++) {
+       temp=i.value().toObject();
+       s.read(temp);
+       sales[s.get_building_ID()]=s;
+    }
 
     loaduser.close();
     loadmanager.close();
@@ -189,6 +223,8 @@ void loading(){
     loadnvilla.close();
     loadflat.close();
     loadlog.close();
+    loadrent.close();
+    loadsale.close();
 }
 int main(int argc, char *argv[])
 {
