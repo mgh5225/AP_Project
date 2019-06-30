@@ -28,8 +28,7 @@ void user::write(QJsonObject& json){
     json["username"]=username;
     string temp=to_string(password);
     json["password"]=QString::fromStdString(temp);
-    temp=to_string(balance);
-    json["balance"]=QString::fromStdString(temp);
+    json["balance"]=balance;
 }
 void user::read(QJsonObject& json){
     ID=json["ID"].toString();
@@ -45,5 +44,6 @@ void user::read(QJsonObject& json){
     string temp2=temp.toStdString();
     stringstream ss(temp2);
     ss>>password;
+    balance=json["balance"].toDouble();
 }
 #endif // USER_H

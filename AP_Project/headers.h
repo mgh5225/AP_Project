@@ -15,11 +15,18 @@
 #include<map>
 #include<vector>
 //map<QString,user> users; //QString -> username
-extern QJsonObject users;
+QJsonObject usersjson;
+QJsonObject managersjson;
+QJsonObject apartmentsjson;
+QJsonObject svillasjson;
+QJsonObject nvillasjson;
+QJsonObject flatsjson;
+QJsonObject logsjson;
+map<QString,user> users;
 map<QString,manager> managers; //QString->username
 map<QString,apartment>apartments; //QString->ID
-map<QString,south_villa>south_villas;//QString->ID
-map<QString,north_villa>north_villas;//QString->ID
+map<QString,south_villa>svillas;//QString->ID
+map<QString,north_villa>nvillas;//QString->ID
 map<QString,vector<flat>> flats;//QString->ID_apartmant
 map<QString,vector<log>> logs;//QString->ID log ha
 ////TODO map<QString,vector<flat*>> flats when reading from apartment file                    map<QString,vector<log>> logs when reading from persons

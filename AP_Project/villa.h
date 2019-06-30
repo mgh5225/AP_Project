@@ -8,7 +8,7 @@ protected:
     int rooms;
     long long building_area;
 public:
-    villa();
+    villa(){}
 };
 
 #endif // VILLA_H

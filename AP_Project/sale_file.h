@@ -6,7 +6,7 @@ using namespace std;
 class sale_file:public file{
     QString condition;
 public:
-    long double final_price(){
+    double final_price(){
         return building->total_price()+(commission*building->total_price());
     }
 };

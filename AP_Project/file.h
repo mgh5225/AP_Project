@@ -3,12 +3,12 @@
 #include "have_file.h"
 class file{
 protected:
-    static long double commission;
+    static double commission;
     QString building_ID;
     have_file* building;
 public:
-    virtual long double final_price()=0;
+    virtual double final_price()=0;
 
 };
-long double file::commission=1000;
+double file::commission=1000;
 #endif // FILE_H

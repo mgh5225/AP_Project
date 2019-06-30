@@ -8,8 +8,26 @@ class apartment : public building
     bool lift;
     int floors;
 public:
-    long double total_price(){
+    double total_price(){
         return base_price*total_area*0.8;
+    }
+    void read(QJsonObject& json){
+       ID=json["ID"].toString();
+       base_price=json["base_price"].toDouble();
+       total_area=json["total_area"].toString().toLongLong();
+       address=json["address"].toString();
+       picture=json["picture"].toString();
+       lift=json["lift"].toBool();
+       floors=json["floors"].toInt();
+    }
+    void write(QJsonObject& json){
+       json["ID"]=ID;
+       json["base_price"]=base_price;
+       json["total_area"]=QString::fromStdString(to_string(total_area));
+       json["address"]=address;
+       json["picture"]=picture;
+       json["lift"]=lift;
+       json["floors"]=floors;
     }
 };
 class flat : public have_file
@@ -21,8 +39,26 @@ class flat : public have_file
     long long building_area;
     QString picture;
 public:
-    long double total_price(){
+    double total_price(){
         return current_apartment->get_base_price()*building_area;
     }
+    void read(QJsonObject& json){
+       ID=json["ID"].toString();
+       current_apartment_ID=json["current_apartment_ID"].toString();
+       floor_num=json["floor_num"].toInt();
+       rooms=json["rooms"].toInt();
+       building_area=json["building_area"].toString().toLongLong();
+       picture=json["picture"].toString();
+    }
+    void write(QJsonObject& json){
+       json["ID"]=ID;
+       json["current_apartment_ID"]=current_apartment_ID;
+       json["floor_num"]=floor_num;
+       json["rooms"]=rooms;
+       json["building_area"]=QString::fromStdString(to_string(building_area));
+       json["picture"]=picture;
+
+    }
+    QString get_current_apartment_ID(){return current_apartment_ID;}
 };
 #endif // APARTMENT_H
