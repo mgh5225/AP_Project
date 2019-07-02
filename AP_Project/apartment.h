@@ -8,11 +8,6 @@ class apartment : public building
     bool lift;
     int floors;
 public:
-    apartment(){}
-    apartment(double _base_price,long long _total_area,QString _address,QString _picture,bool _lift,int _floors):building(_base_price,_total_area,_address,_picture){
-        lift=_lift;
-        floors=_floors;
-    }
     double total_price(){
         return base_price*total_area*0.8;
     }
@@ -34,8 +29,6 @@ public:
        json["lift"]=lift;
        json["floors"]=floors;
     }
-    bool get_lift(){return lift;}
-    int get_floors(){return floors;}
 };
 class flat : public have_file
 {
@@ -67,9 +60,5 @@ public:
 
     }
     QString get_current_apartment_ID(){return current_apartment_ID;}
-    apartment* get_current_apartment(){return current_apartment;}
-    int get_floor_num(){return floor_num;}
-    long long get_building_area(){return building_area;}
-    QString get_picture(){return picture;}
 };
 #endif // APARTMENT_H
