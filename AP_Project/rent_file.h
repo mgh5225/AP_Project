@@ -1,7 +1,7 @@
 #ifndef RENT_FILE_H
 #define RENT_FILE_H
 #include "file.h"
-class rent:public file{
+class rent_file:public file{
     int rent_duration;
 public:
     double mortgage_price(){return 0.05*building->total_price();}

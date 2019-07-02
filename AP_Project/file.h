@@ -8,6 +8,7 @@ protected:
     have_file* building;
 public:
     virtual double final_price()=0;
+    QString get_building_ID(){return building_ID;}
 
 };
 #endif // FILE_H

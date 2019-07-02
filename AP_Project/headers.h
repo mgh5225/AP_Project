@@ -22,6 +22,8 @@ QJsonObject svillasjson;
 QJsonObject nvillasjson;
 QJsonObject flatsjson;
 QJsonObject logsjson;
+QJsonObject rentsjson;
+QJsonObject salesjson;
 map<QString,user> users;
 map<QString,manager> managers; //QString->username
 map<QString,apartment>apartments; //QString->ID
