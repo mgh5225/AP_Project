@@ -25,11 +25,31 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QToolButton>
-
+static QRegion roundedRect(const QRect& rect, int r)
+{
+    QRegion region;
+    // middle and borders
+    region += rect.adjusted(r, 0, -r, 0);
+    region += rect.adjusted(0, r, 0, -r);
+    // top left
+    QRect corner(rect.topLeft(), QSize(r*2, r*2));
+    region += QRegion(corner, QRegion::Ellipse);
+    // top right
+    corner.moveTopRight(rect.topRight());
+    region += QRegion(corner, QRegion::Ellipse);
+    // bottom left
+    corner.moveBottomLeft(rect.bottomLeft());
+    region += QRegion(corner, QRegion::Ellipse);
+    // bottom right
+    corner.moveBottomRight(rect.bottomRight());
+    region += QRegion(corner, QRegion::Ellipse);
+    return region;
+}
 class Main_UI : public QMainWindow
 {
     Q_OBJECT
     QHBoxLayout *toolbar;
+    QVBoxLayout *body;
 
     QToolButton *btn_sign_up;
     QToolButton *btn_log_in;
@@ -37,7 +57,6 @@ class Main_UI : public QMainWindow
 
     QFrame *myFrame;
     QFrame *frameToolBar;
-
     QGridLayout *my_grid_layout;
     ShowBuilding_widget* obj_1;
     ShowBuilding_widget* obj_2;
@@ -48,17 +67,12 @@ class Main_UI : public QMainWindow
     ShowBuilding_widget* obj_7;
     ShowBuilding_widget* obj_8;
     ShowBuilding_widget* obj_9;
-
-
+    ShowBuilding_widget* obj_10;
+    ShowBuilding_widget* obj_11;
+    ShowBuilding_widget* obj_12;
 
 public:
-    explicit Main_UI(QWidget *parent = nullptr);
-
-
-
-signals:
-
-public slots:
+    explicit Main_UI(QWidget *parent = nullptr,have_file* files[12]={});
 };
 
 #endif // MAIN_UI_H

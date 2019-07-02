@@ -1,27 +1,7 @@
 #include "main_ui.h"
 #include <QPainter>
 #include <QScrollArea>
-static QRegion roundedRect(const QRect& rect, int r)
-{
-    QRegion region;
-    // middle and borders
-    region += rect.adjusted(r, 0, -r, 0);
-    region += rect.adjusted(0, r, 0, -r);
-    // top left
-    QRect corner(rect.topLeft(), QSize(r*2, r*2));
-    region += QRegion(corner, QRegion::Ellipse);
-    // top right
-    corner.moveTopRight(rect.topRight());
-    region += QRegion(corner, QRegion::Ellipse);
-    // bottom left
-    corner.moveBottomLeft(rect.bottomLeft());
-    region += QRegion(corner, QRegion::Ellipse);
-    // bottom right
-    corner.moveBottomRight(rect.bottomRight());
-    region += QRegion(corner, QRegion::Ellipse);
-    return region;
-}
-Main_UI::Main_UI(QWidget *parent) : QMainWindow(parent)
+Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
 {
     btn_exit = new QToolButton();
     btn_log_in = new QToolButton();
@@ -58,9 +38,18 @@ Main_UI::Main_UI(QWidget *parent) : QMainWindow(parent)
     btn_sign_up->setText("Sign up");
 
 
-
-
-
+    obj_1=new ShowBuilding_widget(nullptr,files[0]);
+    obj_2=new ShowBuilding_widget(nullptr,files[1]);
+    obj_3=new ShowBuilding_widget(nullptr,files[2]);
+    obj_4=new ShowBuilding_widget(nullptr,files[3]);
+    obj_5=new ShowBuilding_widget(nullptr,files[4]);
+    obj_6=new ShowBuilding_widget(nullptr,files[5]);
+    obj_7=new ShowBuilding_widget(nullptr,files[6]);
+    obj_8=new ShowBuilding_widget(nullptr,files[7]);
+    obj_9=new ShowBuilding_widget(nullptr,files[8]);
+    obj_10=new ShowBuilding_widget(nullptr,files[9]);
+    obj_11=new ShowBuilding_widget(nullptr,files[10]);
+    obj_12=new ShowBuilding_widget(nullptr,files[11]);
 
 
 
@@ -75,18 +64,29 @@ Main_UI::Main_UI(QWidget *parent) : QMainWindow(parent)
 
 
 
-     my_grid_layout->addLayout(toolbar,0,0,1,5,Qt::AlignTop);
-
-
-
+     my_grid_layout->addWidget(obj_1,0,0);
+     my_grid_layout->addWidget(obj_2,0,1);
+     my_grid_layout->addWidget(obj_3,0,2);
+     my_grid_layout->addWidget(obj_4,0,3);
+     my_grid_layout->addWidget(obj_5,1,0);
+     my_grid_layout->addWidget(obj_6,1,1);
+     my_grid_layout->addWidget(obj_7,1,2);
+     my_grid_layout->addWidget(obj_8,1,3);
+     my_grid_layout->addWidget(obj_9,2,0);
+     my_grid_layout->addWidget(obj_10,2,1);
+     my_grid_layout->addWidget(obj_11,2,2);
+     my_grid_layout->addWidget(obj_12,2,3);
+     my_grid_layout->setAlignment(Qt::AlignCenter);
 
     ////////////////////////////////////////
     //set frame
 
-
+     body=new QVBoxLayout;
+     body->addLayout(toolbar);
+     body->addLayout(my_grid_layout);
     QWidget *widget = new QWidget();
     this->setCentralWidget(widget);
-    //widget->setLayout(my_grid_layout);
+    widget->setLayout(body);
 
     //this->centralWidget()->setStyleSheet("background-image:url(:/Images/resource/imgs/background.jpg); background-position: center;background-repeat:no-repeat;background-size:cover ");
     //w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
@@ -118,7 +118,8 @@ Main_UI::Main_UI(QWidget *parent) : QMainWindow(parent)
                 QPalette palette;
                 palette.setBrush(QPalette::Background, bkgnd);
                 this->setPalette(palette);
-                this->setMask(roundedRect(this->rect(), 10));
+                this->setMask(roundedRect(this->rect(),10));
+
                 //this->setStyleSheet("");
 //                this->setAttribute(Qt::WA_TranslucentBackground);
                 this->setWindowFlags(Qt::FramelessWindowHint);
@@ -131,9 +132,9 @@ Main_UI::Main_UI(QWidget *parent) : QMainWindow(parent)
     ////////////////////////////////////
     //css
 
-    btn_log_in->setStyleSheet("QToolButton:pressed {background:none; background-color: #00cc00;color:#b3ffb3;} QToolButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
-    btn_sign_up->setStyleSheet("QToolButton:pressed {background-color: #2980b9;color:#B3E5FC;} QToolButton{ background-color:#B3E5FC;color:#2980b9;padding:10px;border:1px solid #2980b9; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
-    btn_exit->setStyleSheet("QToolButton:pressed {background-color:#ff1a1a;color:#ffb3b3;} QToolButton{ background-color:#ffb3b3;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif;border-radius : 5px; }");
+    btn_log_in->setStyleSheet("QToolButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QToolButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
+    btn_sign_up->setStyleSheet("QToolButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QToolButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;}");
+    btn_exit->setStyleSheet("QToolButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QToolButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;}");
 
 
 }

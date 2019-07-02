@@ -1,5 +1,5 @@
 #include "showbuilding_widget.h"
-
+#include "main_ui.h"
 ShowBuilding_widget::ShowBuilding_widget(QWidget *parent,have_file* _file) : QWidget(parent)
 {
    if(!_file) throw "FUCK YOU";
@@ -8,14 +8,14 @@ ShowBuilding_widget::ShowBuilding_widget(QWidget *parent,have_file* _file) : QWi
    building* b=dynamic_cast<building*>(file);
    if(b){
        pic=new QLabel;
-       pic->setPixmap(QPixmap(b->get_picture()).scaled(256,128));
+       pic->setPixmap(QPixmap(b->get_picture()).scaled(256,150));
        address=new QLabel("Address: " + b->get_address());
        total_area=new QLabel(QString::fromStdString("Total Area: "+to_string(b->get_total_area())));
    }else {
        flat* f=dynamic_cast<flat*>(file);
        if(f){
            pic=new QLabel;
-           pic->setPixmap(QPixmap(f->get_picture()).scaled(256,128));
+           pic->setPixmap(QPixmap(f->get_picture()).scaled(256,150));
            address=new QLabel("Address: " + f->get_current_apartment()->get_address());
            total_area=new QLabel(QString::fromStdString("Total Area:" + to_string(f->get_building_area())));
        }
@@ -25,6 +25,17 @@ ShowBuilding_widget::ShowBuilding_widget(QWidget *parent,have_file* _file) : QWi
    my_grid_layout->addWidget(address,3,0,1,1,Qt::AlignLeft);
    my_grid_layout->addWidget(total_area,4,0,1,1,Qt::AlignLeft);
    my_grid_layout->addWidget(final_price,5,0,1,1,Qt::AlignLeft);
-   this->setLayout(my_grid_layout);
-   this->setStyleSheet("background-color:white;font-weight:bold");
+   QPalette pal;
+   // set black background
+   pal.setColor(QPalette::Background,QColor(255, 255, 255));
+   QFrame *frame=new QFrame;
+   frame->setAutoFillBackground(true);
+   frame->setPalette(pal);
+   frame->setFrameShape(QFrame::Panel);
+   frame->setLayout(my_grid_layout);
+   QGridLayout *lay=new QGridLayout;
+   lay->addWidget(frame);
+   frame->setLineWidth(1);
+   this->setLayout(lay);
+   this->setMinimumSize(260,260);
 }
