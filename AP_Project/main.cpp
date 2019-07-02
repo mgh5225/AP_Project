@@ -6,6 +6,7 @@
 #include <functional>
 #include <QFile>
 #include <QJsonDocument>
+#include"login.h"
 bool sign_up_usr(QString _name,tm _birth_date,QString _username,QString _password){
     if(users.count(_username)==1){
         return 0;
@@ -229,7 +230,8 @@ void loading(){
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    AP w;
+    Login w;
+    w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     time_t now;
     time(&now);
     struct tm *t=localtime(&now);

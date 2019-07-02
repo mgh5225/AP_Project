@@ -25,21 +25,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        addnewapartment_ui.cpp \
+        login.cpp \
         main.cpp \
-        ap.cpp
+        ap.cpp \
+        main_ui.cpp \
+        register_ui.cpp \
+        showbuilding_widget.cpp
 
 HEADERS += \
+        addnewapartment_ui.h \
         ap.h \
         apartment.h \
         building.h \
         file.h \
         have_file.h \
         headers.h \
+        login.h \
+        main_ui.h \
         manager.h \
         north_villa.h \
         person.h \
+        register_ui.h \
         rent_file.h \
         sale_file.h \
+        showbuilding_widget.h \
         south_villa.h \
         user.h \
         villa.h
@@ -50,3 +60,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     test.js
+
+RESOURCES += \
+    resource.qrc
