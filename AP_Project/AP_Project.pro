@@ -31,7 +31,8 @@ SOURCES += \
         ap.cpp \
         main_ui.cpp \
         register_ui.cpp \
-        showbuilding_widget.cpp
+        showbuilding_widget.cpp \
+        user_panel_ui.cpp
 
 HEADERS += \
         addnewapartment_ui.h \
@@ -52,6 +53,7 @@ HEADERS += \
         showbuilding_widget.h \
         south_villa.h \
         user.h \
+        user_panel_ui.h \
         villa.h
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
