@@ -3,9 +3,15 @@
         <file>resource/icons/Password_Login.png</file>
         <file>resource/icons/User_Login.png</file>
         <file>resource/icons/Register_FullName.png</file>
-        <file>resource/icons/Exit_Icon.png</file>
         <file>resource/icons/Sign_Up_Icon.png</file>
         <file>resource/icons/Sign_In_Icon.png</file>
+        <file>resource/icons/AddFile.png</file>
+        <file>resource/icons/Balance.png</file>
+        <file>resource/icons/explore.png</file>
+        <file>resource/icons/logout.png</file>
+        <file>resource/icons/balance.ico</file>
+        <file>resource/icons/house.png</file>
+        <file>resource/icons/Exit_Icon.png</file>
     </qresource>
     <qresource prefix="/Images">
         <file>resource/imgs/LoginBG.jpg</file>
