@@ -13,11 +13,13 @@ public:
         commission=json["commission"].toDouble();
         building_ID=json["building_ID"].toString();
         condition=json["condition"].toString();
+        manager_ID=json["manager_ID"].toString();
     }
     void write(QJsonObject& json){
         json["commission"]=commission;
         json["building_ID"]=building_ID;
         json["condition"]=condition;
+         json["manager_ID"]=manager_ID;
     }
 };
 
