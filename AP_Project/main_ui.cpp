@@ -90,5 +90,4 @@ Main_UI::Main_UI(QWidget *parent) : QMainWindow(parent)
     btn_sign_up->setStyleSheet("QToolButton:pressed {background-color: #2980b9;color:#B3E5FC;padding:10px;border:1px solid #3498db; font-weight:bold;font-family:Serif;} QToolButton{ background-color:#B3E5FC;color:#2980b9;padding:10px;border:1px solid #2980b9; font-weight:bold;font-family:Serif} ");
     btn_exit->setStyleSheet("QToolButton:pressed {background-color:#ff1a1a;color:#ffb3b3;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif } QToolButton{ background-color:#ffb3b3;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif }");
 
-
 }
