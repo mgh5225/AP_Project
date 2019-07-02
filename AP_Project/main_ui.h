@@ -1,6 +1,6 @@
 #ifndef MAIN_UI_H
 #define MAIN_UI_H
-#include"showbuilding_widget.h"
+
 #include<QMainWindow>
 #include <QWidget>
 #include <QObject>
@@ -25,7 +25,7 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QToolButton>
-
+#include"showbuilding_widget.h"
 class Main_UI : public QMainWindow
 {
     Q_OBJECT

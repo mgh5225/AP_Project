@@ -12,8 +12,8 @@
 #include "file.h"
 #include "sale_file.h"
 #include "rent_file.h"
-#include"main_ui.h"
 #include<map>
+#include<vector>
 //map<QString,user> users; //QString -> username
 QJsonObject usersjson;
 QJsonObject managersjson;

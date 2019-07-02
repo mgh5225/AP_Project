@@ -1,5 +1,6 @@
 #ifndef SHOWBUILDING_WIDGET_H
 #define SHOWBUILDING_WIDGET_H
+
 #include <QWidget>
 #include <QObject>
 #include <QWidget>
@@ -22,17 +23,12 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QGridLayout>
-#include "have_file.h"
-#include "building.h"
-#include "apartment.h"
-#include "villa.h"
-#include "north_villa.h"
-#include "south_villa.h"
+
 class ShowBuilding_widget : public QWidget
 {
     Q_OBJECT
 
-    have_file* file;
+    //have_file* file;
 
     QLabel *pic;
     QLabel *total_area;
@@ -43,7 +39,7 @@ class ShowBuilding_widget : public QWidget
 
 
 public:
-    explicit ShowBuilding_widget(QWidget *parent = nullptr,have_file* _file=nullptr);
+    //explicit ShowBuilding_widget(QWidget *parent = nullptr,have_file* _file=nullptr);
 
 signals:
 
