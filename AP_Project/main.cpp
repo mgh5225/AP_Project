@@ -1,13 +1,11 @@
 #include "ap.h"
 #include <QApplication>
-#include "headers.h"
 #include <QJsonObject>
 #include <algorithm>
 #include <functional>
 #include <QFile>
 #include <QJsonDocument>
-#include"login.h"
-#include "main_ui.h"
+#include "headers.h"
 bool sign_up_usr(QString _name,tm _birth_date,QString _username,QString _password){
     if(users.count(_username)==1){
         return 0;
@@ -231,7 +229,8 @@ void loading(){
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Main_UI w;
+    apartment* aptr=new apartment(8456,5665,"asdaass",":/Images/resource/imgs/background.jpg",true,12);
+    ShowBuilding_widget w(nullptr,aptr);
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     time_t now;
     time(&now);
