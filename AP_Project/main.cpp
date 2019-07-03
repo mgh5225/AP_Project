@@ -230,7 +230,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     apartment* aptr=new apartment(8456,5665,"asdaass",":/Images/resource/imgs/background.jpg",true,12);
-    ShowBuilding_widget w(nullptr,aptr);
+    //ShowBuilding_widget w(nullptr,aptr);
+    have_file* aptrs[12]={aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr};
+   Main_UI w(nullptr,aptrs);
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     time_t now;
     time(&now);
