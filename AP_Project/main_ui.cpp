@@ -6,9 +6,9 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
     btn_exit = new QToolButton();
     btn_log_in = new QToolButton();
     btn_sign_up = new QToolButton();
-    btn_exit->setMinimumSize(70,70);
-    btn_log_in->setMinimumSize(70,70);
-    btn_sign_up->setMinimumSize(70,70);
+    btn_exit->setMinimumSize(75,75);
+    btn_log_in->setMinimumSize(75,75);
+    btn_sign_up->setMinimumSize(75,75);
 
 
 

@@ -38,10 +38,22 @@ class ShowBuilding_widget : public QWidget
     QLabel *total_area;
     QLabel *address;
     QLabel *final_price;
-
     QGridLayout* my_grid_layout;
-
-
+    QFrame *frame;
+    QPalette *pal;
+    QGridLayout *lay;
+protected:
+bool eventFilter(QObject *object, QEvent *event){
+if(object==this && (event->type()==QEvent::Enter || event->type()==QEvent::Leave))
+    if(event->type()==QEvent::Enter){
+        pal->setColor(QPalette::Background,QColor(130, 130, 130));
+        frame->setPalette(*pal);
+    }
+    else {
+        pal->setColor(QPalette::Background,QColor(255, 255, 255));
+        frame->setPalette(*pal);
+    }
+}
 public:
     explicit ShowBuilding_widget(QWidget *parent = nullptr,have_file* _file=nullptr);
 

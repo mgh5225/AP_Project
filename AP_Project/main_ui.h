@@ -25,6 +25,8 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QToolButton>
+#include<QFontDatabase>
+#include "user_panel_ui.h"
 static QRegion roundedRect(const QRect& rect, int r)
 {
     QRegion region;
@@ -74,5 +76,4 @@ class Main_UI : public QMainWindow
 public:
     explicit Main_UI(QWidget *parent = nullptr,have_file* files[12]={});
 };
-
 #endif // MAIN_UI_H
