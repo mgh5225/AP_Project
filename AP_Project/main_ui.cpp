@@ -21,7 +21,7 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
     btn_log_in->setText("Log In");
 
 
-    QPixmap pixmap2(":/icons/resource/icons/Exit_Icon.png");
+    QPixmap pixmap2(":/icons/resource/icons/Black_Exit_Icon.png");
     QIcon btn_exit_Icon(pixmap2);
 
     btn_exit->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);

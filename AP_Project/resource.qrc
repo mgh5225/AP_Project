@@ -6,6 +6,7 @@
         <file>resource/icons/Exit_Icon.png</file>
         <file>resource/icons/Sign_Up_Icon.png</file>
         <file>resource/icons/Sign_In_Icon.png</file>
+        <file>resource/icons/Black_Exit_Icon.png</file>
     </qresource>
     <qresource prefix="/Images">
         <file>resource/imgs/LoginBG.jpg</file>
