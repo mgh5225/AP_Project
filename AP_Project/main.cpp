@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include "headers.h"
+#include "addnewsouthvilla.h"
 bool sign_up_usr(QString _name,tm _birth_date,QString _username,QString _password){
     if(users.count(_username)==1){
         return 0;
@@ -229,10 +230,10 @@ void loading(){
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    apartment* aptr=new apartment(8456,5665,"asdaass","C:/Users/Babak/Desktop/unnamed.jpg",true,12);
+    //apartment* aptr=new apartment(8456,5665,"asdaass",":/Images/resource/imgs/background.jpg",true,12);
     //ShowBuilding_widget w(nullptr,aptr);
-    have_file* aptrs[12]={aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr};
-   Main_UI w(nullptr,aptrs);
+   // have_file* aptrs[12]={aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr};
+    User_Panel_UI w;
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     time_t now;
     time(&now);
@@ -243,6 +244,23 @@ int main(int argc, char *argv[])
     sign_up_usr("Mohi",*t,"mohammad","1111");
     unloading();
 
+    QSize availableSize = qApp->desktop()->availableGeometry().size();
+        int width = availableSize.width();
+        int height = availableSize.height();
+        //qDebug() << "Available dimensions " << width << "x" << height;
+        width *= 0.73; // 90% of the screen size
+        height *= 0.9; // 90% of the screen size
+        //qDebug() << "Computed dimensions " << width << "x" << height;
+        QSize newSize( width, height );
+
+        w.setGeometry(
+            QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                newSize,
+                qApp->desktop()->availableGeometry()
+            )
+        );
     w.show();
 
     return a.exec();

@@ -5,12 +5,11 @@
 class flat;
 class apartment : public building
 {
-    bool lift;
+
     int floors;
 public:
     apartment(){}
-    apartment(double _base_price,long long _total_area,QString _address,QString _picture,bool _lift,int _floors):building(_base_price,_total_area,_address,_picture){
-        lift=_lift;
+    apartment(double _base_price,long long _total_area,QString _address,QString _picture,int _floors):building(_base_price,_total_area,_address,_picture){
         floors=_floors;
     }
     double total_price(){
@@ -22,7 +21,6 @@ public:
        total_area=json["total_area"].toString().toLongLong();
        address=json["address"].toString();
        picture=json["picture"].toString();
-       lift=json["lift"].toBool();
        floors=json["floors"].toInt();
     }
     void write(QJsonObject& json){
@@ -31,10 +29,9 @@ public:
        json["total_area"]=QString::fromStdString(to_string(total_area));
        json["address"]=address;
        json["picture"]=picture;
-       json["lift"]=lift;
        json["floors"]=floors;
     }
-    bool get_lift(){return lift;}
+
     int get_floors(){return floors;}
 };
 class flat : public have_file
@@ -42,6 +39,7 @@ class flat : public have_file
     QString current_apartment_ID;
     apartment * current_apartment;
     int floor_num;
+    bool lift;
     int rooms;
     long long building_area;
     QString picture;
@@ -55,6 +53,7 @@ public:
        floor_num=json["floor_num"].toInt();
        rooms=json["rooms"].toInt();
        building_area=json["building_area"].toString().toLongLong();
+       lift=json["lift"].toBool();
        picture=json["picture"].toString();
     }
     void write(QJsonObject& json){
@@ -63,6 +62,7 @@ public:
        json["floor_num"]=floor_num;
        json["rooms"]=rooms;
        json["building_area"]=QString::fromStdString(to_string(building_area));
+       json["lift"]=lift;
        json["picture"]=picture;
 
     }
@@ -71,5 +71,6 @@ public:
     int get_floor_num(){return floor_num;}
     long long get_building_area(){return building_area;}
     QString get_picture(){return picture;}
+    bool get_lift(){return lift;}
 };
 #endif // APARTMENT_H

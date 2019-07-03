@@ -1,5 +1,7 @@
-#ifndef SHOWBUILDING_WIDGET_H
-#define SHOWBUILDING_WIDGET_H
+#ifndef ADDBUILDING_H
+#define ADDBUILDING_H
+#include "addnewapartment_ui.h"
+#include "addnewsouthvilla.h"
 #include <QWidget>
 #include <QObject>
 #include <QWidget>
@@ -22,32 +24,28 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QGridLayout>
-#include "have_file.h"
-#include "building.h"
-#include "apartment.h"
-#include "villa.h"
-#include "north_villa.h"
-#include "south_villa.h"
-class ShowBuilding_widget : public QWidget
+#include <QToolButton>
+class AddBuilding : public QWidget
 {
     Q_OBJECT
 
-    have_file* file;
+    QToolButton *btn_AddApartment;
+    QToolButton *btn_AddSouthVilla;
+    QToolButton *btn_AddNorthVilla;
+    QToolButton *btn_AddFlat;
 
-    QLabel *pic;
-    QLabel *total_area;
-    QLabel *address;
-    QLabel *final_price;
+    QGridLayout *my_grid_Layout;
 
-    QGridLayout* my_grid_layout;
-
-
+    AddNewApartment_UI *apartment;
+    AddNewSouthVilla *soutVilla;
 public:
-    explicit ShowBuilding_widget(QWidget *parent = nullptr,have_file* _file=nullptr);
+    explicit AddBuilding(QWidget *parent = nullptr);
 
 signals:
 
 public slots:
+    void AddApartment();
+    void AddSoutVilla();
 };
 
-#endif // SHOWBUILDING_WIDGET_H
+#endif // ADDBUILDING_H

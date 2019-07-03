@@ -18,8 +18,4 @@
         <file>resource/imgs/LoginBG.jpg</file>
         <file>resource/imgs/background.jpg</file>
     </qresource>
-    <qresource prefix="/fonts">
-        <file>resource/fonts/Satisfy-Regular.ttf</file>
-        <file>resource/fonts/Viga-Regular.ttf</file>
-    </qresource>
 </RCC>
