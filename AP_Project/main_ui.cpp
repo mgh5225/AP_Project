@@ -1,14 +1,35 @@
 #include "main_ui.h"
 #include <QPainter>
 #include <QScrollArea>
+#include<exception>
+void Main_UI::on_btn_log_in_clicked()
+{
+    this->hide();
+    Login *l=new Login(this);
+    l->show();
+}
+
+void Main_UI::on_btn_sign_up_clicked()
+{
+    try{
+    this->hide();
+    Register_UI *r=new Register_UI(this);
+    r->show();
+    }catch(exception ex){
+
+    }
+}
+
+
+
 Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
 {
     btn_exit = new QToolButton();
     btn_log_in = new QToolButton();
     btn_sign_up = new QToolButton();
-    btn_exit->setMinimumSize(70,70);
-    btn_log_in->setMinimumSize(70,70);
-    btn_sign_up->setMinimumSize(70,70);
+    btn_exit->setMinimumSize(75,75);
+    btn_log_in->setMinimumSize(75,75);
+    btn_sign_up->setMinimumSize(75,75);
 
 
 
@@ -136,5 +157,7 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
     btn_sign_up->setStyleSheet("QToolButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QToolButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;}");
     btn_exit->setStyleSheet("QToolButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QToolButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;}");
 
-
+    connect(btn_log_in,SIGNAL(clicked()),this,SLOT(on_btn_log_in_clicked()));
+    connect(btn_sign_up,SIGNAL(clicked()),this,SLOT(on_btn_sign_up_clicked()));
+    connect(btn_exit,SIGNAL(clicked()),this,SLOT(on_btn_exit_clicked()));
 }

@@ -1,7 +1,6 @@
 #ifndef MAIN_UI_H
 #define MAIN_UI_H
 #include"showbuilding_widget.h"
-#include "user_panel_ui.h"
 #include<QMainWindow>
 #include <QWidget>
 #include <QObject>
@@ -26,6 +25,10 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QToolButton>
+#include<QFontDatabase>
+#include "user_panel_ui.h"
+#include "login.h"
+#include "register_ui.h"
 static QRegion roundedRect(const QRect& rect, int r)
 {
     QRegion region;
@@ -71,9 +74,12 @@ class Main_UI : public QMainWindow
     ShowBuilding_widget* obj_10;
     ShowBuilding_widget* obj_11;
     ShowBuilding_widget* obj_12;
-
+private slots:
+    void on_btn_log_in_clicked();
+    void on_btn_sign_up_clicked();
+    void on_btn_exit_clicked();
+    //void on_widget_clicked();
 public:
     explicit Main_UI(QWidget *parent = nullptr,have_file* files[12]={});
 };
-
 #endif // MAIN_UI_H

@@ -3,12 +3,13 @@
 
 
 
-Login::Login(QWidget *parent) : QWidget(parent)
+Login::Login(QWidget *parent) : QWidget(nullptr)
 {
+    this->parent=parent;
     labelUsername = new QLabel(tr("Username"));
     labelPassword = new QLabel(tr("Password"));
+    labelType = new QLabel(tr("Login As a:"));
     //userPicture = new QLabel;
-
 
     pushButtonLogin = new QPushButton(tr("Log in"));
     pushButtonCancel = new QPushButton(tr("Cancel"));
@@ -18,6 +19,9 @@ Login::Login(QWidget *parent) : QWidget(parent)
     lineEditPassword = new QLineEdit;
     lineEditPassword->setEchoMode(QLineEdit::Password);
 
+    radioUser=new QRadioButton("User");
+    radioUser->setChecked(true);
+    radioManager=new QRadioButton("Manager");
 
     checkBoxShowPassword = new QCheckBox(tr("Show"));
 
@@ -26,6 +30,8 @@ Login::Login(QWidget *parent) : QWidget(parent)
     myVLayout = new QVBoxLayout;
 
     myHLayout = new QHBoxLayout;
+
+    typeHLayout=new QHBoxLayout;
 
     myFrame= new QFrame;
 
@@ -37,8 +43,13 @@ Login::Login(QWidget *parent) : QWidget(parent)
     myVLayout->addWidget(lineEditUsername);
     myVLayout->addLayout(myHLayout);
     myVLayout->addWidget(lineEditPassword);
+    myVLayout->addLayout(typeHLayout);
     myVLayout->addWidget(pushButtonLogin);
     myVLayout->addWidget(pushButtonCancel);
+
+    typeHLayout->addWidget(labelType);
+    typeHLayout->addWidget(radioUser);
+    typeHLayout->addWidget(radioManager);
 
     //fixed size??
     //myVLayout->setSizeConstraint(QLayout::SetFixedSize);
@@ -47,9 +58,11 @@ Login::Login(QWidget *parent) : QWidget(parent)
     pushButtonLogin->setStyleSheet("QPushButton:pressed {background-color: #00cc00;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} QPushButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} ");
     pushButtonCancel->setStyleSheet("QPushButton:pressed {background-color:#ff1a1a;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif } QPushButton{ background-color:#ffb3b3;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif }");
 
+    labelType->setStyleSheet("margin-top:15px");
+    radioUser->setStyleSheet("margin-top:15px");
+    radioManager->setStyleSheet("margin-top:15px");
 
-
-    this->setStyleSheet("background-color:#f2f2f2;");
+    //this->setStyleSheet("background-color:#f2f2f2;");
 
     myFrame->setLayout(myVLayout);
     myFrame->setStyleSheet("background-color:white;border-radius: 5px;");
@@ -73,7 +86,7 @@ Login::Login(QWidget *parent) : QWidget(parent)
     // round window!!
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     ////////////////////////////////////
-
+     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
     this->setLayout(temp);
 
@@ -85,22 +98,18 @@ Login::Login(QWidget *parent) : QWidget(parent)
     //func
 
     connect(checkBoxShowPassword,SIGNAL(clicked(bool)),this,SLOT(setPasswordEchoMode(bool)));
-    connect(pushButtonCancel,SIGNAL(clicked()),this,SLOT(close()));
+    connect(pushButtonCancel,SIGNAL(clicked()),this,SLOT(custom_close()));
 
 }
 
 
 //func
 
-
-void Login::mousePressEvent(QMouseEvent *event) {
-    m_nMouseClick_X_Coordinate = event->x();
-    m_nMouseClick_Y_Coordinate = event->y();
+void Login::custom_close(){
+    hide();
+    parent->show();
 }
 
-void Login::mouseMoveEvent(QMouseEvent *event) {
-    move(event->globalX()-m_nMouseClick_X_Coordinate,event->globalY()-m_nMouseClick_Y_Coordinate);
-}
 
 
 

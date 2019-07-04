@@ -18,15 +18,17 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QDateEdit>
-
+#include<QComboBox>
+#include<QRadioButton>
 class Register_UI : public QWidget
 {
     Q_OBJECT
-
+    QWidget* parent;
     QLabel *labelUsername;
     QLabel *labelPassword;
     QLabel *labelFullName;
     QLabel *labelBirthday;
+    QLabel *labelType;
 
     QLineEdit *lineEditUsername;
     QLineEdit *lineEditPassword;
@@ -39,22 +41,21 @@ class Register_UI : public QWidget
     QPushButton *pushButtonRegister;
     QPushButton *pushButtonCancel;
 
+    QRadioButton *radioUser;
+    QRadioButton *radioManager;
 
     QVBoxLayout *myVLayout;
     QHBoxLayout *myHLayout;
+    QHBoxLayout *typeHLayout;
 
     QFrame *myFrame;
 
-    void mousePressEvent(QMouseEvent *event);
-
-    void mouseMoveEvent(QMouseEvent *event);
-    int m_nMouseClick_X_Coordinate;
-    int m_nMouseClick_Y_Coordinate;
-
-private slots:
+public slots:
     void setPasswordEchoMode(bool);
-
-
+    void custom_close();
+    void lineEdit_Username_changed(QString);
+    void lineEdit_Password_changed(QString);
+    void on_btn_register_clicked();
 
 public:
     explicit Register_UI(QWidget *parent = nullptr);
@@ -62,7 +63,7 @@ public:
 
 signals:
 
-public slots:
 };
+
 
 #endif // REGISTER_UI_H

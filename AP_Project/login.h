@@ -16,15 +16,21 @@
 #include <QStyle>
 #include <QDesktopWidget>
 #include <QApplication>
-
+#include<QRadioButton>
 class Login : public QWidget
 {
     Q_OBJECT
+    QWidget* parent;
     QLabel *labelUsername;
     QLabel *labelPassword;
+    QLabel *labelType;
 
     QLineEdit *lineEditUsername;
     QLineEdit *lineEditPassword;
+
+
+    QRadioButton *radioUser;
+    QRadioButton *radioManager;
 
     QPushButton *pushButtonLogin;
     QPushButton *pushButtonCancel;
@@ -33,18 +39,15 @@ class Login : public QWidget
 
     QVBoxLayout *myVLayout;
     QHBoxLayout *myHLayout;
+    QHBoxLayout *typeHLayout;
 
     QFrame *myFrame;
 
     //move the window
-    void mousePressEvent(QMouseEvent *event);
-
-    void mouseMoveEvent(QMouseEvent *event);
-    int m_nMouseClick_X_Coordinate;
-    int m_nMouseClick_Y_Coordinate;
 
 private slots:
     void setPasswordEchoMode(bool);
+    void custom_close();
 public:
     explicit Login(QWidget *parent = nullptr);
 
