@@ -98,7 +98,19 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
      my_grid_layout->addWidget(obj_11,2,2);
      my_grid_layout->addWidget(obj_12,2,3);
      my_grid_layout->setAlignment(Qt::AlignCenter);
+     /*
+     obj_1->animation= new QPropertyAnimation(obj_1, "geometry");
+     obj_1->animation->setDuration(1000);
+     obj_1->animation->setStartValue(QRect(0, 0, 200, 200));
+     obj_1->animation->setEndValue(QRect(103, 110, 260, 260));
+     obj_1->animation->start();
+     obj_2->animation= new QPropertyAnimation(obj_2, "geometry");
+     obj_2->animation->setDuration(1000);
+     obj_2->animation->setStartValue(QRect(0, 0, 200, 200));
+     obj_2->animation->setEndValue(QRect(380, 110, 260, 260));
+     obj_2->animation->start();
 
+    */
     ////////////////////////////////////////
     //set frame
 

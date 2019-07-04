@@ -19,25 +19,25 @@
 #include"main_ui.h"
 #include<map>
 //map<QString,user> users; //QString -> username
-QJsonObject usersjson;
-QJsonObject managersjson;
-QJsonObject apartmentsjson;
-QJsonObject svillasjson;
-QJsonObject nvillasjson;
-QJsonObject flatsjson;
-QJsonObject logsjson;
-QJsonObject rentsjson;
-QJsonObject salesjson;
-map<QString,user> users;
-map<QString,manager> managers; //QString->username
-map<QString,apartment>apartments; //QString->ID
-map<QString,south_villa>svillas;//QString->ID
-map<QString,north_villa>nvillas;//QString->ID
-map<QString,vector<flat>> flats;//QString->ID_apartmant
-map<QString,vector<log>> logs;//QString->ID log ha
-map<QString,rent_file> rents;
-map<QString,sale_file> sales;
-void unloading(){
+static QJsonObject usersjson;
+static QJsonObject managersjson;
+static QJsonObject apartmentsjson;
+static QJsonObject svillasjson;
+static QJsonObject nvillasjson;
+static QJsonObject flatsjson;
+static QJsonObject logsjson;
+static QJsonObject rentsjson;
+static QJsonObject salesjson;
+static map<QString,user> users;
+static map<QString,manager> managers; //QString->username
+static map<QString,apartment>apartments; //QString->ID
+static map<QString,south_villa>svillas;//QString->ID
+static map<QString,north_villa>nvillas;//QString->ID
+static map<QString,vector<flat>> flats;//QString->ID_apartmant
+static map<QString,vector<log>> logs;//QString->ID log ha
+static map<QString,rent_file> rents;
+static map<QString,sale_file> sales;
+static void unloading(){
     QFile saveuser(QStringLiteral("users.json"));
     saveuser.open(QIODevice::WriteOnly);
     QJsonDocument savedocuser(usersjson);
@@ -95,7 +95,7 @@ void unloading(){
 
 
 }
-void loading(){
+static void loading(){
     QFile loaduser(QStringLiteral("users.json"));
     loaduser.open(QIODevice::ReadOnly);
     QByteArray userdata=loaduser.readAll();
@@ -220,7 +220,7 @@ void Main_UI::on_btn_exit_clicked()
     unloading();
     close();
 }
-bool sign_up_usr(QString _name,tm _birth_date,QString _username,QString _password){
+static bool sign_up_usr(QString _name,tm _birth_date,QString _username,QString _password){
     if(users.count(_username)==1){
         return 0;
     }
@@ -231,7 +231,7 @@ bool sign_up_usr(QString _name,tm _birth_date,QString _username,QString _passwor
      usersjson[_username]=temp;
      return 1;
 }
-bool sign_up_mgr(QString _name,tm _birth_date,QString _username,QString _password){
+static bool sign_up_mgr(QString _name,tm _birth_date,QString _username,QString _password){
     if(managers.count(_username)==1){
         return 0;
     }
@@ -242,8 +242,9 @@ bool sign_up_mgr(QString _name,tm _birth_date,QString _username,QString _passwor
      managersjson[_username]=temp;
      return 1;
 }
-user& login_usr(QString _username,QString _password){
+static user& login_usr(QString _username,QString _password){
     hash<string> ph;
+    personException personEX;
     if(users.count(_username)==1){
         if(users[_username].get_pass()==ph(_password.toStdString()))return users[_username];
         else throw personEX(PEX::BADPASSWORD);
@@ -252,8 +253,9 @@ user& login_usr(QString _username,QString _password){
         throw personEX(PEX::BADUSERNAME);
     }
 }
-manager& login_mgr(QString _username,QString _password){
+static manager& login_mgr(QString _username,QString _password){
     hash<string> ph;
+    personException personEX;
     if(managers.count(_username)==1){
         if(managers[_username].get_pass()==ph(_password.toStdString()))return managers[_username];
         else throw personEX(PEX::BADPASSWORD);
@@ -295,6 +297,35 @@ void Register_UI::on_btn_register_clicked()
         msg.setText("Username already exists!");
         msg.exec();
     }
+}
+void Login::on_btn_login_clicked()
+{
+    bool isUser=radioUser->isChecked();
+    if(isUser){
+        try{
+            user& usr=login_usr(lineEditUsername->text(),lineEditPassword->text());
+            User_Panel_UI* u=new User_Panel_UI(usr,parent);
+            this->hide();
+            u->show();
+        }catch(personException ex){
+            switch (ex.type) {
+            case PEX::BADUSERNAME:{
+                QMessageBox msg;
+                msg.setText("Username or Password is wrong!");
+                msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+                msg.exec();
+                break;
+            }
+            case PEX::BADPASSWORD:{
+                QMessageBox msg;
+                msg.setText("Username or Password is wrong!");
+                msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+                msg.exec();
+                break;
+            }
+        }
+    }
+}
 }
 ////TODO map<QString,vector<flat*>> flats when reading from apartment file                    map<QString,vector<log>> logs when reading from persons
 #endif // HEADERS_H

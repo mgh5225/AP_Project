@@ -1,6 +1,6 @@
 #include "user_panel_ui.h"
 
-User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
+User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
 {
    btn_Exit         = new QToolButton();
    btn_explore      = new QToolButton();

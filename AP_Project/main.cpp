@@ -1,4 +1,3 @@
-#include "ap.h"
 #include <QApplication>
 #include <algorithm>
 #include <functional>

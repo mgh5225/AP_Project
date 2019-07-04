@@ -26,7 +26,7 @@
 #include <QGridLayout>
 #include <QSizePolicy>
 #include <QToolButton>
-
+#include"user.h"
 class User_Panel_UI : public QWidget
 {
     Q_OBJECT
@@ -49,7 +49,7 @@ class User_Panel_UI : public QWidget
 
     bool IsAddClicked = false;
 public:
-    explicit User_Panel_UI(QWidget *parent = nullptr);
+    explicit User_Panel_UI(user& usr,QWidget *parent = nullptr);
 
 signals:
 

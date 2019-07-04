@@ -90,7 +90,8 @@ Login::Login(QWidget *parent) : QWidget(nullptr)
 
     this->setLayout(temp);
 
-
+    pushButtonLogin->setEnabled(false);
+    lineEditPassword->setEnabled(false);
 
 
 
@@ -98,6 +99,9 @@ Login::Login(QWidget *parent) : QWidget(nullptr)
     //func
 
     connect(checkBoxShowPassword,SIGNAL(clicked(bool)),this,SLOT(setPasswordEchoMode(bool)));
+    connect(lineEditUsername,SIGNAL(textChanged(QString)),this,SLOT(lineEdit_Username_changed(QString)));
+    connect(lineEditPassword,SIGNAL(textChanged(QString)),this,SLOT(lineEdit_Password_changed(QString)));
+    connect(pushButtonLogin,SIGNAL(clicked()),this,SLOT(on_btn_login_clicked()));
     connect(pushButtonCancel,SIGNAL(clicked()),this,SLOT(custom_close()));
 
 }
@@ -119,5 +123,25 @@ void Login::setPasswordEchoMode(bool checked)
         lineEditPassword->setEchoMode(QLineEdit::Normal);
     }else{
         lineEditPassword->setEchoMode(QLineEdit::Password);
+    }
+}
+
+
+void Login::lineEdit_Username_changed(QString s)
+{
+    if(s.size()!=0){
+        lineEditPassword->setEnabled(true);
+    }else{
+        lineEditPassword->setEnabled(false);
+        pushButtonLogin->setEnabled(false);
+    }
+}
+
+void Login::lineEdit_Password_changed(QString s)
+{
+    if(s.size()!=0){
+        pushButtonLogin->setEnabled(true);
+    }else{
+        pushButtonLogin->setEnabled(false);
     }
 }

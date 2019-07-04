@@ -45,15 +45,18 @@ class Login : public QWidget
 
     //move the window
 
-private slots:
+public slots:
     void setPasswordEchoMode(bool);
     void custom_close();
+    void lineEdit_Username_changed(QString);
+    void lineEdit_Password_changed(QString);
+    void on_btn_login_clicked();
+
 public:
     explicit Login(QWidget *parent = nullptr);
 
 signals:
 
-public slots:
 };
 
 #endif // LOGIN_H

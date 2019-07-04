@@ -28,12 +28,24 @@ SOURCES += \
         addbuilding.cpp \
         addnewapartment_ui.cpp \
         addnewsouthvilla.cpp \
+        apartment.cpp \
+        building.cpp \
+        file.cpp \
+        have_file.cpp \
         login.cpp \
         main.cpp \
         main_ui.cpp \
+        manager.cpp \
+        north_villa.cpp \
+        person.cpp \
         register_ui.cpp \
+        rent_file.cpp \
+        sale_file.cpp \
         showbuilding_widget.cpp \
-        user_panel_ui.cpp
+        south_villa.cpp \
+        user.cpp \
+        user_panel_ui.cpp \
+        villa.cpp
 
 HEADERS += \
         addbuilding.h \
