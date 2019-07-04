@@ -2,6 +2,8 @@
 #define HEADERS_H
 #include<QTextStream>
 #include<QMessageBox>
+#include<QJsonDocument>
+#include <QJsonObject>
 #include "have_file.h"
 #include "building.h"
 #include "apartment.h"

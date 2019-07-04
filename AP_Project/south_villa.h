@@ -8,6 +8,10 @@ class south_villa:public villa
     long long parking_area;
 public:
     south_villa():villa(){}
+    south_villa(double _base_price,long long _total_area,QString _address,QString _picture,int _rooms,long long _building_area,long long _yard_area,long long _parking_area):villa (_base_price,_total_area,_address,_picture,_rooms,_building_area){
+        yard_area=_yard_area;
+        parking_area=_parking_area;
+    }
     double total_price(){
         return base_price*building_area+base_price*yard_area*0.3+base_price*parking_area*0.15;
     }

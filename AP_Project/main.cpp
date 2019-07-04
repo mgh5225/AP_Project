@@ -1,17 +1,15 @@
 #include "ap.h"
 #include <QApplication>
-#include <QJsonObject>
 #include <algorithm>
 #include <functional>
 #include <QFile>
-#include <QJsonDocument>
 #include "headers.h"
 
 int main(int argc, char *argv[])
 {
     loading();
     QApplication a(argc, argv);
-    apartment* aptr=new apartment(8456,5665,"asdaass","C:/Users/Babak/Desktop/unnamed.jpg",true,12);
+    apartment* aptr=new apartment(8456,5665,"asdaass","C:/Users/Babak/Desktop/unnamed.jpg",12);
     //ShowBuilding_widget w(nullptr,aptr);
     have_file* aptrs[12]={aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr,aptr};
     Main_UI w(nullptr,aptrs);

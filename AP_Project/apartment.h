@@ -31,7 +31,6 @@ public:
        json["picture"]=picture;
        json["floors"]=floors;
     }
-
     int get_floors(){return floors;}
 };
 class flat : public have_file
@@ -44,6 +43,15 @@ class flat : public have_file
     long long building_area;
     QString picture;
 public:
+    flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,long long _building_area,QString _picture){
+        current_apartment=_current_apartment;
+        current_apartment_ID=current_apartment->get_id();
+        floor_num=_floor_num;
+        lift=_lift;
+        rooms=_rooms;
+        building_area=_building_area;
+        picture=_picture;
+    }
     double total_price(){
         return current_apartment->get_base_price()*building_area;
     }

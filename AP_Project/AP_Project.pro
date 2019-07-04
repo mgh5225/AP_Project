@@ -30,7 +30,6 @@ SOURCES += \
         addnewsouthvilla.cpp \
         login.cpp \
         main.cpp \
-        ap.cpp \
         main_ui.cpp \
         register_ui.cpp \
         showbuilding_widget.cpp \
@@ -40,7 +39,6 @@ HEADERS += \
         addbuilding.h \
         addnewapartment_ui.h \
         addnewsouthvilla.h \
-        ap.h \
         apartment.h \
         building.h \
         file.h \

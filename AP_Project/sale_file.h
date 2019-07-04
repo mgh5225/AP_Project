@@ -6,6 +6,10 @@ using namespace std;
 class sale_file:public file{
     QString condition;
 public:
+    sale_file():file(){}
+    sale_file(double _commission,QString _manager_ID,have_file* _building,QString _condition):file(_commission,_manager_ID,_building){
+        condition=_condition;
+    }
     double final_price(){
         return building->total_price()+(commission*building->total_price());
     }
