@@ -41,7 +41,10 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
 
     myFrame = new QFrame;
 
-
+    labelElevator = new QLabel("Elevator");
+    comboBoxElevator = new QComboBox();
+    comboBoxElevator->addItem(tr("Yes"));
+    comboBoxElevator->addItem(tr("No"));
 
 
     //drag and drops
@@ -73,6 +76,8 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
 
     mySecondVBoxLayOut->addWidget(labelWhichUnit);
     mySecondVBoxLayOut->addWidget(comboBoxWhichUnit);
+    mySecondVBoxLayOut->addWidget(labelElevator);
+    mySecondVBoxLayOut->addWidget(comboBoxElevator);
     mySecondVBoxLayOut->addWidget(labelUnitArea              );
     mySecondVBoxLayOut->addWidget(lineEditUnitArea           );
     mySecondVBoxLayOut->addWidget(labelUnitFloorNumber       );
@@ -81,16 +86,7 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
     mySecondVBoxLayOut->addWidget(lineEditUnitNumberOfRooms   );
     mySecondVBoxLayOut->addWidget(labelUnitPicture          );
     mySecondVBoxLayOut->addWidget(labeDragAndDropUnits           );
-    labelWhichUnit             ->hide();
-    comboBoxWhichUnit          ->hide();
-    labelUnitArea              ->hide();
-    lineEditUnitArea           ->hide();
-    labelUnitFloorNumber       ->hide();
-    lineEditUnitFloorNumber    ->hide();
-    labelUnitNumberOfRooms     ->hide();
-    lineEditUnitNumberOfRooms  ->hide();
-    labelUnitPicture           ->hide();
-    labeDragAndDropUnits       ->hide();
+
     //set h boton
     myHBoxLayOutBotton->addWidget(pushBottonAdd);
     myHBoxLayOutBotton->addWidget(pushBottonCancel);
@@ -107,7 +103,7 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
 
     //set frame
     myFrame->setLayout(myFinalLayOut);
-    myFrame->setStyleSheet("background-color:white;border-radius: 5px;");
+    myFrame->setStyleSheet("background-color:#e3e7e8;border-radius: 5px;");
 
 
     ////////////////////////////////////////
@@ -135,6 +131,7 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
     lineEditUnitNumberOfRooms->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
 
     comboBoxWhichUnit->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
+    comboBoxElevator->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
     labelDragAndDrop->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
     labeDragAndDropUnits->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
 
@@ -147,45 +144,21 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
     //func
     //labelApartmentPicture->setFixedSize(200,10);
     labelAddress->setFixedWidth(200);
-    labelDragAndDrop->setFixedSize(250,127);
-    labeDragAndDropUnits->setFixedSize(250,127);
+    labelDragAndDrop->setFixedSize(350,150);
+    labeDragAndDropUnits->setFixedSize(350,150);
 
     connect(lineEditNumberOfUnits,SIGNAL(textChanged(QString)),this,SLOT(ChangeFrame(QString)));
-
+    connect(pushBottonCancel,SIGNAL(clicked()),this,SLOT(close()));
 }
 
 void AddNewApartment_UI::ChangeFrame(const QString &text)
 {
 
 
-    if(lineEditNumberOfUnits->text().toInt() > 0){
-
-        labelWhichUnit             ->show();
-        comboBoxWhichUnit          ->show();
-        labelUnitArea              ->show();
-        lineEditUnitArea           ->show();
-        labelUnitFloorNumber       ->show();
-        lineEditUnitFloorNumber    ->show();
-        labelUnitNumberOfRooms     ->show();
-        lineEditUnitNumberOfRooms  ->show();
-        labelUnitPicture           ->show();
-        labeDragAndDropUnits       ->show();
-
-
-    }else{
-
-        labelWhichUnit             ->hide();
-        comboBoxWhichUnit          ->hide();
-        labelUnitArea              ->hide();
-        lineEditUnitArea           ->hide();
-        labelUnitFloorNumber       ->hide();
-        lineEditUnitFloorNumber    ->hide();
-        labelUnitNumberOfRooms     ->hide();
-        lineEditUnitNumberOfRooms  ->hide();
-        labelUnitPicture           ->hide();
-        labeDragAndDropUnits       ->hide();
-
-        myFinalLayOut->setSizeConstraint(QLayout::SetFixedSize);
+    qDebug()<< " jjj" ;
+    comboBoxWhichUnit->clear();
+    for(int i=0;i<lineEditNumberOfUnits->text().toInt();i++){
+        comboBoxWhichUnit->addItem(QString::number(i+1));
     }
 
 }
@@ -208,11 +181,4 @@ void AddNewApartment_UI::dropEvent(QDropEvent *e)
 }
 
 
-void AddNewApartment_UI::mousePressEvent(QMouseEvent *event) {
-    m_nMouseClick_X_Coordinate = event->x();
-    m_nMouseClick_Y_Coordinate = event->y();
-}
 
-void AddNewApartment_UI::mouseMoveEvent(QMouseEvent *event) {
-    move(event->globalX()-m_nMouseClick_X_Coordinate,event->globalY()-m_nMouseClick_Y_Coordinate);
-}

@@ -25,7 +25,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        addbuilding.cpp \
         addnewapartment_ui.cpp \
+        addnewsouthvilla.cpp \
         login.cpp \
         main.cpp \
         ap.cpp \
@@ -35,7 +37,9 @@ SOURCES += \
         user_panel_ui.cpp
 
 HEADERS += \
+        addbuilding.h \
         addnewapartment_ui.h \
+        addnewsouthvilla.h \
         ap.h \
         apartment.h \
         building.h \

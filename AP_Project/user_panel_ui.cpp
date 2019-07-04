@@ -3,21 +3,21 @@
 User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
 {
    btn_Exit         = new QToolButton();
-   btn_explor      = new QToolButton();
+   btn_explore      = new QToolButton();
    btn_showBalance = new QToolButton();
    btn_addFile      = new QToolButton();
    btn_LogOut       = new QToolButton();
    btn_Icon = new QToolButton();
 
    btn_Exit->setMinimumSize(70,70);
-   btn_explor->setMinimumSize(90,70);
+   btn_explore->setMinimumSize(90,70);
    btn_showBalance->setMinimumSize(90,70);
    btn_addFile->setMinimumSize(90,70);
    btn_LogOut->setMinimumSize(90,70);
    btn_Icon->setMinimumSize(90,80);
 
    btn_LogOut->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
-   btn_explor->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+   btn_explore->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_showBalance->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_addFile->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_Exit->setSizePolicy(QSizePolicy ::Minimum , QSizePolicy ::Expanding );
@@ -31,12 +31,12 @@ User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
    btn_Exit->setText("Exit");
 
    QPixmap pixmap1(":/icons/resource/icons/explore.png");
-   QIcon btn_explor_Icon(pixmap1);
-   btn_explor->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-   btn_explor->setIcon(btn_explor_Icon);
-   btn_explor->setIconSize(QSize(30, 30));
-   btn_explor->setText("Explor");/////////////////////
-    btn_explor->setStyleSheet("font: bold");
+   QIcon btn_explore_Icon(pixmap1);
+   btn_explore->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+   btn_explore->setIcon(btn_explore_Icon);
+   btn_explore->setIconSize(QSize(30, 30));
+   btn_explore->setText("Explore");/////////////////////
+    btn_explore->setStyleSheet("font: bold");
    QPixmap pixmap2(":/icons/resource/icons/Balance.png");
    QIcon btn_show_balance_Icon(pixmap2);
    btn_showBalance->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -86,7 +86,7 @@ User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
 
    my_v_layout = new QVBoxLayout();
    my_v_layout->addWidget(btn_addFile);
-   my_v_layout->addWidget(btn_explor);
+   my_v_layout->addWidget(btn_explore);
    my_v_layout->addWidget(btn_showBalance);
    my_v_layout->addWidget(btn_LogOut);
    my_v_layout->setSpacing(0);
@@ -99,13 +99,15 @@ User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
 
 
    btn_LogOut->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
-   btn_explor->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
+   btn_explore->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
    btn_showBalance->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
    btn_addFile->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
    btn_Icon->setStyleSheet("border: 0;font: bold;margin:15px;color:white");
    btn_Exit->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center;}");
 
 
+
+    Building = new AddBuilding();
    //grid layout
 
 
@@ -118,11 +120,25 @@ User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
 
    QFrame *Grid_frame = new QFrame();
     Grid_frame->setLayout(my_grid_layout);
-   Grid_frame->setStyleSheet("background-color: white");
+   Grid_frame->setStyleSheet("background-color: #e3e7e8");
 
    //
     QGridLayout * my_final_layout = new QGridLayout();
     my_final_layout->addWidget(Grid_frame);
+
+    connect(btn_addFile,SIGNAL(clicked()),this,SLOT(add_building_clicked()));
+
      this->setAttribute(Qt::WA_TranslucentBackground, true);
-   this->setLayout(my_final_layout);
+    this->setLayout(my_final_layout);
+}
+
+void User_Panel_UI::add_building_clicked()
+{
+
+    my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
+
+
+
+
+
 }

@@ -1,6 +1,7 @@
 #ifndef USER_PANEL_UI_H
 #define USER_PANEL_UI_H
 
+#include "addbuilding.h"
 #include <QWidget>
 #include <QObject>
 #include <QWidget>
@@ -33,7 +34,7 @@ class User_Panel_UI : public QWidget
 
     QToolButton *btn_showBalance;
     QToolButton *btn_addFile;
-    QToolButton *btn_explor;
+    QToolButton *btn_explore;
     QToolButton *btn_Exit;
     QToolButton *btn_LogOut;
     QToolButton *btn_Icon;
@@ -42,16 +43,18 @@ class User_Panel_UI : public QWidget
     QHBoxLayout *my_h_layout;
     QGridLayout *my_grid_layout;
 
+    AddBuilding* Building;
 
 
 
-
+    bool IsAddClicked = false;
 public:
     explicit User_Panel_UI(QWidget *parent = nullptr);
 
 signals:
 
 public slots:
+    void add_building_clicked();
 };
 
 #endif // USER_PANEL_UI_H

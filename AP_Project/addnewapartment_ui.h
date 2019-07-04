@@ -36,6 +36,7 @@ class AddNewApartment_UI : public QWidget
     QLabel *labeNumberOfUnits;
     QLabel *labelDragAndDrop;
     QLabel *labeDragAndDropUnits;
+    QLabel *labelElevator;
 
     QLabel *labelWhichUnit;
     QLabel *labelUnitFloorNumber;
@@ -54,6 +55,7 @@ class AddNewApartment_UI : public QWidget
     QLineEdit *lineEditUnitArea;
 
     QComboBox *comboBoxWhichUnit;
+    QComboBox *comboBoxElevator;
 
     QPushButton *pushBottonAdd;
     QPushButton *pushBottonCancel;
@@ -68,11 +70,6 @@ class AddNewApartment_UI : public QWidget
     QGridLayout *myFinalLayOut;
 
 
-    void mousePressEvent(QMouseEvent *event);
-
-    void mouseMoveEvent(QMouseEvent *event);
-    int m_nMouseClick_X_Coordinate;
-    int m_nMouseClick_Y_Coordinate;
 
 
     void dragEnterEvent(QDragEnterEvent *e);
