@@ -1,5 +1,5 @@
 #include "addnewapartment_ui.h"
-
+#include <QDebug>
 AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
 {
 

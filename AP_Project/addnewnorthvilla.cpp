@@ -1,10 +1,10 @@
-#include "addnewsouthvilla.h"
+#include "addnewnorthvilla.h"
 
-AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
+AddNewNorthVilla::AddNewNorthVilla(QWidget *parent) : QWidget(parent)
 {
     label_BuildArea  = new QLabel(tr("Build Area"));
-    label_YardArea  = new QLabel(tr("Yard Area"));
-    label_ParkingArea  = new QLabel(tr("Parking Area"));
+    label_FrontYardArea  = new QLabel(tr("Front yard Area"));
+    label_BackyardArea  = new QLabel(tr("Back yard Area"));
     label_BuildingPicture  = new QLabel(tr("Building Picture"));
     label_FullArea = new QLabel(tr("Full Area"));
     label_NumberOfRooms = new QLabel(tr("Number Of Rooms"));
@@ -13,8 +13,8 @@ AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
     labelDragAndDrop = new QLabel(tr("Please Drag And Drop your Image\nOr\nClick here for explore!"));
 
     lineEdit_BuildArea = new QLineEdit;
-    lineEdit_YardArea = new QLineEdit;
-    lineEdit_ParkingArea = new QLineEdit;
+    lineEdit_FrontYardArea = new QLineEdit;
+    lineEdit_BackYardArea = new QLineEdit;
     lineEdit_FullArea = new QLineEdit;
     lineEdit_NumberOfRooms = new QLineEdit;
     lineEdit_BasePrice = new QLineEdit;
@@ -28,10 +28,10 @@ AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
 
     my_grid_layout->addWidget(label_BuildArea,1,1);
     my_grid_layout->addWidget(lineEdit_BuildArea,2,1);
-    my_grid_layout->addWidget(label_ParkingArea,3,1);
-    my_grid_layout->addWidget(lineEdit_ParkingArea,4,1);
-    my_grid_layout->addWidget(label_YardArea,5,1);
-    my_grid_layout->addWidget(lineEdit_YardArea,6,1);
+    my_grid_layout->addWidget(label_BackyardArea,3,1);
+    my_grid_layout->addWidget(lineEdit_BackYardArea,4,1);
+    my_grid_layout->addWidget(label_FrontYardArea,5,1);
+    my_grid_layout->addWidget(lineEdit_FrontYardArea,6,1);
     my_grid_layout->addWidget(label_FullArea,7,1);
     my_grid_layout->addWidget(lineEdit_FullArea,8,1,Qt::AlignTop);
     my_grid_layout->addWidget(btn_Cancel,9,1);
@@ -51,10 +51,10 @@ AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
 
     lineEdit_Address->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
     lineEdit_FullArea->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
-    lineEdit_YardArea->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
+    lineEdit_FrontYardArea->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
     lineEdit_BasePrice->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
     lineEdit_BuildArea->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
-    lineEdit_ParkingArea->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
+    lineEdit_BackYardArea->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
     lineEdit_NumberOfRooms->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
 
     btn_Add->setStyleSheet("QPushButton:pressed {background-color: #00cc00;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;} QPushButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif} ");

@@ -2,6 +2,7 @@
 #define ADDBUILDING_H
 #include "addnewapartment_ui.h"
 #include "addnewsouthvilla.h"
+#include "addnewnorthvilla.h"
 #include <QWidget>
 #include <QObject>
 #include <QWidget>
@@ -38,14 +39,18 @@ class AddBuilding : public QWidget
 
     AddNewApartment_UI *apartment;
     AddNewSouthVilla *soutVilla;
+    AddNewNorthVilla *northVilla;
 public:
+    bool Enable = true;
     explicit AddBuilding(QWidget *parent = nullptr);
+    //void show();
 
 signals:
 
 public slots:
     void AddApartment();
     void AddSoutVilla();
+    void AddNorthVilla();
 };
 
 #endif // ADDBUILDING_H

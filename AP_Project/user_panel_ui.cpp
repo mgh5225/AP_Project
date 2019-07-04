@@ -1,6 +1,6 @@
 #include "user_panel_ui.h"
 
-User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
+User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
 {
    btn_Exit         = new QToolButton();
    btn_explore      = new QToolButton();
@@ -107,7 +107,7 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
 
 
 
-    Building = new AddBuilding();
+
    //grid layout
 
 
@@ -130,15 +130,39 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
 
      this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setLayout(my_final_layout);
+
+    QSize availableSize = qApp->desktop()->availableGeometry().size();
+        int width = availableSize.width();
+        int height = availableSize.height();
+        //qDebug() << "Available dimensions " << width << "x" << height;
+        width *= 0.73; // 90% of the screen size
+        height *= 0.9; // 90% of the screen size
+        //qDebug() << "Computed dimensions " << width << "x" << height;
+        QSize newSize( width, height );
+
+        this->setGeometry(
+            QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                newSize,
+                qApp->desktop()->availableGeometry()
+            )
+        );
 }
 
 void User_Panel_UI::add_building_clicked()
 {
 
-    my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
+    if(Building == nullptr){
 
-
-
-
+        Building = new AddBuilding();
+        Building->show();
+        my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
+    }else{
+        Building->close();
+        Building = new AddBuilding();
+        Building->show();
+        my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
+    }
 
 }

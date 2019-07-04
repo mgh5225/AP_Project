@@ -24,6 +24,7 @@ AddBuilding::AddBuilding(QWidget *parent) : QWidget(parent)
 
    apartment = new AddNewApartment_UI(this);
     soutVilla = new AddNewSouthVilla(this);
+    northVilla = new AddNewNorthVilla(this);
     my_grid_Layout = new QGridLayout();
 
     my_grid_Layout->addWidget(btn_AddApartment,0,0);
@@ -50,8 +51,9 @@ AddBuilding::AddBuilding(QWidget *parent) : QWidget(parent)
     this->setLayout(temp);
     connect(btn_AddApartment,SIGNAL(clicked()),this,SLOT(AddApartment()));
     connect(btn_AddSouthVilla,SIGNAL(clicked()),this,SLOT(AddSoutVilla()));
-
+    connect(btn_AddNorthVilla,SIGNAL(clicked()),this,SLOT(AddNorthVilla()));
 }
+
 
 void AddBuilding::AddApartment()
 {
@@ -60,6 +62,7 @@ void AddBuilding::AddApartment()
     btn_AddNorthVilla->hide();
     btn_AddSouthVilla->hide();
     soutVilla->hide();
+    Enable = false;
     my_grid_Layout->addWidget(apartment,1,0);
 }
 
@@ -71,4 +74,15 @@ void AddBuilding::AddSoutVilla()
     btn_AddSouthVilla->hide();
     apartment->hide();
     my_grid_Layout->addWidget(soutVilla,1,0);
+}
+
+void AddBuilding::AddNorthVilla()
+{
+    btn_AddApartment->hide();
+    btn_AddFlat->hide();
+    btn_AddNorthVilla->hide();
+    btn_AddSouthVilla->hide();
+
+    my_grid_Layout->addWidget(northVilla,1,0);
+
 }
