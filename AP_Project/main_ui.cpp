@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QScrollArea>
 #include<exception>
+#include "headers.h"
 void Main_UI::on_btn_log_in_clicked()
 {
     this->hide();
@@ -112,8 +113,6 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
 
     */
     ////////////////////////////////////////
-    //set frame
-
      body=new QVBoxLayout;
      body->addLayout(toolbar);
      body->addLayout(my_grid_layout);
@@ -134,7 +133,8 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
             height *= 0.9; // 90% of the screen size
             //qDebug() << "Computed dimensions " << width << "x" << height;
             QSize newSize( width, height );
-
+            this->move(width/2,height/2);
+            my_grid_layout->setSizeConstraint(QLayout::SetMinimumSize);
             this->setGeometry(
                 QStyle::alignedRect(
                     Qt::LeftToRight,
@@ -172,4 +172,9 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
     connect(btn_log_in,SIGNAL(clicked()),this,SLOT(on_btn_log_in_clicked()));
     connect(btn_sign_up,SIGNAL(clicked()),this,SLOT(on_btn_sign_up_clicked()));
     connect(btn_exit,SIGNAL(clicked()),this,SLOT(on_btn_exit_clicked()));
+}
+void Main_UI::on_btn_exit_clicked()
+{
+    unloading();
+    close();
 }

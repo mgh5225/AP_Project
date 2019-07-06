@@ -34,6 +34,7 @@ SOURCES += \
         explorer.cpp \
         file.cpp \
         have_file.cpp \
+        headers.cpp \
         login.cpp \
         main.cpp \
         main_ui.cpp \

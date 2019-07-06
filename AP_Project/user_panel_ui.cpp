@@ -1,5 +1,5 @@
 #include "user_panel_ui.h"
-
+#include "headers.h"
 User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
 {
     this->parent=parent;
@@ -101,10 +101,10 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
         int height = availableSize.height();
         //qDebug() << "Available dimensions " << width << "x" << height;
         width *= 0.73; // 90% of the screen size
-        height *= 0.9; // 90% of the screen size
+        height *= 0.8; // 90% of the screen size
         //qDebug() << "Computed dimensions " << width << "x" << height;
         QSize newSize( width, height );
-
+        this->move(width/2,height/2);
         this->setGeometry(
             QStyle::alignedRect(
                 Qt::LeftToRight,
@@ -114,7 +114,7 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
             )
         );
 
-   V_fram->setFixedSize(128,height);
+   V_fram->setFixedSize(128,height-95);
    H_frame->setFixedSize(width,85);
 
 
@@ -189,4 +189,8 @@ void User_Panel_UI::explorer_clicked()
     }
     Explorer=new explorer(this);
     my_grid_layout->addWidget(Explorer,3,4,1,1,Qt::AlignCenter);
+}
+void User_Panel_UI::on_btn_exit_clicked(){
+    unloading();
+    close();
 }

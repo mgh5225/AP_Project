@@ -14,7 +14,6 @@ class explorer : public QWidget
     QToolButton *btn_ShowApartments;
     QToolButton *btn_ShowSouthVillas;
     QToolButton *btn_ShowNorthVillas;
-    QToolButton *btn_ShowFlats;
     QToolButton *btn_ShowAllBuildings;
     QGridLayout *my_grid_Layout;
 

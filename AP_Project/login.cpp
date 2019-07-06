@@ -1,6 +1,5 @@
 #include "login.h"
-
-
+#include "headers.h"
 
 
 Login::Login(QWidget *parent) : QWidget(nullptr)
@@ -144,4 +143,33 @@ void Login::lineEdit_Password_changed(QString s)
     }else{
         pushButtonLogin->setEnabled(false);
     }
+}
+void Login::on_btn_login_clicked()
+{
+    bool isUser=radioUser->isChecked();
+    if(isUser){
+        try{
+            user& usr=login_usr(lineEditUsername->text(),lineEditPassword->text());
+            User_Panel_UI* u=new User_Panel_UI(usr,parent);
+            this->hide();
+            u->show();
+        }catch(personException ex){
+            switch (ex.type) {
+            case PEX::BADUSERNAME:{
+                QMessageBox msg;
+                msg.setText("Username or Password is wrong!");
+                msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+                msg.exec();
+                break;
+            }
+            case PEX::BADPASSWORD:{
+                QMessageBox msg;
+                msg.setText("Username or Password is wrong!");
+                msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+                msg.exec();
+                break;
+            }
+        }
+    }
+}
 }

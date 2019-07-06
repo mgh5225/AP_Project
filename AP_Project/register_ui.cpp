@@ -1,4 +1,6 @@
 #include "register_ui.h"
+#include "headers.h"
+
 Register_UI::Register_UI(QWidget *parent) : QWidget(nullptr)
 {
     this->parent=parent;
@@ -148,5 +150,39 @@ void Register_UI::setPasswordEchoMode(bool checked)
         lineEditPassword->setEchoMode(QLineEdit::Normal);
     }else{
         lineEditPassword->setEchoMode(QLineEdit::Password);
+    }
+}
+void Register_UI::on_btn_register_clicked()
+{
+    bool isUser=radioUser->isChecked();
+    bool isRegistered;
+    QString date=dateEditBirthday->text();
+    date.replace("/"," ");
+    QTextStream stream(&date);
+    tm t;
+    QString year;
+    QString month;
+    QString day;
+    stream>>month>>day>>year;
+    t.tm_year=year.toInt();
+    t.tm_mon=month.toInt();
+    t.tm_mday=day.toInt();
+    if(isUser){
+        isRegistered=sign_up_usr(lineEditFullName->text(),t,lineEditUsername->text(),lineEditPassword->text());
+    }else{
+        isRegistered=sign_up_mgr(lineEditFullName->text(),t,lineEditUsername->text(),lineEditPassword->text());
+    }
+    if(isRegistered){
+        QMessageBox msg;
+        msg.setText("Registered!");
+        msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+        msg.exec();
+        this->close();
+        parent->show();
+    }else{
+        QMessageBox msg;
+        msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+        msg.setText("Username already exists!");
+        msg.exec();
     }
 }
