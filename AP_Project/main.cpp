@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     flats["0"].push_back(flat(&apartments["0"],12,1,12,200," "));
     flats["1"].push_back(flat(&apartments["1"],12,1,1,200," "));
     user usr;
-    //User_Panel_UI w(usr);
-    Main_UI w(nullptr,aptrs);
+    User_Panel_UI w(usr);
+    //Main_UI w(nullptr,aptrs);
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     w.show();
     return a.exec();

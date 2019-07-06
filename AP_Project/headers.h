@@ -459,9 +459,9 @@ void ShowApartments::on_btn_search_by_flat_clicked()
     QInputDialog in;
     in.setWindowFlag(Qt::FramelessWindowHint);
     in.setStyleSheet("QInputDialog{border:3px solid black}");
-    in.setLabelText("Please enter number which you want see apartments more rooms from that number:");
+    in.setLabelText("Please enter number which you want see apartments with flats more than that number:");
     in.setInputMode(QInputDialog::IntInput);
-    in.exec();
+    if(!in.exec())return;
     if(!aptrs.empty()) aptrs.clear();
     for(auto i=flats.begin();i!=flats.end();i++){
         if(i->second.size()>in.intValue()){
@@ -496,9 +496,9 @@ void ShowApartments::on_btn_search_by_meter_clicked()
     QInputDialog in;
     in.setWindowFlag(Qt::FramelessWindowHint);
     in.setStyleSheet("QInputDialog{border:3px solid black}");
-    in.setLabelText("Please enter number which you want see apartments with rooms more than that number:");
+    in.setLabelText("Please enter number which you want see apartments with at least a flat with area more than that number:");
     in.setInputMode(QInputDialog::IntInput);
-    in.exec();
+    if(!in.exec())return;
     if(!aptrs.empty()) aptrs.clear();
     for(auto i=flats.begin();i!=flats.end();i++){
         for(auto j=i->second.begin();j!=i->second.end();j++){
@@ -536,9 +536,9 @@ void ShowApartments::on_btn_search_by_rooms_clicked()
     QInputDialog in;
     in.setWindowFlag(Qt::FramelessWindowHint);
     in.setStyleSheet("QInputDialog{border:3px solid black}");
-    in.setLabelText("Please enter number which you want see apartments with rooms more than that number:");
+    in.setLabelText("Please enter number which you want see apartments with at least a flat with rooms more than that number:");
     in.setInputMode(QInputDialog::IntInput);
-    in.exec();
+    if(!in.exec())return;
     if(!aptrs.empty()) aptrs.clear();
     for(auto i=flats.begin();i!=flats.end();i++){
         for(auto j=i->second.begin();j!=i->second.end();j++){
