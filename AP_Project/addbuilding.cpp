@@ -61,8 +61,8 @@ void AddBuilding::AddApartment()
     btn_AddFlat->hide();
     btn_AddNorthVilla->hide();
     btn_AddSouthVilla->hide();
-    soutVilla->hide();
-    Enable = false;
+    //soutVilla->hide();
+    //Enable = false;
     my_grid_Layout->addWidget(apartment,1,0);
 }
 
@@ -72,7 +72,7 @@ void AddBuilding::AddSoutVilla()
     btn_AddFlat->hide();
     btn_AddNorthVilla->hide();
     btn_AddSouthVilla->hide();
-    apartment->hide();
+   // apartment->hide();
     my_grid_Layout->addWidget(soutVilla,1,0);
 }
 

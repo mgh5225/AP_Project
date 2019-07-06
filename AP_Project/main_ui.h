@@ -29,6 +29,7 @@
 #include "user_panel_ui.h"
 #include "login.h"
 #include "register_ui.h"
+#include "explorer.h"
 static QRegion roundedRect(const QRect& rect, int r)
 {
     QRegion region;

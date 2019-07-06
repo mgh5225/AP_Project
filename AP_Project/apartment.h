@@ -33,6 +33,7 @@ public:
     QString get_current_apartment_ID();
     apartment* get_current_apartment();
     int get_floor_num();
+    int get_rooms();
     long long get_building_area();
     QString get_picture();
     bool get_lift();

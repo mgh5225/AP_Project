@@ -58,6 +58,7 @@ void flat::write(QJsonObject& json){
 QString flat::get_current_apartment_ID(){return current_apartment_ID;}
 apartment* flat::get_current_apartment(){return current_apartment;}
 int flat::get_floor_num(){return floor_num;}
+int flat::get_rooms(){return rooms;}
 long long flat::get_building_area(){return building_area;}
 QString flat::get_picture(){return picture;}
 bool flat::get_lift(){return lift;}

@@ -1,7 +1,8 @@
 #include "user_panel_ui.h"
 
-User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
+User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
 {
+    this->parent=parent;
    btn_Exit         = new QToolButton();
    btn_explore      = new QToolButton();
    btn_showBalance = new QToolButton();
@@ -95,15 +96,34 @@ User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
    QFrame *V_fram = new QFrame();
    V_fram->setLayout(my_v_layout);
     V_fram->setStyleSheet("background-color: #91a0a1");
-   V_fram->setFixedSize(128,612);
+    QSize availableSize = qApp->desktop()->availableGeometry().size();
+        int width = availableSize.width();
+        int height = availableSize.height();
+        //qDebug() << "Available dimensions " << width << "x" << height;
+        width *= 0.73; // 90% of the screen size
+        height *= 0.9; // 90% of the screen size
+        //qDebug() << "Computed dimensions " << width << "x" << height;
+        QSize newSize( width, height );
+
+        this->setGeometry(
+            QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                newSize,
+                qApp->desktop()->availableGeometry()
+            )
+        );
+
+   V_fram->setFixedSize(128,height);
+   H_frame->setFixedSize(width,85);
 
 
-   btn_LogOut->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
-   btn_explore->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
-   btn_showBalance->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
-   btn_addFile->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center}");
+   btn_LogOut->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
+   btn_explore->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
+   btn_showBalance->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
+   btn_addFile->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
    btn_Icon->setStyleSheet("border: 0;font: bold;margin:15px;color:white");
-   btn_Exit->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: wihte;}QToolButton{border:0px;color:white;padding:10px 0;text-align:center;}");
+   btn_Exit->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center;}");
 
 
 
@@ -126,43 +146,47 @@ User_Panel_UI::User_Panel_UI(QWidget *parent) : QWidget(parent)
     QGridLayout * my_final_layout = new QGridLayout();
     my_final_layout->addWidget(Grid_frame);
 
-    connect(btn_addFile,SIGNAL(clicked()),this,SLOT(add_building_clicked()));
+
 
      this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setLayout(my_final_layout);
+    this->setWindowFlags(Qt::FramelessWindowHint);
 
-    QSize availableSize = qApp->desktop()->availableGeometry().size();
-        int width = availableSize.width();
-        int height = availableSize.height();
-        //qDebug() << "Available dimensions " << width << "x" << height;
-        width *= 0.73; // 90% of the screen size
-        height *= 0.9; // 90% of the screen size
-        //qDebug() << "Computed dimensions " << width << "x" << height;
-        QSize newSize( width, height );
 
-        this->setGeometry(
-            QStyle::alignedRect(
-                Qt::LeftToRight,
-                Qt::AlignCenter,
-                newSize,
-                qApp->desktop()->availableGeometry()
-            )
-        );
+        connect(btn_addFile,SIGNAL(clicked()),this,SLOT(add_building_clicked()));
+        connect(btn_Exit,SIGNAL(clicked()),this,SLOT(on_btn_exit_clicked()));
+        connect(btn_explore,SIGNAL(clicked()),this,SLOT(explorer_clicked()));
+        Building=nullptr;
+        Explorer=nullptr;
 }
 
 void User_Panel_UI::add_building_clicked()
 {
-
-    if(Building == nullptr){
-
-        Building = new AddBuilding();
-        Building->show();
-        my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
-    }else{
+    if(Building!=nullptr){
         Building->close();
-        Building = new AddBuilding();
-        Building->show();
-        my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
     }
-
+    if(Explorer!=nullptr){
+        if(Explorer->aptrs){
+            Explorer->aptrs->body->close();
+        }
+        Explorer->close();
+        Explorer=nullptr;
+    }
+    Building=new AddBuilding;
+    my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
+}
+void User_Panel_UI::explorer_clicked()
+{
+    if(Building!=nullptr){
+        Building->close();
+        Building=nullptr;
+    }
+    if(Explorer!=nullptr){
+        if(Explorer->aptrs){
+            Explorer->aptrs->body->close();
+        }
+        Explorer->close();
+    }
+    Explorer=new explorer(this);
+    my_grid_layout->addWidget(Explorer,3,4,1,1,Qt::AlignCenter);
 }

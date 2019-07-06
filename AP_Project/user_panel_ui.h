@@ -26,12 +26,13 @@
 #include <QGridLayout>
 #include <QSizePolicy>
 #include <QToolButton>
-
+#include "user.h"
+#include "explorer.h"
 class User_Panel_UI : public QWidget
 {
     Q_OBJECT
 
-
+    QWidget* parent;
     QToolButton *btn_showBalance;
     QToolButton *btn_addFile;
     QToolButton *btn_explore;
@@ -44,17 +45,20 @@ class User_Panel_UI : public QWidget
     QGridLayout *my_grid_layout;
 
     AddBuilding* Building;
+    explorer* Explorer;
 
 
 
     bool IsAddClicked = false;
 public:
-    explicit User_Panel_UI(QWidget *parent = nullptr);
+    explicit User_Panel_UI(user& usr,QWidget *parent = nullptr);
 
 signals:
 
 public slots:
     void add_building_clicked();
+    void explorer_clicked();
+    void on_btn_exit_clicked();
 };
 
 #endif // USER_PANEL_UI_H

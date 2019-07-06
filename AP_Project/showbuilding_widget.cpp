@@ -43,6 +43,6 @@ ShowBuilding_widget::ShowBuilding_widget(QWidget *parent,have_file* _file) : QWi
    lay->addWidget(frame);
    frame->setLineWidth(1);
    this->setLayout(lay);
-   this->setMinimumSize(260,260);
+   this->setMaximumSize(260,260);
    installEventFilter(this);
 }
