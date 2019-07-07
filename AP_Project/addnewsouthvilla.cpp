@@ -23,6 +23,15 @@ AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
     btn_Add = new QPushButton(tr("Add"));
     btn_Cancel = new QPushButton(tr("Cancel"));
 
+    QHBoxLayout *tmp_H2 = new QHBoxLayout;
+    QLabel *labelFor = new QLabel("For");
+    rbtn_both= new QRadioButton(tr("Both"));
+    rbtn_rent= new QRadioButton(tr("Rent"));
+    rbtn_sale= new QRadioButton(tr("Sale"));
+    tmp_H2->addWidget(rbtn_sale);
+    tmp_H2->addWidget(rbtn_rent);
+    tmp_H2->addWidget(rbtn_both);
+
 
     my_grid_layout = new QGridLayout();
 
@@ -34,7 +43,9 @@ AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
     my_grid_layout->addWidget(lineEdit_YardArea,6,1);
     my_grid_layout->addWidget(label_FullArea,7,1);
     my_grid_layout->addWidget(lineEdit_FullArea,8,1,Qt::AlignTop);
-    my_grid_layout->addWidget(btn_Cancel,9,1);
+    my_grid_layout->addWidget(labelFor,9,1);
+    my_grid_layout->addLayout(tmp_H2,10,1,Qt::AlignTop);
+    my_grid_layout->addWidget(btn_Cancel,11,1,Qt::AlignTop);
 
 
 
@@ -45,8 +56,8 @@ AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
     my_grid_layout->addWidget(label_NumberOfRooms,5,0);
     my_grid_layout->addWidget(lineEdit_NumberOfRooms,6,0);
     my_grid_layout->addWidget(label_BuildingPicture,7,0);
-    my_grid_layout->addWidget(labelDragAndDrop,8,0);
-    my_grid_layout->addWidget(btn_Add,9,0);
+    my_grid_layout->addWidget(labelDragAndDrop,8,0,3,1);
+    my_grid_layout->addWidget(btn_Add,11,0);
 
 
     lineEdit_Address->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
@@ -88,4 +99,33 @@ AddNewSouthVilla::AddNewSouthVilla(QWidget *parent) : QWidget(parent)
 
     connect(btn_Cancel,SIGNAL(clicked()),this,SLOT(close()));
 
+}
+
+void AddNewSouthVilla::RentClicked()
+{
+    qDebug() << "hi";
+        AddRent_UI *t = new AddRent_UI();
+
+        //myFinalLayOut->addWidget(t);
+        t->exec();
+        t->setModal(true);
+}
+
+void AddNewSouthVilla::SaleClicked()
+{
+    AddSale_UI *s = new AddSale_UI();
+    s->exec();
+    s->setModal(true);
+}
+
+void AddNewSouthVilla::BothClicked()
+{
+    AddRent_UI *t = new AddRent_UI();
+
+    t->exec();
+
+    AddSale_UI *s = new AddSale_UI();
+    s->exec();
+    s->setModal(true);
+    t->setModal(true);
 }

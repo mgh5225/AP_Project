@@ -23,7 +23,9 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QGridLayout>
-
+#include <QRadioButton>
+#include "addrent_ui.h"
+#include "addsale_ui.h"
 
 class AddNewSouthVilla : public QWidget
 {
@@ -49,6 +51,10 @@ class AddNewSouthVilla : public QWidget
     QLineEdit *lineEdit_BasePrice;
     QLineEdit *lineEdit_Address;
 
+    QRadioButton *rbtn_sale;
+    QRadioButton *rbtn_rent;
+    QRadioButton *rbtn_both;
+
     QGridLayout *my_grid_layout;
 
     QPushButton *btn_Add;
@@ -64,6 +70,9 @@ public:
 signals:
 
 public slots:
+    void RentClicked();
+    void SaleClicked();
+    void BothClicked();
 };
 
 #endif // ADDNEWSOUTHVILLA_H

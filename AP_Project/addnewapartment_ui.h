@@ -23,6 +23,10 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QGridLayout>
+#include <QRadioButton>
+#include "apartment.h"
+#include "addrent_ui.h"
+#include "addsale_ui.h"
 
 class AddNewApartment_UI : public QWidget
 {
@@ -59,7 +63,18 @@ class AddNewApartment_UI : public QWidget
 
     QPushButton *pushBottonAdd;
     QPushButton *pushBottonCancel;
-    //QPushButton pushBottonAddUnit;
+    ///////for flat
+        QRadioButton *rbtn_sale;
+        QRadioButton *rbtn_rent;
+        QRadioButton *rbtn_both;
+    //////for apartment
+        QLabel *labelApplication;
+        QRadioButton *rbtn_Commercial;
+
+        QRadioButton *rbtn_Official;
+        QRadioButton *rbtn_Normal;
+
+    ///
 
     QFrame *myFrame;
     QFrame *myFinalFrame;
@@ -77,11 +92,19 @@ class AddNewApartment_UI : public QWidget
 
 public:
     explicit AddNewApartment_UI(QWidget *parent = nullptr);
+    explicit AddNewApartment_UI(apartment &aptr ,QWidget *parent = nullptr);
+    void show();
+    void hide();
 
 signals:
 
 public slots:
     void ChangeFrame(const QString &text);
+    void RentClicked();
+    void SaleClicked();
+    void BothClicked();
+
+
 };
 
 #endif // ADDNEWAPARTMENT_UI_H

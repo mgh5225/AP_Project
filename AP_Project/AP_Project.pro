@@ -27,10 +27,15 @@ CONFIG += c++11
 SOURCES += \
         addbuilding.cpp \
         addnewapartment_ui.cpp \
+        addnewflat_ui.cpp \
         addnewnorthvilla.cpp \
         addnewsouthvilla.cpp \
+        addrent_ui.cpp \
+        addsale_ui.cpp \
         apartment.cpp \
+        apartment_details_ui.cpp \
         building.cpp \
+        building_details_ui.cpp \
         explorer.cpp \
         file.cpp \
         have_file.cpp \
@@ -39,6 +44,7 @@ SOURCES += \
         main.cpp \
         main_ui.cpp \
         manager.cpp \
+        manager_panel_ui.cpp \
         north_villa.cpp \
         person.cpp \
         register_ui.cpp \
@@ -57,10 +63,15 @@ SOURCES += \
 HEADERS += \
         addbuilding.h \
         addnewapartment_ui.h \
+        addnewflat_ui.h \
         addnewnorthvilla.h \
         addnewsouthvilla.h \
+        addrent_ui.h \
+        addsale_ui.h \
         apartment.h \
+        apartment_details_ui.h \
         building.h \
+        building_details_ui.h \
         explorer.h \
         file.h \
         have_file.h \
@@ -68,6 +79,7 @@ HEADERS += \
         login.h \
         main_ui.h \
         manager.h \
+        manager_panel_ui.h \
         north_villa.h \
         person.h \
         register_ui.h \
