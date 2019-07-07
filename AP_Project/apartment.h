@@ -7,16 +7,20 @@ class apartment : public building
 {
 
     int floors;
+    int units;
+    QString apply;
 public:
     apartment();
-    apartment(double _base_price,long long _total_area,QString _address,QString _picture,int _floors);
+    apartment(double _base_price,long long _total_area,QString _address,QString _picture,int _floors,int _units,QString _apply);
     double total_price();
     void read(QJsonObject& json);
     void write(QJsonObject& json);
     int get_floors();
+    int get_units();
 };
 class flat : public have_file
 {
+    int unit_number;
     QString current_apartment_ID;
     apartment * current_apartment;
     int floor_num;
@@ -26,7 +30,7 @@ class flat : public have_file
     QString picture;
 public:
     flat();
-    flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,long long _building_area,QString _picture);
+    flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,long long _building_area,QString _picture,int _unit);
     double total_price();
     void read(QJsonObject& json);
     void write(QJsonObject& json);

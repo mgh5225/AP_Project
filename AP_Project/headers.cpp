@@ -204,7 +204,17 @@ user& login_usr(QString _username,QString _password){
     hash<string> ph;
     personException personEX;
     if(users.count(_username)==1){
-        if(users[_username].get_pass()==ph(_password.toStdString()))return users[_username];
+        if(users[_username].get_pass()==ph(_password.toStdString())){
+            time_t now;
+            time(&now);
+            struct tm t=*localtime(&now);
+            log l(users[_username].get_id(),t,true);
+            logs[users[_username].get_id()].push_back(l);
+            QJsonObject temp;
+            l.write(temp);
+            logsjson[l.get_ID()]=temp;
+            return users[_username];
+        }
         else throw personEX(PEX::BADPASSWORD);
     }
     else{
@@ -215,7 +225,17 @@ manager& login_mgr(QString _username,QString _password){
     hash<string> ph;
     personException personEX;
     if(managers.count(_username)==1){
-        if(managers[_username].get_pass()==ph(_password.toStdString()))return managers[_username];
+        if(managers[_username].get_pass()==ph(_password.toStdString())){
+            time_t now;
+            time(&now);
+            struct tm t=*localtime(&now);
+            log l(managers[_username].get_id(),t,true);
+            logs[managers[_username].get_id()].push_back(l);
+            QJsonObject temp;
+            l.write(temp);
+            logsjson[l.get_ID()]=temp;
+            return managers[_username];
+        }
         else throw personEX(PEX::BADPASSWORD);
     }
     else{

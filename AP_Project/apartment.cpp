@@ -1,7 +1,9 @@
 #include "apartment.h"
 apartment::apartment():building(){}
-apartment::apartment(double _base_price,long long _total_area,QString _address,QString _picture,int _floors):building(_base_price,_total_area,_address,_picture){
+apartment::apartment(double _base_price,long long _total_area,QString _address,QString _picture,int _floors,int _units,QString _apply):building(_base_price,_total_area,_address,_picture){
     floors=_floors;
+    units=_units;
+    apply=_apply;
 }
 double apartment::total_price(){
     return base_price*total_area*0.8;
@@ -13,6 +15,8 @@ void apartment::read(QJsonObject& json){
    address=json["address"].toString();
    picture=json["picture"].toString();
    floors=json["floors"].toInt();
+   units=json["units"].toInt();
+   apply=json["apply"].toString();
 }
 void apartment::write(QJsonObject& json){
    json["ID"]=ID;
@@ -21,10 +25,12 @@ void apartment::write(QJsonObject& json){
    json["address"]=address;
    json["picture"]=picture;
    json["floors"]=floors;
+   json["units"]=units;
+   json["apply"]=apply;
 }
 int apartment::get_floors(){return floors;}
 flat::flat():have_file (){}
-flat::flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,long long _building_area,QString _picture):have_file (){
+flat::flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,long long _building_area,QString _picture,int _units):have_file (){
     current_apartment=_current_apartment;
     current_apartment_ID=current_apartment->get_id();
     floor_num=_floor_num;
@@ -32,7 +38,9 @@ flat::flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,lo
     rooms=_rooms;
     building_area=_building_area;
     picture=_picture;
+    unit_number=_units;
 }
+int apartment::get_units(){return units;}
 double flat::total_price(){
     return current_apartment->get_base_price()*building_area;
 }
@@ -44,6 +52,7 @@ void flat::read(QJsonObject& json){
    building_area=json["building_area"].toString().toLongLong();
    lift=json["lift"].toBool();
    picture=json["picture"].toString();
+   unit_number=json["unit_number"].toInt();
 }
 void flat::write(QJsonObject& json){
    json["ID"]=ID;
@@ -53,6 +62,7 @@ void flat::write(QJsonObject& json){
    json["building_area"]=QString::fromStdString(to_string(building_area));
    json["lift"]=lift;
    json["picture"]=picture;
+   json["unit_number"]=unit_number;
 
 }
 QString flat::get_current_apartment_ID(){return current_apartment_ID;}

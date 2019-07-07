@@ -34,7 +34,6 @@ class User_Panel_UI : public QWidget
 
     QWidget* parent;
     QToolButton *btn_showBalance;
-    QToolButton *btn_addFile;
     QToolButton *btn_explore;
     QToolButton *btn_Exit;
     QToolButton *btn_LogOut;
@@ -44,10 +43,9 @@ class User_Panel_UI : public QWidget
     QHBoxLayout *my_h_layout;
     QGridLayout *my_grid_layout;
 
-    AddBuilding* Building;
     explorer* Explorer;
 
-
+    user& usr;
 
     bool IsAddClicked = false;
 public:
@@ -56,9 +54,10 @@ public:
 signals:
 
 public slots:
-    void add_building_clicked();
     void explorer_clicked();
     void on_btn_exit_clicked();
+    void on_btn_show_balance_clicked();
+    void on_btn_logOut_clicked();
 };
 
 #endif // USER_PANEL_UI_H

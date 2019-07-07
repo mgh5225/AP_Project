@@ -1,26 +1,23 @@
 #include "user_panel_ui.h"
 #include "headers.h"
-User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
+User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : usr(usr),QWidget(nullptr)
 {
     this->parent=parent;
    btn_Exit         = new QToolButton();
    btn_explore      = new QToolButton();
    btn_showBalance = new QToolButton();
-   btn_addFile      = new QToolButton();
    btn_LogOut       = new QToolButton();
    btn_Icon = new QToolButton();
 
    btn_Exit->setMinimumSize(70,70);
    btn_explore->setMinimumSize(90,70);
    btn_showBalance->setMinimumSize(90,70);
-   btn_addFile->setMinimumSize(90,70);
    btn_LogOut->setMinimumSize(90,70);
    btn_Icon->setMinimumSize(90,80);
 
    btn_LogOut->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_explore->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_showBalance->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
-   btn_addFile->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_Exit->setSizePolicy(QSizePolicy ::Minimum , QSizePolicy ::Expanding );
 
 
@@ -45,14 +42,6 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
    btn_showBalance->setIconSize(QSize(30, 30));
    btn_showBalance->setText("Show Balance");/////////////////////////////////
     btn_showBalance->setStyleSheet("font: bold");
-
-   QPixmap pixmap3(":/icons/resource/icons/AddFile.png");
-   QIcon btn_History_Icon(pixmap3);
-   btn_addFile->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-   btn_addFile->setIcon(btn_History_Icon);
-   btn_addFile->setIconSize(QSize(30, 30));
-   btn_addFile->setText("Add File");//////////
-   btn_addFile->setStyleSheet("font: bold");
 
    QPixmap pixmap4(":/icons/resource/icons/logout.png");
    QIcon btn_LogOut_Icon(pixmap4);
@@ -86,7 +75,6 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
    //v layout
 
    my_v_layout = new QVBoxLayout();
-   my_v_layout->addWidget(btn_addFile);
    my_v_layout->addWidget(btn_explore);
    my_v_layout->addWidget(btn_showBalance);
    my_v_layout->addWidget(btn_LogOut);
@@ -121,7 +109,6 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
    btn_LogOut->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
    btn_explore->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
    btn_showBalance->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
-   btn_addFile->setStyleSheet("QToolButton:hover{ background-color: #34495e;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
    btn_Icon->setStyleSheet("border: 0;font: bold;margin:15px;color:white");
    btn_Exit->setStyleSheet("QToolButton:hover{ background-color: #34495e; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center;}");
 
@@ -153,47 +140,14 @@ User_Panel_UI::User_Panel_UI(user& usr,QWidget *parent) : QWidget(nullptr)
     this->setWindowFlags(Qt::FramelessWindowHint);
 
 
-        connect(btn_addFile,SIGNAL(clicked()),this,SLOT(add_building_clicked()));
         connect(btn_Exit,SIGNAL(clicked()),this,SLOT(on_btn_exit_clicked()));
         connect(btn_explore,SIGNAL(clicked()),this,SLOT(explorer_clicked()));
-        Building=nullptr;
+        connect(btn_showBalance,SIGNAL(clicked()),this,SLOT(on_btn_show_balance_clicked()));
+        connect(btn_LogOut,SIGNAL(clicked()),this,SLOT(on_btn_logOut_clicked()));
         Explorer=nullptr;
-}
-
-void User_Panel_UI::add_building_clicked()
-{
-    if(Building!=nullptr){
-        Building->close();
-    }
-    if(Explorer!=nullptr){
-        if(Explorer->aptrs){
-            Explorer->aptrs->body->close();
-            Explorer->aptrs->body=nullptr;
-        }
-        if(Explorer->svillas){
-            Explorer->svillas->scr->close();
-            Explorer->svillas->scr=nullptr;
-        }
-        if(Explorer->nvillas){
-            Explorer->nvillas->scr->close();
-             Explorer->nvillas->scr=nullptr;
-        }
-        if(Explorer->allb){
-            Explorer->allb->body->close();
-            Explorer->allb->body=nullptr;
-        }
-        Explorer->close();
-        Explorer=nullptr;
-    }
-    Building=new AddBuilding;
-    my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
 }
 void User_Panel_UI::explorer_clicked()
 {
-    if(Building!=nullptr){
-        Building->close();
-        Building=nullptr;
-    }
     if(Explorer!=nullptr){
         if(Explorer->aptrs){
             Explorer->aptrs->body->close();
@@ -217,6 +171,37 @@ void User_Panel_UI::explorer_clicked()
     my_grid_layout->addWidget(Explorer,3,4,1,1,Qt::AlignCenter);
 }
 void User_Panel_UI::on_btn_exit_clicked(){
+    time_t now;
+    time(&now);
+    struct tm t=*localtime(&now);
+    log l(usr.get_id(),t,false);
+    logs[usr.get_id()].push_back(l);
+    QJsonObject temp;
+    l.write(temp);
+    logsjson[l.get_ID()]=temp;
     unloading();
     close();
+}
+
+void User_Panel_UI::on_btn_show_balance_clicked()
+{
+    QMessageBox msg;
+    msg.setText(QString::number(usr.get_balance()));
+    msg.exec();
+
+}
+
+void User_Panel_UI::on_btn_logOut_clicked()
+{
+    time_t now;
+    time(&now);
+    struct tm t=*localtime(&now);
+    log l(usr.get_id(),t,false);
+    logs[usr.get_id()].push_back(l);
+    QJsonObject temp;
+    l.write(temp);
+    logsjson[l.get_ID()]=temp;
+    this->close();
+    this->parent->show();
+
 }
