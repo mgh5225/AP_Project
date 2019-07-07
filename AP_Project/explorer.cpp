@@ -48,8 +48,14 @@ explorer::explorer(QWidget *parent) : QWidget(nullptr)
     ////////////////////////////////////
 
     aptrs=nullptr;
+    allb=nullptr;
+    svillas=nullptr;
+    nvillas=nullptr;
     this->setLayout(temp);
     connect(btn_ShowApartments,SIGNAL(clicked()),this,SLOT(show_aptrs()));
+    connect(btn_ShowSouthVillas,SIGNAL(clicked()),this,SLOT(show_svillas()));
+    connect(btn_ShowNorthVillas,SIGNAL(clicked()),this,SLOT(show_nvillas()));
+    connect(btn_ShowAllBuildings,SIGNAL(clicked()),this,SLOT(show_allb()));
 
 }
 void explorer::show_aptrs()
@@ -60,4 +66,31 @@ void explorer::show_aptrs()
     btn_ShowSouthVillas->hide();
     btn_ShowAllBuildings->hide();
     my_grid_Layout->addWidget(aptrs,1,1);
+}
+void explorer::show_svillas()
+{
+    svillas=new ShowSouthVillas(parent);
+    btn_ShowApartments->hide();
+    btn_ShowNorthVillas->hide();
+    btn_ShowSouthVillas->hide();
+    btn_ShowAllBuildings->hide();
+    my_grid_Layout->addWidget(svillas,1,1);
+}
+void explorer::show_nvillas()
+{
+    nvillas=new ShowNorthVillas(parent);
+    btn_ShowApartments->hide();
+    btn_ShowNorthVillas->hide();
+    btn_ShowSouthVillas->hide();
+    btn_ShowAllBuildings->hide();
+    my_grid_Layout->addWidget(nvillas,1,1);
+}
+void explorer::show_allb()
+{
+    allb=new ShowAllBuildings(parent);
+    btn_ShowApartments->hide();
+    btn_ShowNorthVillas->hide();
+    btn_ShowSouthVillas->hide();
+    btn_ShowAllBuildings->hide();
+    my_grid_Layout->addWidget(allb,1,1);
 }

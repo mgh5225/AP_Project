@@ -44,8 +44,11 @@ SOURCES += \
         register_ui.cpp \
         rent_file.cpp \
         sale_file.cpp \
+        showallbuildings.cpp \
         showapartments.cpp \
         showbuilding_widget.cpp \
+        shownorthvillas.cpp \
+        showsouthvillas.cpp \
         south_villa.cpp \
         user.cpp \
         user_panel_ui.cpp \
@@ -70,8 +73,11 @@ HEADERS += \
         register_ui.h \
         rent_file.h \
         sale_file.h \
+        showallbuildings.h \
         showapartments.h \
         showbuilding_widget.h \
+        shownorthvillas.h \
+        showsouthvillas.h \
         south_villa.h \
         user.h \
         user_panel_ui.h \

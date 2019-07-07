@@ -130,6 +130,7 @@ void ShowApartments::on_btn_search_by_flat_clicked()
     in.setStyleSheet("QInputDialog{border:3px solid black}");
     in.setLabelText("Please enter number which you want see apartments with flats more than that number:");
     in.setInputMode(QInputDialog::IntInput);
+    in.setIntRange(1,100);
     if(!in.exec())return;
     if(!aptrs.empty()) aptrs.clear();
     for(auto i=flats.begin();i!=flats.end();i++){
@@ -166,12 +167,13 @@ void ShowApartments::on_btn_search_by_meter_clicked()
     in.setWindowFlag(Qt::FramelessWindowHint);
     in.setStyleSheet("QInputDialog{border:3px solid black}");
     in.setLabelText("Please enter number which you want see apartments with at least a flat with area more than that number:");
-    in.setInputMode(QInputDialog::IntInput);
+    in.setInputMode(QInputDialog::DoubleInput);
+    in.setDoubleMaximum(1000);
     if(!in.exec())return;
     if(!aptrs.empty()) aptrs.clear();
     for(auto i=flats.begin();i!=flats.end();i++){
         for(auto j=i->second.begin();j!=i->second.end();j++){
-            if(j->get_building_area()>in.intValue()){
+            if(j->get_building_area()>in.doubleValue()){
                 aptrs.push_back(new ShowBuilding_widget(nullptr,&apartments[i->first]));
                 break;
             }
@@ -207,6 +209,7 @@ void ShowApartments::on_btn_search_by_rooms_clicked()
     in.setStyleSheet("QInputDialog{border:3px solid black}");
     in.setLabelText("Please enter number which you want see apartments with at least a flat with rooms more than that number:");
     in.setInputMode(QInputDialog::IntInput);
+    in.setIntMinimum(1);
     if(!in.exec())return;
     if(!aptrs.empty()) aptrs.clear();
     for(auto i=flats.begin();i!=flats.end();i++){

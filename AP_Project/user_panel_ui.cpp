@@ -168,6 +168,19 @@ void User_Panel_UI::add_building_clicked()
     if(Explorer!=nullptr){
         if(Explorer->aptrs){
             Explorer->aptrs->body->close();
+            Explorer->aptrs->body=nullptr;
+        }
+        if(Explorer->svillas){
+            Explorer->svillas->scr->close();
+            Explorer->svillas->scr=nullptr;
+        }
+        if(Explorer->nvillas){
+            Explorer->nvillas->scr->close();
+             Explorer->nvillas->scr=nullptr;
+        }
+        if(Explorer->allb){
+            Explorer->allb->body->close();
+            Explorer->allb->body=nullptr;
         }
         Explorer->close();
         Explorer=nullptr;
@@ -184,6 +197,19 @@ void User_Panel_UI::explorer_clicked()
     if(Explorer!=nullptr){
         if(Explorer->aptrs){
             Explorer->aptrs->body->close();
+            Explorer->aptrs->body=nullptr;
+        }
+        if(Explorer->svillas){
+            Explorer->svillas->scr->close();
+            Explorer->svillas->scr=nullptr;
+        }
+        if(Explorer->nvillas){
+            Explorer->nvillas->scr->close();
+             Explorer->nvillas->scr=nullptr;
+        }
+        if(Explorer->allb){
+            Explorer->allb->body->close();
+            Explorer->allb->body=nullptr;
         }
         Explorer->close();
     }

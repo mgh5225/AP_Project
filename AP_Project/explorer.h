@@ -7,6 +7,9 @@
 #include <QGridLayout>
 #include <QFrame>
 #include "showapartments.h"
+#include "showsouthvillas.h"
+#include "shownorthvillas.h"
+#include "showallbuildings.h"
 class explorer : public QWidget
 {
     Q_OBJECT
@@ -20,11 +23,17 @@ class explorer : public QWidget
 public:
     explicit explorer(QWidget *parent = nullptr);
     ShowApartments* aptrs;
+    ShowSouthVillas* svillas;
+    ShowNorthVillas* nvillas;
+    ShowAllBuildings* allb;
 
 signals:
 
 public slots:
     void show_aptrs();
+    void show_svillas();
+    void show_nvillas();
+    void show_allb();
 };
 
 #endif // EXPLORER_H
