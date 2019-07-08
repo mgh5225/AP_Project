@@ -12,10 +12,14 @@ void rent_file::read(QJsonObject& json){
     building_ID=json["building_ID"].toString();
     rent_duration=json["rent_duration"].toInt();
     manager_ID=json["manager_ID"].toString();
+    user_ID=json["user_ID"].toString();
+    isAccepted=json["isAccepted"].toBool();
 }
 void rent_file::write(QJsonObject& json){
     json["commission"]=commission;
     json["building_ID"]=building_ID;
     json["rent_duration"]=rent_duration;
     json["manager_ID"]=manager_ID;
+    json["user_ID"]=user_ID;
+    json["isAccepted"]=isAccepted;
 }

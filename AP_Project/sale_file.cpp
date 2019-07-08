@@ -12,10 +12,14 @@ void sale_file::read(QJsonObject& json){
     building_ID=json["building_ID"].toString();
     condition=json["condition"].toString();
     manager_ID=json["manager_ID"].toString();
+    user_ID=json["user_ID"].toString();
+    isAccepted=json["isAccepted"].toBool();
 }
 void sale_file::write(QJsonObject& json){
     json["commission"]=commission;
     json["building_ID"]=building_ID;
     json["condition"]=condition;
     json["manager_ID"]=manager_ID;
+    json["user_ID"]=user_ID;
+    json["isAccepted"]=isAccepted;
 }

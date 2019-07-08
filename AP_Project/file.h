@@ -7,6 +7,7 @@ protected:
     QString building_ID;
     QString manager_ID;
     have_file* building;
+    bool isAccepted;
 public:
     file();
     virtual~file();
