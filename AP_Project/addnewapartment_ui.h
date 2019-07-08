@@ -27,7 +27,7 @@
 #include "apartment.h"
 #include "addrent_ui.h"
 #include "addsale_ui.h"
-
+#include "manager.h"
 class AddNewApartment_UI : public QWidget
 {
     Q_OBJECT
@@ -54,7 +54,7 @@ class AddNewApartment_UI : public QWidget
     QLineEdit *lineEditAddress;
     QLineEdit *lineEditNumberOfUnits;
 
-    QLineEdit *lineEditUnitFloorNumber;
+    QComboBox *lineEditUnitFloorNumber;
     QLineEdit *lineEditUnitNumberOfRooms;
     QLineEdit *lineEditUnitArea;
 
@@ -63,6 +63,7 @@ class AddNewApartment_UI : public QWidget
 
     QPushButton *pushBottonAdd;
     QPushButton *pushBottonCancel;
+    QPushButton *pushButtonAddFlat;
     ///////for flat
         QRadioButton *rbtn_sale;
         QRadioButton *rbtn_rent;
@@ -83,16 +84,22 @@ class AddNewApartment_UI : public QWidget
     QVBoxLayout *mySecondVBoxLayOut;
     QHBoxLayout *myHBoxLayOutBotton;
     QGridLayout *myFinalLayOut;
+    QString fileName;
+    QString fileName2;
+    bool checkp;
 
-
+    apartment* aptr_p;
+    manager& mgr;
+    AddSale_UI* sale_input;
+    AddRent_UI* rent_input;
 
 
     void dragEnterEvent(QDragEnterEvent *e);
     void dropEvent(QDropEvent *e);
 
 public:
-    explicit AddNewApartment_UI(QWidget *parent = nullptr);
-    explicit AddNewApartment_UI(apartment &aptr ,QWidget *parent = nullptr);
+    explicit AddNewApartment_UI(manager& mgr,QWidget *parent = nullptr);
+    explicit AddNewApartment_UI(manager& mgr,apartment &aptr ,QWidget *parent = nullptr);
     void show();
     void hide();
 
@@ -103,6 +110,8 @@ public slots:
     void RentClicked();
     void SaleClicked();
     void BothClicked();
+    void AddClicked();
+    void AddFlatClicked();
 
 
 };

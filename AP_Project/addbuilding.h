@@ -27,6 +27,7 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QToolButton>
+#include "manager.h"
 class AddBuilding : public QWidget
 {
     Q_OBJECT
@@ -37,14 +38,15 @@ class AddBuilding : public QWidget
     QToolButton *btn_AddFlat;
 
     QGridLayout *my_grid_Layout;
+    manager& mgr;
 
+public:
     AddNewApartment_UI *apartment;
     AddNewSouthVilla *soutVilla;
     AddNewNorthVilla *northVilla;
     AddNewFlat_UI *flat;
-public:
     bool Enable = true;
-    explicit AddBuilding(QWidget *parent = nullptr);
+    explicit AddBuilding(manager& mgr,QWidget *parent = nullptr);
     //void show();
 
 signals:

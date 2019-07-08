@@ -1,7 +1,8 @@
 #include "manager_panel_ui.h"
-
-Manager_Panel_UI::Manager_Panel_UI(QWidget *parent) : QWidget(parent)
+#include "headers.h"
+Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWidget(nullptr)
 {
+    this->parent=parent;
 
    btn_Exit         = new QToolButton();
 
@@ -161,6 +162,8 @@ Manager_Panel_UI::Manager_Panel_UI(QWidget *parent) : QWidget(parent)
     connect(btn_addFile,SIGNAL(clicked()),this,SLOT(add_building_clicked()));
     connect(btn_Exit,SIGNAL(clicked()),this,SLOT(on_btn_exit_clicked()));
     connect(btn_explore,SIGNAL(clicked()),this,SLOT(explorer_clicked()));
+   // connect(btn_showBalance,SIGNAL(clicked()),this,SLOT(on_btn_show_balance_clicked()));
+    connect(btn_LogOut,SIGNAL(clicked()),this,SLOT(on_btn_logOut_clicked()));
     Building=nullptr;
     Explorer=nullptr;
 }
@@ -169,40 +172,61 @@ Manager_Panel_UI::Manager_Panel_UI(QWidget *parent) : QWidget(parent)
 void Manager_Panel_UI::add_building_clicked()
 {
     if(Building!=nullptr){
+        if(Building->apartment) Building->apartment->close();
+        if(Building->flat) Building->flat->close();
+        if(Building->northVilla) Building->northVilla->close();
+        if(Building->soutVilla) Building->soutVilla->close();
         Building->close();
     }
     if(Explorer!=nullptr){
         if(Explorer->aptrs){
-            Explorer->aptrs->body->close();
+            if(Explorer->aptrs->body)Explorer->aptrs->body->close();
             Explorer->aptrs->body=nullptr;
         }
         if(Explorer->svillas){
-            Explorer->svillas->scr->close();
+            if(Explorer->svillas->scr)Explorer->svillas->scr->close();
             Explorer->svillas->scr=nullptr;
         }
         if(Explorer->nvillas){
-            Explorer->nvillas->scr->close();
+            if(Explorer->nvillas->scr)Explorer->nvillas->scr->close();
              Explorer->nvillas->scr=nullptr;
         }
         if(Explorer->allb){
-            Explorer->allb->body->close();
+            if(Explorer->allb->body)Explorer->allb->body->close();
             Explorer->allb->body=nullptr;
         }
         Explorer->close();
         Explorer=nullptr;
     }
-    Building=new AddBuilding;
+    Building=new AddBuilding(mgr);
     my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
 }
 void Manager_Panel_UI::explorer_clicked()
 {
     if(Building!=nullptr){
+        if(Building->apartment) Building->apartment->close();
+        if(Building->flat) Building->flat->close();
+        if(Building->northVilla) Building->northVilla->close();
+        if(Building->soutVilla) Building->soutVilla->close();
         Building->close();
         Building=nullptr;
     }
     if(Explorer!=nullptr){
         if(Explorer->aptrs){
-            Explorer->aptrs->body->close();
+            if(Explorer->aptrs->body)Explorer->aptrs->body->close();
+            Explorer->aptrs->body=nullptr;
+        }
+        if(Explorer->svillas){
+            if(Explorer->svillas->scr)Explorer->svillas->scr->close();
+            Explorer->svillas->scr=nullptr;
+        }
+        if(Explorer->nvillas){
+            if(Explorer->nvillas->scr)Explorer->nvillas->scr->close();
+             Explorer->nvillas->scr=nullptr;
+        }
+        if(Explorer->allb){
+            if(Explorer->allb->body)Explorer->allb->body->close();
+            Explorer->allb->body=nullptr;
         }
         Explorer->close();
     }
@@ -210,7 +234,40 @@ void Manager_Panel_UI::explorer_clicked()
     my_grid_layout->addWidget(Explorer,3,4,1,1,Qt::AlignCenter);
 }
 
+/*
+void Manager_Panel_UI::on_btn_show_balance_clicked()
+{
+    QMessageBox msg;
+    msg.setText(QString::number(mgr.get_balance()));
+    msg.exec();
 
+}
+*/
+void Manager_Panel_UI::on_btn_logOut_clicked()
+{
+    time_t now;
+    time(&now);
+    struct tm t=*localtime(&now);
+    log l(mgr.get_id(),t,false);
+    logs[mgr.get_id()].push_back(l);
+    QJsonObject temp;
+    l.write(temp);
+    logsjson[l.get_ID()]=temp;
+    this->close();
+    this->parent->show();
 
+}
 
+void Manager_Panel_UI::on_btn_exit_clicked(){
+    time_t now;
+    time(&now);
+    struct tm t=*localtime(&now);
+    log l(mgr.get_id(),t,false);
+    logs[mgr.get_id()].push_back(l);
+    QJsonObject temp;
+    l.write(temp);
+    logsjson[l.get_ID()]=temp;
+    unloading();
+    close();
+}
 

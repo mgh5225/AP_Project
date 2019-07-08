@@ -26,7 +26,7 @@
 #include <QGridLayout>
 #include <QRadioButton>
 #include <QListWidget>
-
+#include "manager.h"
 class AddNewFlat_UI : public QWidget
 {
     Q_OBJECT
@@ -34,10 +34,11 @@ class AddNewFlat_UI : public QWidget
     QListWidget * listWidget_all;
     AddNewApartment_UI * apartmentflat;
     QVBoxLayout *tmp_v;
+    manager& mgr;
 
 
 public:
-    explicit AddNewFlat_UI(QWidget *parent = nullptr);
+    explicit AddNewFlat_UI(manager& mgr,QWidget *parent = nullptr);
 
 signals:
 

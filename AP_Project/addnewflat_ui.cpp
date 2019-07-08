@@ -1,6 +1,6 @@
 #include "addnewflat_ui.h"
 #include "headers.h"
-AddNewFlat_UI::AddNewFlat_UI(QWidget *parent) : QWidget(parent)
+AddNewFlat_UI::AddNewFlat_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWidget(parent)
 {
     listWidget_all = new QListWidget;
     for(auto i = apartments.begin() ; i!= apartments.end() ; i++){
@@ -31,7 +31,7 @@ void AddNewFlat_UI::ListWidgetDoubleClicked(QListWidgetItem *item)
             break;
         id += item->text()[i];
     }
-    apartmentflat = new AddNewApartment_UI(apartments[id]);
+    apartmentflat = new AddNewApartment_UI(mgr,apartments[id]);
     for (int i = 0; i < tmp_v->count(); ++i)
     {
       QWidget *widget = tmp_v->itemAt(i)->widget();

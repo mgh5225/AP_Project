@@ -27,7 +27,7 @@
 #include <QGridLayout>
 #include <QSizePolicy>
 #include <QToolButton>
-
+#include "manager.h"
 
 class Manager_Panel_UI : public QWidget
 {
@@ -48,16 +48,19 @@ class Manager_Panel_UI : public QWidget
 
     AddBuilding* Building;
     explorer* Explorer;
-
-
+    manager& mgr;
+    QWidget* parent;
 public:
-    explicit Manager_Panel_UI(QWidget *parent = nullptr);
+    explicit Manager_Panel_UI(manager& mgr,QWidget *parent = nullptr);
 
 signals:
 
 public slots:
         void add_building_clicked();
         void explorer_clicked();
+        void on_btn_exit_clicked();
+        //void on_btn_show_balance_clicked();
+        void on_btn_logOut_clicked();
 };
 
 #endif // MANAGER_PANEL_UI_H

@@ -1,6 +1,8 @@
 #include "addnewapartment_ui.h"
 #include <QDebug>
-AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
+#include "headers.h"
+#include <QGroupBox>
+AddNewApartment_UI::AddNewApartment_UI(manager& mgr,QWidget *parent) : mgr(mgr),QWidget(parent)
 {
 
     //new things
@@ -11,7 +13,7 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
     lineEditApartmentArea = new QLineEdit;
     lineEditNumberOfFloors = new QLineEdit;
     lineEditUnitArea = new QLineEdit;
-    lineEditUnitFloorNumber = new QLineEdit;
+    lineEditUnitFloorNumber = new QComboBox;
     lineEditUnitNumberOfRooms = new QLineEdit;
 
     comboBoxWhichUnit = new QComboBox;
@@ -181,22 +183,24 @@ AddNewApartment_UI::AddNewApartment_UI(QWidget *parent) : QWidget(parent)
     labelDragAndDrop->setFixedSize(350,150);
     labeDragAndDropUnits->setFixedSize(350,150);
 
-
-
-
+    checkp=true;
+setAcceptDrops(true);
     connect(lineEditNumberOfUnits,SIGNAL(textChanged(QString)),this,SLOT(ChangeFrame(QString)));
     connect(pushBottonCancel,SIGNAL(clicked()),this,SLOT(close()));
+    connect(pushBottonAdd,SIGNAL(clicked()),this,SLOT(AddClicked()));
 }
 
-AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
+AddNewApartment_UI::AddNewApartment_UI(manager& mgr,apartment &aptr, QWidget *parent):mgr(mgr)
 {
+    aptr_p=new apartment;
+    aptr_p=&aptr;
     lineEditAddress = new QLineEdit;
     lineEditBasePrice = new QLineEdit;
     lineEditNumberOfUnits = new QLineEdit;
     lineEditApartmentArea = new QLineEdit;
     lineEditNumberOfFloors = new QLineEdit;
     lineEditUnitArea = new QLineEdit;
-    lineEditUnitFloorNumber = new QLineEdit;
+    lineEditUnitFloorNumber = new QComboBox;
     lineEditUnitNumberOfRooms = new QLineEdit;
 
 
@@ -217,7 +221,7 @@ AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
     labelUnitNumberOfRooms = new QLabel(tr("Number Of Rooms"));
     labeDragAndDropUnits = new QLabel(tr("Please Drag And Drop your Image\nOr\nClick here for explore!"));
 
-    pushBottonAdd = new QPushButton(tr("Add"));
+    pushButtonAddFlat = new QPushButton(tr("Add"));
     pushBottonCancel = new QPushButton(tr("Cancel"));
 
     myFirstVBoxLayOut = new QVBoxLayout();
@@ -232,6 +236,8 @@ AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
     tmp_H->addWidget(rbtn_Normal);
     tmp_H->addWidget(rbtn_Official);
     tmp_H->addWidget(rbtn_Commercial);
+    QGroupBox* gb=new QGroupBox;
+    gb->setLayout(tmp_H);
 
     QHBoxLayout *tmp_H2 = new QHBoxLayout;
     QLabel *labelFor = new QLabel("For");
@@ -265,15 +271,34 @@ AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
     lineEditBasePrice->setText(QString::number(aptr.get_base_price()));
     lineEditNumberOfFloors->setText(QString::number(aptr.get_floors()));
     lineEditAddress->setText(aptr.get_address());
-    lineEditNumberOfUnits->setText("por shavad");
+    lineEditNumberOfUnits->setText(QString::number(aptr.get_units()));
 
-    labelDragAndDrop->setText("ba aks por shavad");
+    labelDragAndDrop->setPixmap(QPixmap(aptr.get_picture()).scaled(350,150));
     lineEditApartmentArea->setEnabled(false);
     lineEditBasePrice->setEnabled(false);;
     lineEditNumberOfFloors->setEnabled(false);
     lineEditNumberOfUnits->setEnabled(false);
     lineEditAddress->setEnabled(false);
-
+    bool flag;
+    for(int i=0;i<lineEditNumberOfUnits->text().toInt();i++){
+        flag=true;
+        for(int j=0;j<flats[aptr.get_id()].size();j++){
+            if(flats[aptr.get_id()][j].get_unit()==i+1){
+                flag=false;
+                break;
+            }
+        }
+        if(flag)comboBoxWhichUnit->addItem(QString::number(i+1));
+    }
+    for(int i=0;i<lineEditNumberOfFloors->text().toInt();i++){
+        lineEditUnitFloorNumber->addItem(QString::number(i+1));
+    }
+    if(aptr.get_apply()=="Normal")rbtn_Normal->setChecked(true);
+    else if(aptr.get_apply()=="Official")rbtn_Official->setChecked(true);
+    else if(aptr.get_apply()=="Commercial")rbtn_Commercial->setChecked(true);
+    rbtn_Normal->setEnabled(false);
+    rbtn_Official->setEnabled(false);
+    rbtn_Commercial->setEnabled(false);
     //drag and drops
 
 
@@ -296,8 +321,7 @@ AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
     myFirstVBoxLayOut->addWidget(labeNumberOfUnits);
     myFirstVBoxLayOut->addWidget(lineEditNumberOfUnits);
     myFirstVBoxLayOut->addWidget(labelApplication);
-
-    myFirstVBoxLayOut->addLayout(tmp_H);
+    myFirstVBoxLayOut->addWidget(gb);
     myFirstVBoxLayOut->addWidget(labelApartmentPicture);
     myFirstVBoxLayOut->addWidget(labelDragAndDrop);
 
@@ -323,7 +347,7 @@ AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
 
 
     //set h boton
-    myHBoxLayOutBotton->addWidget(pushBottonAdd);
+    myHBoxLayOutBotton->addWidget(pushButtonAddFlat);
     myHBoxLayOutBotton->addWidget(pushBottonCancel);
 
 
@@ -371,7 +395,7 @@ AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
     labeDragAndDropUnits->setStyleSheet("background-color:#f2f2f2;color:#595959;padding:10px;border:1px solid #bfbfbf; font-weight:bold;font-family:Serif ");
 
 
-    pushBottonAdd->setStyleSheet("QPushButton:pressed {background-color: #00cc00;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;} QPushButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif} ");
+    pushButtonAddFlat->setStyleSheet("QPushButton:pressed {background-color: #00cc00;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;} QPushButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif} ");
     pushBottonCancel->setStyleSheet("QPushButton:pressed {background-color:#ff1a1a;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif } QPushButton{ background-color:#ffb3b3;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif }");
 
 
@@ -382,13 +406,16 @@ AddNewApartment_UI::AddNewApartment_UI(apartment &aptr, QWidget *parent)
     labelDragAndDrop->setFixedSize(350,150);
     labeDragAndDropUnits->setFixedSize(350,150);
 
+    setAcceptDrops(true);
 
+    checkp=false;
 
     connect(lineEditNumberOfUnits,SIGNAL(textChanged(QString)),this,SLOT(ChangeFrame(QString)));
     connect(pushBottonCancel,SIGNAL(clicked()),this,SLOT(close()));
     connect(rbtn_rent,SIGNAL(clicked( bool )),this,SLOT(RentClicked()));
     connect(rbtn_sale,SIGNAL(clicked( bool )),this,SLOT(SaleClicked()));
     connect(rbtn_both,SIGNAL(clicked( bool )),this,SLOT(BothClicked()));
+    connect(pushButtonAddFlat,SIGNAL(clicked()),this,SLOT(AddFlatClicked()));
 
 }
 
@@ -407,31 +434,87 @@ void AddNewApartment_UI::ChangeFrame(const QString &text)
 
 void AddNewApartment_UI::RentClicked()
 {
-    qDebug() << "hi";
-        AddRent_UI *t = new AddRent_UI();
+        rent_input = new AddRent_UI();
 
         //myFinalLayOut->addWidget(t);
-        t->exec();
-        t->setModal(true);
+        rent_input->exec();
+        rent_input->setModal(true);
 }
 
 void AddNewApartment_UI::SaleClicked()
 {
-    AddSale_UI *s = new AddSale_UI();
-    s->exec();
-    s->setModal(true);
+    sale_input= new AddSale_UI();
+    sale_input->exec();
+    sale_input->setModal(true);
 }
 
 void AddNewApartment_UI::BothClicked()
 {
-    AddRent_UI *t = new AddRent_UI();
+    rent_input = new AddRent_UI();
 
-    t->exec();
+    rent_input->exec();
 
-    AddSale_UI *s = new AddSale_UI();
-    s->exec();
-    s->setModal(true);
-    t->setModal(true);
+    sale_input = new AddSale_UI();
+    sale_input->exec();
+    sale_input->setModal(true);
+    rent_input->setModal(true);
+}
+
+void AddNewApartment_UI::AddClicked()
+{
+    QString temp;
+    if(rbtn_Normal->isChecked())temp="Normal";
+    else if(rbtn_Official->isChecked())temp="Official";
+    else if(rbtn_Commercial->isChecked())temp="Commercial";
+    apartment a(lineEditBasePrice->text().toDouble(),lineEditApartmentArea->text().toLongLong(),lineEditAddress->text(),fileName,lineEditNumberOfFloors->text().toInt(),lineEditNumberOfUnits->text().toInt(),temp);
+    apartments[a.get_id()]=a;
+    QJsonObject j;
+    a.write(j);
+    apartmentsjson[a.get_id()]=j;
+    close();
+}
+
+void AddNewApartment_UI::AddFlatClicked()
+{
+    flat f(aptr_p,lineEditUnitFloorNumber->currentText().toInt(),!comboBoxElevator->currentIndex(),lineEditUnitNumberOfRooms->text().toInt(),lineEditUnitArea->text().toLongLong(),fileName2,comboBoxWhichUnit->currentText().toInt());
+    flats[aptr_p->get_id()].push_back(f);
+    QJsonObject j;
+    f.write(j);
+    flatsjson[f.get_id()]=j;
+    if(rbtn_sale->isChecked()){
+        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),&f,sale_input->get_con());
+        sales[f.get_id()]=s;
+        QJsonObject j2;
+        s.write(j2);
+        salesjson[f.get_id()]=j2;
+    }
+    else if(rbtn_rent->isChecked()){
+        rent_file r(rent_input->get_com(),mgr.get_id(),&f,rent_input->get_dur());
+        rents[f.get_id()]=r;
+        QJsonObject j3;
+        r.write(j3);
+        rentsjson[f.get_id()]=j3;
+    }
+    else if(rbtn_both->isChecked()){
+        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),&f,sale_input->get_con());
+        sales[f.get_id()]=s;
+        QJsonObject j2;
+        s.write(j2);
+        salesjson[f.get_id()]=j2;
+        rent_file r(rent_input->get_com(),mgr.get_id(),&f,rent_input->get_dur());
+        rents[f.get_id()]=r;
+        QJsonObject j3;
+        r.write(j3);
+        rentsjson[f.get_id()]=j3;
+    }
+    else {
+     QMessageBox msg;
+     msg.setText("Please choose a condition!");
+     msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+     msg.exec();
+     return;
+    }
+    close();
 }
 
 
@@ -447,9 +530,14 @@ void AddNewApartment_UI::dragEnterEvent(QDragEnterEvent *e)
 void AddNewApartment_UI::dropEvent(QDropEvent *e)
 {
     foreach (const QUrl &url, e->mimeData()->urls()) {
-        QString fileName = url.toLocalFile();
+        fileName = url.toLocalFile();
+        fileName2 =  url.toLocalFile();
         qDebug() << "Dropped file:" << fileName;
     }
+    if(checkp) labelDragAndDrop->setPixmap(QPixmap(fileName).scaled(350,150));
+    else labeDragAndDropUnits->setPixmap(QPixmap(fileName2).scaled(350,150));
+
+
 }
 
 

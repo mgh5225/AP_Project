@@ -27,7 +27,7 @@
 #include <QRadioButton>
 #include "addrent_ui.h"
 #include "addsale_ui.h"
-
+#include "manager.h"
 class AddNewNorthVilla : public QWidget
 {
     Q_OBJECT
@@ -57,16 +57,18 @@ class AddNewNorthVilla : public QWidget
     QRadioButton *rbtn_both;
 
     QGridLayout *my_grid_layout;
-
     QPushButton *btn_Add;
     QPushButton *btn_Cancel;
-
-
-
+    QString fileName;
+    AddSale_UI* sale_input;
+    AddRent_UI* rent_input;
+    manager& mgr;
+    void dragEnterEvent(QDragEnterEvent *e);
+    void dropEvent(QDropEvent *e);
 
 
 public:
-    explicit AddNewNorthVilla(QWidget *parent = nullptr);
+    explicit AddNewNorthVilla(manager& mgr,QWidget *parent = nullptr);
 
 
 signals:
@@ -75,6 +77,7 @@ public slots:
     void RentClicked();
     void SaleClicked();
     void BothClicked();
+    void AddClicked();
 };
 
 #endif // ADDNEWNORTHVILLA_H

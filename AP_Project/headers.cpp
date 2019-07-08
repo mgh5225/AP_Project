@@ -129,6 +129,7 @@ void loading(){
     for (auto i=flatsjson.begin();i!=flatsjson.end();i++) {
        temp=i.value().toObject();
        f.read(temp);
+       f.set_current_apartmeent(&apartments[f.get_current_apartment_ID()]);
        flats[f.get_current_apartment_ID()].push_back(f);
     }
 
@@ -153,6 +154,20 @@ void loading(){
     for (auto i=rentsjson.begin();i!=rentsjson.end();i++) {
        temp=i.value().toObject();
        r.read(temp);
+           try {
+               r.set_building(&svillas.at(r.get_building_ID()));
+           } catch (out_of_range) {
+               try {
+                    r.set_building(&nvillas.at(r.get_building_ID()));
+               } catch (out_of_range) {
+               for(auto i=flats.begin();i!=flats.end();i++){
+                   for(int j=0;j<i->second.size();j++){
+                        if(i->second[j].get_id()==r.get_building_ID())r.set_building(&i->second[j]);
+                   }
+               }
+               }
+           }
+
        rents[r.get_building_ID()]=r;
     }
 
@@ -165,6 +180,21 @@ void loading(){
     for (auto i=salesjson.begin();i!=salesjson.end();i++) {
        temp=i.value().toObject();
        s.read(temp);
+       try {
+           s.set_building(&svillas.at(s.get_building_ID()));
+       } catch (out_of_range) {
+           try {
+                s.set_building(&nvillas.at(s.get_building_ID()));
+           } catch (out_of_range) {
+               for(auto i=flats.begin();i!=flats.end();i++){
+                   for(int j=0;j<i->second.size();j++){
+                        if(i->second[j].get_id()==s.get_building_ID()){
+                            s.set_building(&i->second[j]);
+                        }
+                   }
+               }
+           }
+       }
        sales[s.get_building_ID()]=s;
     }
 

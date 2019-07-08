@@ -31,7 +31,7 @@ class AddSale_UI : public QDialog
     Q_OBJECT
 
     QLineEdit *led_Commission;
-    QComboBox *combobox_Condition;
+    QLineEdit *led_Condition;
     QPushButton *btn_Ok;
     QPushButton *btn_Cancel;
     QHBoxLayout *my_h_layout;
@@ -39,9 +39,10 @@ class AddSale_UI : public QDialog
 
 public:
     explicit AddSale_UI(QWidget *parent = nullptr);
+    QString get_com();
+    QString get_con();
 
 signals:
-
 public slots:
 };
 

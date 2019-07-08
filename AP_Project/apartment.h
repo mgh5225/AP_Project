@@ -17,6 +17,8 @@ public:
     void write(QJsonObject& json);
     int get_floors();
     int get_units();
+    QString get_picture();
+    QString get_apply();
 };
 class flat : public have_file
 {
@@ -34,10 +36,12 @@ public:
     double total_price();
     void read(QJsonObject& json);
     void write(QJsonObject& json);
+    void set_current_apartmeent(apartment*);
     QString get_current_apartment_ID();
     apartment* get_current_apartment();
     int get_floor_num();
     int get_rooms();
+    int get_unit();
     long long get_building_area();
     QString get_picture();
     bool get_lift();

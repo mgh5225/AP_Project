@@ -1,6 +1,6 @@
 #include "addnewnorthvilla.h"
-
-AddNewNorthVilla::AddNewNorthVilla(QWidget *parent) : QWidget(parent)
+#include "headers.h"
+AddNewNorthVilla::AddNewNorthVilla(manager& mgr,QWidget *parent) : mgr(mgr),QWidget(parent)
 {
     label_BuildArea  = new QLabel(tr("Build Area"));
     label_FrontYardArea  = new QLabel(tr("Front yard Area"));
@@ -95,42 +95,102 @@ AddNewNorthVilla::AddNewNorthVilla(QWidget *parent) : QWidget(parent)
 
 
     this->setLayout(temp);
-
+    setAcceptDrops(true);
 
     connect(btn_Cancel,SIGNAL(clicked()),this,SLOT(close()));
     connect(rbtn_rent,SIGNAL(clicked( bool )),this,SLOT(RentClicked()));
     connect(rbtn_sale,SIGNAL(clicked( bool )),this,SLOT(SaleClicked()));
     connect(rbtn_both,SIGNAL(clicked( bool )),this,SLOT(BothClicked()));
+    connect(btn_Add,SIGNAL(clicked()),this,SLOT(AddClicked()));
 
 }
 
 
 void AddNewNorthVilla::RentClicked()
 {
-    qDebug() << "hi";
-        AddRent_UI *t = new AddRent_UI();
+        rent_input= new AddRent_UI();
 
         //myFinalLayOut->addWidget(t);
-        t->exec();
-        t->setModal(true);
+        rent_input->exec();
+        rent_input->setModal(true);
 }
 
 void AddNewNorthVilla::SaleClicked()
 {
-    AddSale_UI *s = new AddSale_UI();
-    s->exec();
-    s->setModal(true);
+   sale_input = new AddSale_UI();
+    sale_input->exec();
+    sale_input->setModal(true);
 }
 
 void AddNewNorthVilla::BothClicked()
 {
-    AddRent_UI *t = new AddRent_UI();
+    rent_input = new AddRent_UI();
 
-    t->exec();
+    rent_input->exec();
 
-    AddSale_UI *s = new AddSale_UI();
-    s->exec();
-    s->setModal(true);
-    t->setModal(true);
+    sale_input= new AddSale_UI();
+    sale_input->exec();
+    sale_input->setModal(true);
+    rent_input->setModal(true);
 }
 
+void AddNewNorthVilla::AddClicked()
+{
+    north_villa n(lineEdit_BasePrice->text().toDouble(),lineEdit_FullArea->text().toLongLong(),lineEdit_Address->text(),fileName,lineEdit_NumberOfRooms->text().toInt(),lineEdit_BuildArea->text().toLongLong(),lineEdit_FrontYardArea->text().toLongLong(),lineEdit_BackYardArea->text().toLongLong());
+    nvillas[n.get_id()]=n;
+    QJsonObject j;
+    n.write(j);
+    nvillasjson[n.get_id()]=j;
+    if(rbtn_sale->isChecked()){
+        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),&n,sale_input->get_con());
+        sales[n.get_id()]=s;
+        QJsonObject j2;
+        s.write(j2);
+        salesjson[n.get_id()]=j2;
+    }
+    else if(rbtn_rent->isChecked()){
+        rent_file r(rent_input->get_com(),mgr.get_id(),&n,rent_input->get_dur());
+        rents[n.get_id()]=r;
+        QJsonObject j3;
+        r.write(j3);
+        rentsjson[n.get_id()]=j3;
+    }
+    else if(rbtn_both->isChecked()){
+        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),&n,sale_input->get_con());
+        sales[n.get_id()]=s;
+        QJsonObject j2;
+        s.write(j2);
+        salesjson[n.get_id()]=j2;
+        rent_file r(rent_input->get_com(),mgr.get_id(),&n,rent_input->get_dur());
+        rents[n.get_id()]=r;
+        QJsonObject j3;
+        r.write(j3);
+        rentsjson[n.get_id()]=j3;
+    }
+    else {
+     QMessageBox msg;
+     msg.setText("Please choose a condition!");
+     msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+     msg.exec();
+     return;
+    }
+    close();
+}
+void AddNewNorthVilla::dragEnterEvent(QDragEnterEvent *e)
+{
+
+    if (e->mimeData()->hasUrls()) {
+        e->acceptProposedAction();
+    }
+}
+
+void AddNewNorthVilla::dropEvent(QDropEvent *e)
+{
+    foreach (const QUrl &url, e->mimeData()->urls()) {
+        fileName = url.toLocalFile();
+        qDebug() << "Dropped file:" << fileName;
+    }
+    labelDragAndDrop->setPixmap(QPixmap(fileName).scaled(350,150));
+
+
+}

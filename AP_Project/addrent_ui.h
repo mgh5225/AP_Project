@@ -31,8 +31,6 @@ class AddRent_UI : public QDialog
     Q_OBJECT
 
     QLineEdit *led_Commission;
-    QLineEdit *led_MortgageDuration;
-    QLineEdit *led_RentAmount;
     QLineEdit *led_RentDuration;
     QPushButton *btn_Ok;
     QPushButton *btn_Cancel;
@@ -40,6 +38,8 @@ class AddRent_UI : public QDialog
     QVBoxLayout *my_v_layout;
 public:
     explicit AddRent_UI(QWidget *parent = nullptr);
+    double get_com();
+    int get_dur();
 
 signals:
 

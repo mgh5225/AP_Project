@@ -8,4 +8,9 @@ file::file(double _commission,QString _manager_ID,have_file* _building){
 }
 QString file::get_building_ID(){return building_ID;}
 QString file::get_manager_ID(){return manager_ID;}
+
+void file::set_building(have_file * _b)
+{
+    building=_b;
+}
 file::~file(){}

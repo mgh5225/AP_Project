@@ -2,7 +2,7 @@
 #include "headers.h"
 #include <map>
 #include <utility>
-ShowAllBuildings::ShowAllBuildings(QWidget *parent) : QWidget(parent)
+ShowAllBuildings::ShowAllBuildings(QWidget *parent) : QWidget(nullptr)
 {
     this->parent=parent;
     all=new QGridLayout;

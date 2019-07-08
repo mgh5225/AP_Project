@@ -172,4 +172,29 @@ void Login::on_btn_login_clicked()
         }
     }
 }
+    else{
+        try{
+            manager& mgr=login_mgr(lineEditUsername->text(),lineEditPassword->text());
+            Manager_Panel_UI* u=new Manager_Panel_UI(mgr,parent);
+            this->hide();
+            u->show();
+        }catch(personException ex){
+            switch (ex.type) {
+            case PEX::BADUSERNAME:{
+                QMessageBox msg;
+                msg.setText("Username or Password is wrong!");
+                msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+                msg.exec();
+                break;
+            }
+            case PEX::BADPASSWORD:{
+                QMessageBox msg;
+                msg.setText("Username or Password is wrong!");
+                msg.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+                msg.exec();
+                break;
+            }
+        }
+    }
+    }
 }

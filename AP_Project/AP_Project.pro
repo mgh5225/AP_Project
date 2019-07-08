@@ -35,7 +35,6 @@ SOURCES += \
         apartment.cpp \
         apartment_details_ui.cpp \
         building.cpp \
-        building_details_ui.cpp \
         explorer.cpp \
         file.cpp \
         have_file.cpp \
@@ -71,7 +70,6 @@ HEADERS += \
         apartment.h \
         apartment_details_ui.h \
         building.h \
-        building_details_ui.h \
         explorer.h \
         file.h \
         have_file.h \

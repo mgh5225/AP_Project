@@ -14,6 +14,7 @@ public:
     virtual double final_price()=0;
     QString get_building_ID();
     QString get_manager_ID();
+    void set_building(have_file*);
 
 };
 #endif // FILE_H

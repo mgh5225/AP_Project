@@ -41,6 +41,16 @@ flat::flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,lo
     unit_number=_units;
 }
 int apartment::get_units(){return units;}
+
+QString apartment::get_picture()
+{
+    return picture;
+}
+
+QString apartment::get_apply()
+{
+    return apply;
+}
 double flat::total_price(){
     return current_apartment->get_base_price()*building_area;
 }
@@ -65,10 +75,20 @@ void flat::write(QJsonObject& json){
    json["unit_number"]=unit_number;
 
 }
+
+void flat::set_current_apartmeent(apartment * _a)
+{
+       current_apartment=_a;
+}
 QString flat::get_current_apartment_ID(){return current_apartment_ID;}
 apartment* flat::get_current_apartment(){return current_apartment;}
 int flat::get_floor_num(){return floor_num;}
 int flat::get_rooms(){return rooms;}
+
+int flat::get_unit()
+{
+    return unit_number;
+}
 long long flat::get_building_area(){return building_area;}
 QString flat::get_picture(){return picture;}
 bool flat::get_lift(){return lift;}

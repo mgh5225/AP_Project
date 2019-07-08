@@ -1,6 +1,6 @@
 #include "addbuilding.h"
 
-AddBuilding::AddBuilding(QWidget *parent) : QWidget(parent)
+AddBuilding::AddBuilding(manager& mgr,QWidget *parent) :mgr(mgr), QWidget(parent)
 {
     btn_AddFlat = new QToolButton();
     btn_AddApartment = new QToolButton();
@@ -22,10 +22,10 @@ AddBuilding::AddBuilding(QWidget *parent) : QWidget(parent)
    btn_AddSouthVilla ->setStyleSheet("QToolButton:hover{ background-color: #91a0a1; color: wihte;}QToolButton{border:0px;background-color: #34495e;color:white;padding:40px ;text-align:center;}");
    btn_AddFlat->setStyleSheet("QToolButton:hover{ background-color: #91a0a1; color: wihte;}QToolButton{border:0px;background-color: #34495e;color:white;padding:40px ;text-align:center;}");
 
-   apartment = new AddNewApartment_UI(this);
-    soutVilla = new AddNewSouthVilla(this);
-    northVilla = new AddNewNorthVilla(this);
-    flat = new AddNewFlat_UI(this);
+   apartment = new AddNewApartment_UI(mgr,this);
+    soutVilla = new AddNewSouthVilla(mgr,this);
+    northVilla = new AddNewNorthVilla(mgr,this);
+    flat = new AddNewFlat_UI(mgr,this);
     my_grid_Layout = new QGridLayout();
 
     my_grid_Layout->addWidget(btn_AddApartment,0,0);
