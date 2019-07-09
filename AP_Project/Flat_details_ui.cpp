@@ -1,10 +1,13 @@
 #include "flat_details_ui.h"
 
-Flat_Details_UI::Flat_Details_UI(sale_file* _s,rent_file* _r,flat &flt,QWidget *parent) : flt(flt),QWidget(parent)
+Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &flt,QWidget *parent) : flt(flt),QWidget(parent)
 {
 
     s=_s;
     r=_r;
+    p=_p;
+    u=dynamic_cast<user*>(p);
+    m=dynamic_cast<manager*>(p);
     lbl_FloorNumber = new QLabel(tr("Floor Number"));
     lbl_UnitPicture = new QLabel;
     lbl_NumberOfRooms = new QLabel(tr("Number Of Rooms"));
@@ -214,19 +217,38 @@ Flat_Details_UI::Flat_Details_UI(sale_file* _s,rent_file* _r,flat &flt,QWidget *
     btn_Rent->setStyleSheet("QPushButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QPushButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
 
     /////////////
-    connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()) );
+    connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()));
+    connect(btn_Save,SIGNAL(clicked()),this,SLOT(SaveClicked()));
+    connect(btn_Buy,SIGNAL(clicked()),this,SLOT(BuyClicked()));
+    connect(btn_Rent,SIGNAL(clicked()),this,SLOT(RentClicked()));
+    this->setAttribute(Qt::WA_TranslucentBackground, true);
+    this->setWindowFlags(Qt::FramelessWindowHint);
     if(r){
         RentMode();
     }
     if(s){
         SaleMode();
     }
+    if(u){
+        UserMode();
+    }
+    if(m){
+        AdminMode();
+    }
 }
 
 void Flat_Details_UI::AdminMode()
 {
-    btn_Buy->hide();
-    btn_Rent->hide();
+    if(s){
+        btn_Buy->show();
+        if(s->get_user_ID()=="")btn_Buy->setEnabled(true);
+        else btn_Buy->setEnabled(false);
+    }
+    if(r){
+        btn_Rent->show();
+        if(r->get_user_ID()=="")btn_Rent->setEnabled(true);
+        else btn_Rent->setEnabled(false);
+    }
     btn_Edit->show();
     btn_Save->hide();
 
@@ -234,8 +256,16 @@ void Flat_Details_UI::AdminMode()
 
 void Flat_Details_UI::UserMode()
 {
-    btn_Buy->show();
-    btn_Rent->show();
+    if(s){
+        btn_Buy->show();
+        if(s->get_user_ID()=="")btn_Buy->setEnabled(true);
+        else btn_Buy->setEnabled(false);
+    }
+    if(r){
+        btn_Rent->show();
+        if(r->get_user_ID()=="")btn_Rent->setEnabled(true);
+        else btn_Rent->setEnabled(false);
+    }
     btn_Edit->hide();
     btn_Save->hide();
 }
@@ -273,4 +303,79 @@ void Flat_Details_UI::EditClicked()
     btn_Rent->hide();
     btn_Edit->hide();
     btn_Save->show();
+    comboBox_Elevator->setEnabled(true);
+    led_FloorNumber ->setEnabled(true);
+    led_NumberOfRooms->setEnabled(true);
+    led_BuildArea ->setEnabled(true);
+    if(r){
+    led_Commission ->setEnabled(true);
+    led_RentDuration->setEnabled(true);
+    }
+    if(s){
+    led_SaleCommission->setEnabled(true);
+    led_Condition ->setEnabled(true);
+    }
+}
+
+void Flat_Details_UI::SaveClicked()
+{
+    btn_Edit->hide();
+    flt.set_lift(!comboBox_Elevator->currentIndex());
+    flt.set_floor_num(led_FloorNumber->text().toInt());
+    flt.set_rooms(led_NumberOfRooms->text().toInt());
+    flt.set_building_area(led_BuildArea->text().toLongLong());
+    for(int j=0;j<flats[flt.get_current_apartment_ID()].size();j++){
+        if(flats[flt.get_current_apartment_ID()][j].get_id()==flt.get_id()){
+            flats[flt.get_current_apartment_ID()][j]=flt;
+            QJsonObject temp;
+            flt.write(temp);
+            flatsjson[flt.get_id()]=temp;
+        }
+    }
+    if(r){
+        r->set_commission(led_Commission->text().toDouble());
+        r->set_duration(led_RentDuration->text().toInt());
+       rents[r->get_building_ID()]=*r;
+       QJsonObject temp;
+       r->write(temp);
+       rentsjson[r->get_building_ID()]=temp;
+    }
+    if(s){
+        s->set_commission(led_SaleCommission->text().toDouble());
+        s->set_condition(led_Condition->text());
+        sales[s->get_building_ID()]=*s;
+        QJsonObject temp;
+        s->write(temp);
+        rentsjson[s->get_building_ID()]=temp;
+    }
+    close();
+}
+
+void Flat_Details_UI::BuyClicked()
+{
+    QMessageBox msg;
+    if(p->get_balance()>s->final_price()){
+        s->set_user_ID(p->get_id());
+        msg.setText("Your request for buying this flat has submitted!");
+        msg.exec();
+        close();
+    }
+    else{
+        msg.setText("Your account balance is not enough!");
+         msg.exec();
+    }
+
+}
+void Flat_Details_UI::RentClicked(){
+    QMessageBox msg;
+    if(p->get_balance()>r->final_price()){
+        r->set_user_ID(p->get_id());
+        msg.setText("Your request for renting this flat has submitted!");
+        msg.exec();
+        close();
+    }
+    else{
+        msg.setText("Your account balance is not enough!");
+        msg.exec();
+}
 }

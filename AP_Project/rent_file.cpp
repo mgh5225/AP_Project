@@ -1,8 +1,10 @@
 #include"rent_file.h"
-rent_file::rent_file():file(){}
+rent_file::rent_file():file(){user_ID="";isAccepted=false;}
 rent_file::~rent_file(){}
 rent_file::rent_file(double _commission,QString _manager_ID,have_file* _building,int _rent_duration):file(_commission,_manager_ID,_building){
     rent_duration=_rent_duration;
+    user_ID="";
+    isAccepted=false;
 }
 double rent_file::mortgage_price(){return 0.05*building->total_price();}
 double rent_file::rent_price(){return 0.01*building->total_price();}

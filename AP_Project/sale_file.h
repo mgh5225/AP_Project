@@ -13,6 +13,7 @@ public:
     QString get_condition();
     void read(QJsonObject& json);
     void write(QJsonObject& json);
+    void set_condition(QString _con);
 };
 
 #endif // SALE_FILE_H

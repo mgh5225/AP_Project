@@ -1,7 +1,12 @@
 #include "northvilla_details_ui.h"
 
-NorthVilla_Details_UI::NorthVilla_Details_UI(sale_file* _s,rent_file* _r,north_villa& nv,QWidget *parent) :nv(nv), QWidget(parent)
+NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file* _r,north_villa& nv,QWidget *parent) :nv(nv), QWidget(parent)
 {
+    s=_s;
+    r=_r;
+    p=_p;
+    u=dynamic_cast<user*>(p);
+    m=dynamic_cast<manager*>(p);
     label_BuildArea  = new QLabel(tr("Build Area"));
     label_FrontYardArea  = new QLabel(tr("Front yard Area"));
     label_BackyardArea  = new QLabel(tr("Back yard Area"));
@@ -197,6 +202,24 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(sale_file* _s,rent_file* _r,north_v
 
     /////////////
     connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()) );
+    connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()));
+    connect(btn_Save,SIGNAL(clicked()),this,SLOT(SaveClicked()));
+    connect(btn_Buy,SIGNAL(clicked()),this,SLOT(BuyClicked()));
+    connect(btn_Rent,SIGNAL(clicked()),this,SLOT(RentClicked()));
+    this->setAttribute(Qt::WA_TranslucentBackground, true);
+    this->setWindowFlags(Qt::FramelessWindowHint);
+    if(r){
+        RentMode();
+    }
+    if(s){
+        SaleMode();
+    }
+    if(u){
+        UserMode();
+    }
+    if(m){
+        AdminMode();
+    }
 
 
 }
@@ -204,8 +227,16 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(sale_file* _s,rent_file* _r,north_v
 
 void NorthVilla_Details_UI::AdminMode()
 {
-    btn_Buy->hide();
-    btn_Rent->hide();
+    if(s){
+        btn_Buy->show();
+        if(s->get_user_ID()=="")btn_Buy->setEnabled(true);
+        else btn_Buy->setEnabled(false);
+    }
+    if(r){
+        btn_Rent->show();
+        if(r->get_user_ID()=="")btn_Rent->setEnabled(true);
+        else btn_Rent->setEnabled(false);
+    }
     btn_Edit->show();
     btn_Save->hide();
 
@@ -213,8 +244,16 @@ void NorthVilla_Details_UI::AdminMode()
 
 void NorthVilla_Details_UI::UserMode()
 {
-    btn_Buy->show();
-    btn_Rent->show();
+    if(s){
+        btn_Buy->show();
+        if(s->get_user_ID()=="")btn_Buy->setEnabled(true);
+        else btn_Buy->setEnabled(false);
+    }
+    if(r){
+        btn_Rent->show();
+        if(r->get_user_ID()=="")btn_Rent->setEnabled(true);
+        else btn_Rent->setEnabled(false);
+    }
     btn_Edit->hide();
     btn_Save->hide();
 }
@@ -255,4 +294,5 @@ void NorthVilla_Details_UI::EditClicked()
     btn_Rent->hide();
     btn_Edit->hide();
     btn_Save->show();
+
 }

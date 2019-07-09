@@ -1,7 +1,10 @@
 #include"file.h"
 file::file(){}
 file::file(double _commission,QString _manager_ID,have_file* _building){
-    commission=_commission;
+    if(_commission==0){
+        commission=50000;
+    }
+    else commission=_commission;
     manager_ID=_manager_ID;
     building=_building;
     building_ID=building->get_id();

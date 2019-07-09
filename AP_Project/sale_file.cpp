@@ -1,8 +1,10 @@
 #include "sale_file.h"
-sale_file::sale_file():file(){}
+sale_file::sale_file():file(){user_ID="";isAccepted=false;}
 sale_file::~sale_file(){}
 sale_file::sale_file(double _commission,QString _manager_ID,have_file* _building,QString _condition):file(_commission,_manager_ID,_building){
     condition=_condition;
+    user_ID="";
+    isAccepted=false;
 }
 double sale_file::final_price(){
     return building->total_price()+(commission*building->total_price());
@@ -27,4 +29,9 @@ void sale_file::write(QJsonObject& json){
     json["manager_ID"]=manager_ID;
     json["user_ID"]=user_ID;
     json["isAccepted"]=isAccepted;
+}
+
+void sale_file::set_condition(QString _con)
+{
+    condition=_con;
 }

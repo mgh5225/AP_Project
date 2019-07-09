@@ -54,6 +54,7 @@ public:
     QString get_id();
     QString get_user();
     double get_balance();
+    void set_balance(double _b);
     size_t get_pass();
     virtual ~person();
 };

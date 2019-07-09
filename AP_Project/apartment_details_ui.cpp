@@ -129,31 +129,45 @@ Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :ap
         } catch (out_of_range) {
             r=nullptr;
         }
-        allf->addWidget(new Flat_Details_UI(s,r,flats[aptr.get_id()][j],nullptr),j,0,Qt::AlignCenter);
+        allf->addWidget(new Flat_Details_UI(nullptr,s,r,flats[aptr.get_id()][j],nullptr),j,0,Qt::AlignCenter);
     }
      all->addLayout(temp);
      QWidget* scrtemp=new QWidget;
      scrtemp->setLayout(allf);
      QScrollArea* scr=new QScrollArea;
      scr->setWidget(scrtemp);
-     all->addWidget(scrtemp);
+     all->addWidget(scr);
      QSize availableSize = qApp->desktop()->availableGeometry().size();
-         int width = availableSize.width();
-         int height = availableSize.height();
-         //qDebug() << "Available dimensions " << width << "x" << height;
-        width *= 0.73; // 90% of the screen size
-         height *= 0.8; // 90% of the screen size
-         //qDebug() << "Computed dimensions " << width << "x" << height;
+              int width = availableSize.width();
+              int height = availableSize.height();
+              //qDebug() << "Available dimensions " << width << "x" << height;
+              width *= 0.73; // 90% of the screen size
+              height *= 0.8; // 90% of the screen size
+              //qDebug() << "Computed dimensions " << width << "x" << height;
+              //this->move(width/2 , height/2);
+              QSize newSize( width - 128, height - 95);
 
-         scr->setFixedSize(1100,880);
-         scr->setWidgetResizable(true);
+              this->setGeometry(
+                  QStyle::alignedRect(
+                      Qt::LeftToRight,
+                      Qt::AlignCenter,
+                      newSize,
+                      qApp->desktop()->availableGeometry()
+                  )
+              );
+
+              this->setFixedSize(width-128,height-95);
+
+               this->move(availableSize.width() *0.27 /2 + 138,availableSize.height() * 0.1 + 95);
+
+              scr->setWidgetResizable(true);
 
 
 
-
-   this->setAttribute(Qt::WA_TranslucentBackground, true);
-        this->setLayout(all);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+         //scrtemp->setModal(true);
+        //this->setAttribute(Qt::WA_TranslucentBackground, true);
+             this->setLayout(all);
+         this->setWindowFlags(Qt::FramelessWindowHint);
 }
 
 void Apartment_Details_UI::AdminMode()

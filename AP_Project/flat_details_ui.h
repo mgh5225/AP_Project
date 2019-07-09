@@ -92,11 +92,13 @@ class Flat_Details_UI : public QWidget
     flat& flt;
     sale_file* s;
     rent_file* r;
-
+    person* p;
+    user* u;
+    manager* m;
 
 
 public:
-    explicit Flat_Details_UI(sale_file*,rent_file*,flat &flt,QWidget *parent = nullptr);
+    explicit Flat_Details_UI(person*,sale_file*,rent_file*,flat &flt,QWidget *parent = nullptr);
     void AdminMode();
     void UserMode();
     void SaleMode();
@@ -106,6 +108,9 @@ signals:
 
 public slots:
     void EditClicked();
+    void SaveClicked();
+    void BuyClicked();
+    void RentClicked();
 };
 
 #endif // RENT_DETAILS_UI_H

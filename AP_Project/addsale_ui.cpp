@@ -5,6 +5,7 @@ AddSale_UI::AddSale_UI(QWidget *parent) : QDialog(parent)
     led_Commission = new QLineEdit;
     led_Commission->setPlaceholderText(tr("Default Commission Is : 50000"));
     led_Condition = new QLineEdit;
+    led_Condition->setPlaceholderText(tr("Sale Condition"));
 
     btn_Ok = new QPushButton(tr("Ok"));
     btn_Cancel = new QPushButton(tr("Cancel"));

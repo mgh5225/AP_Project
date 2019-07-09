@@ -44,6 +44,11 @@ double person::get_balance()
 {
     return balance;
 }
+
+void person::set_balance(double _b)
+{
+    balance=_b;
+}
 size_t person::get_pass(){return password;}
 
 person::~person()

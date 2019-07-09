@@ -96,25 +96,12 @@ void ShowBuilding_widget::mousePressEvent(QMouseEvent *event){
 
     }
     else if(fl){
-        Flat_Details_UI* test=new Flat_Details_UI(s,r,*fl,nullptr);
+        Flat_Details_UI* test=new Flat_Details_UI(p,s,r,*fl,nullptr);
         test->show();
-        if(u){
-            test->UserMode();
-        }
-        else if(m){
-            test->AdminMode();
-        }
-
     }
     else if(nv){
-       NorthVilla_Details_UI* test=new NorthVilla_Details_UI(s,r,*nv,nullptr);
+       NorthVilla_Details_UI* test=new NorthVilla_Details_UI(p,s,r,*nv,nullptr);
        test->show();
-       if(u){
-           test->UserMode();
-       }
-       else if(m){
-           test->AdminMode();
-       }
     }
     else if(sv){
         SouthVilla_Details_UI* test=new SouthVilla_Details_UI(s,r,*sv,nullptr);

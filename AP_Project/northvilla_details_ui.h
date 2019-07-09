@@ -102,10 +102,12 @@ class NorthVilla_Details_UI : public QWidget
     sale_file* s;
     rent_file* r;
     north_villa& nv;
-
+    person* p;
+    user* u;
+    manager* m;
     bool IsRentMode = false;
 public:
-    explicit NorthVilla_Details_UI(sale_file*,rent_file*,north_villa&,QWidget *parent = nullptr);
+    explicit NorthVilla_Details_UI(person*,sale_file*,rent_file*,north_villa&,QWidget *parent = nullptr);
     void AdminMode();
     void UserMode();
 
@@ -113,10 +115,14 @@ public:
     void SaleMode();
     void RentMode();
 
+
 signals:
 
 public slots:
     void EditClicked();
+    //void SaveClicked();
+   // void BuyClicked();
+   // void RentClicked();
 };
 
 #endif // NORTHVILLA_DETAILS_UI_H

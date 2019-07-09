@@ -64,6 +64,31 @@ QString apartment::get_apply()
 double flat::total_price(){
     return current_apartment->get_base_price()*building_area;
 }
+
+void flat::set_unit_num(int _u)
+{
+    unit_number=_u;
+}
+
+void flat::set_floor_num(int _f)
+{
+    floor_num=_f;
+}
+
+void flat::set_lift(bool _l)
+{
+    lift=_l;
+}
+
+void flat::set_rooms(int _r)
+{
+    rooms=_r;
+}
+
+void flat::set_building_area(long long _b)
+{
+    building_area=_b;
+}
 void flat::read(QJsonObject& json){
    ID=json["ID"].toString();
    current_apartment_ID=json["current_apartment_ID"].toString();
