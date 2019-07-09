@@ -219,6 +219,9 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
     Building=nullptr;
     Explorer=nullptr;
     files=nullptr;
+    userStatus = nullptr;
+    edit = nullptr;
+    showlog = nullptr;
 }
 
 
@@ -257,6 +260,18 @@ void Manager_Panel_UI::add_building_clicked()
         if(files->sales) files->sales->close();
         files->close();
         files=nullptr;
+    }
+    if(userStatus != nullptr){
+        userStatus->close();
+        userStatus=nullptr;
+    }
+    if(edit != nullptr){
+            edit->close();
+            edit = nullptr;
+        }
+    if(showlog != nullptr){
+        showlog->close();
+        showlog = nullptr;
     }
     Building=new AddBuilding(mgr);
 
@@ -303,6 +318,19 @@ void Manager_Panel_UI::explorer_clicked()
         files->close();
         files=nullptr;
     }
+    if(userStatus != nullptr){
+        userStatus->close();
+        userStatus=nullptr;
+    }
+    if(edit != nullptr){
+            edit->close();
+            edit = nullptr;
+        }
+    if(showlog != nullptr){
+        showlog->close();
+        showlog = nullptr;
+    }
+
     Explorer=new explorer(&mgr,this);
     QLabel *l = new QLabel("");
     l->setFixedWidth(700);
@@ -384,6 +412,18 @@ void Manager_Panel_UI::FileManageClicked()
         if(files->sales) files->sales->close();
         files->close();
     }
+    if(userStatus != nullptr){
+        userStatus->close();
+        userStatus=nullptr;
+    }
+    if(edit != nullptr){
+            edit->close();
+            edit = nullptr;
+        }
+    if(showlog != nullptr){
+        showlog->close();
+        showlog = nullptr;
+    }
 
     files= new FileManagement_UI(mgr,nullptr);
 
@@ -395,28 +435,173 @@ void Manager_Panel_UI::FileManageClicked()
     my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
 
 }
-/////////////////////////////newwwwwwwww//////////////////////////
 
-///////////Yout need to fix this!
 void Manager_Panel_UI::change_user_status_cliced()
 {
-    ChangeUserStatus_UI *t = new ChangeUserStatus_UI;
-    my_grid_layout->addWidget(t,3,4,1,1,Qt::AlignCenter);
+    if(Building!=nullptr){
+        if(Building->apartment) Building->apartment->close();
+        if(Building->flat) Building->flat->close();
+        if(Building->northVilla) Building->northVilla->close();
+        if(Building->soutVilla) Building->soutVilla->close();
+        Building->close();
+    }
+    if(Explorer!=nullptr){
+        if(Explorer->aptrs){
+            if(Explorer->aptrs->body)Explorer->aptrs->body->close();
+            Explorer->aptrs->body=nullptr;
+        }
+        if(Explorer->svillas){
+            if(Explorer->svillas->scr)Explorer->svillas->scr->close();
+            Explorer->svillas->scr=nullptr;
+        }
+        if(Explorer->nvillas){
+            if(Explorer->nvillas->scr)Explorer->nvillas->scr->close();
+             Explorer->nvillas->scr=nullptr;
+        }
+        if(Explorer->allb){
+            if(Explorer->allb->body)Explorer->allb->body->close();
+            Explorer->allb->body=nullptr;
+        }
+        Explorer->close();
+        Explorer=nullptr;
+    }
+    if(files!=nullptr){
+        if(files->Requests) files->Requests->close();
+        if(files->rents) files->rents->close();
+        if(files->sales) files->sales->close();
+        files->close();
+        files=nullptr;
+    }
+    if(userStatus != nullptr){
+        userStatus->close();
+        userStatus=nullptr;
+    }
+    if(edit != nullptr){
+        edit->close();
+        edit = nullptr;
+    }
+    if(showlog != nullptr){
+        showlog->close();
+        showlog = nullptr;
+    }
+    userStatus = new ChangeUserStatus_UI;
+    my_grid_layout->addWidget(userStatus,3,4,1,1,Qt::AlignCenter);
+    QLabel *l = new QLabel("");
+    l->setFixedWidth(700);
+    l->setAttribute(Qt::WA_TranslucentBackground, true);
+    my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
 
 }
 
 void Manager_Panel_UI::edit_panel_clicked()
 {
-    EditPanel_UI *t = new EditPanel_UI();
+    if(Building!=nullptr){
+        if(Building->apartment) Building->apartment->close();
+        if(Building->flat) Building->flat->close();
+        if(Building->northVilla) Building->northVilla->close();
+        if(Building->soutVilla) Building->soutVilla->close();
+        Building->close();
+    }
+    if(Explorer!=nullptr){
+        if(Explorer->aptrs){
+            if(Explorer->aptrs->body)Explorer->aptrs->body->close();
+            Explorer->aptrs->body=nullptr;
+        }
+        if(Explorer->svillas){
+            if(Explorer->svillas->scr)Explorer->svillas->scr->close();
+            Explorer->svillas->scr=nullptr;
+        }
+        if(Explorer->nvillas){
+            if(Explorer->nvillas->scr)Explorer->nvillas->scr->close();
+             Explorer->nvillas->scr=nullptr;
+        }
+        if(Explorer->allb){
+            if(Explorer->allb->body)Explorer->allb->body->close();
+            Explorer->allb->body=nullptr;
+        }
+        Explorer->close();
+        Explorer=nullptr;
+    }
+    if(files!=nullptr){
+        if(files->Requests) files->Requests->close();
+        if(files->rents) files->rents->close();
+        if(files->sales) files->sales->close();
+        files->close();
+        files=nullptr;
+    }
+    if(userStatus != nullptr){
+        userStatus->close();
+        userStatus=nullptr;
+    }if(edit != nullptr){
+        edit->close();
+        edit = nullptr;
+    }
+    if(showlog != nullptr){
+        showlog->close();
+        showlog = nullptr;
+    }
+    edit = new EditPanel_UI();
     QLabel *l = new QLabel("");
     l->setFixedWidth(700);
     l->setAttribute(Qt::WA_TranslucentBackground, true);
-    my_grid_layout->addWidget(t,3,4,1,1,Qt::AlignCenter);
+    my_grid_layout->addWidget(edit,3,4,1,1,Qt::AlignCenter);
     my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
+
 }
 
 void Manager_Panel_UI::show_log_clicked()
 {
-    ShowLog_UI *t = new ShowLog_UI();
-    my_grid_layout->addWidget(t,3,4,1,1,Qt::AlignCenter);
+
+    if(Building!=nullptr){
+        if(Building->apartment) Building->apartment->close();
+        if(Building->flat) Building->flat->close();
+        if(Building->northVilla) Building->northVilla->close();
+        if(Building->soutVilla) Building->soutVilla->close();
+        Building->close();
+    }
+    if(Explorer!=nullptr){
+        if(Explorer->aptrs){
+            if(Explorer->aptrs->body)Explorer->aptrs->body->close();
+            Explorer->aptrs->body=nullptr;
+        }
+        if(Explorer->svillas){
+            if(Explorer->svillas->scr)Explorer->svillas->scr->close();
+            Explorer->svillas->scr=nullptr;
+        }
+        if(Explorer->nvillas){
+            if(Explorer->nvillas->scr)Explorer->nvillas->scr->close();
+             Explorer->nvillas->scr=nullptr;
+        }
+        if(Explorer->allb){
+            if(Explorer->allb->body)Explorer->allb->body->close();
+            Explorer->allb->body=nullptr;
+        }
+        Explorer->close();
+        Explorer=nullptr;
+    }
+    if(files!=nullptr){
+        if(files->Requests) files->Requests->close();
+        if(files->rents) files->rents->close();
+        if(files->sales) files->sales->close();
+        files->close();
+        files=nullptr;
+    }
+    if(userStatus != nullptr){
+        userStatus->close();
+        userStatus=nullptr;
+    }if(edit != nullptr){
+        edit->close();
+        edit = nullptr;
+    }
+    if(showlog != nullptr){
+        showlog->close();
+        showlog = nullptr;
+    }
+    showlog = new ShowLog_UI();
+    my_grid_layout->addWidget(showlog,3,4,1,1,Qt::AlignCenter);
+    QLabel *l = new QLabel("");
+    l->setFixedWidth(700);
+    l->setAttribute(Qt::WA_TranslucentBackground, true);
+    my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
+
 }

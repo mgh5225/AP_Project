@@ -1,6 +1,6 @@
 #include "apartment_details_ui.h"
 #include "flat_details_ui.h"
-Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :aptr(aptr), QWidget(parent)
+Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :aptr(aptr), QDialog(parent)
 {
 
 
@@ -50,6 +50,7 @@ Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :ap
 
     btn_Edit = new QPushButton("Edit");
     btn_Save=new QPushButton("Save");
+    btn_Exit = new QPushButton("Exit");
     btn_Edit->hide();
     btn_Save->hide();
 
@@ -82,8 +83,11 @@ Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :ap
     my_v_temp->addWidget(lbl_Picture);
     my_v_temp->addWidget(btn_Edit);
     my_v_temp->addWidget(btn_Save);
+    my_v_temp->addWidget(btn_Exit);
+
     my_h_layout->addLayout(my_v_temp);
     my_h_layout->addLayout(my_v_layout);
+
     my_h_layout->setSpacing(30);
 
     lbl_Address->setStyleSheet("font: bold; font-size: 12px");
@@ -105,7 +109,7 @@ Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :ap
 
     btn_Edit->setStyleSheet("QPushButton:pressed {background-color: #0D47A1;color:#3498db;padding:10px;border:1px solid #2980b9; font-weight:bold;font-family:Serif;margin-top:20px} QPushButton{ background-color:#3498db;color:#0D47A1;padding:10px;border:1px solid #2980b9; font-weight:bold;font-family:Serif;margin-top:20px} ");
     btn_Save->setStyleSheet("QPushButton:pressed {background-color: #00cc00;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} QPushButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} ");
-
+    btn_Exit->setStyleSheet("QPushButton:pressed {background-color:#ff1a1a;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif } QPushButton{ background-color:#ffb3b3;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif }");
 
     QFrame *myFrame = new QFrame;
     myFrame->setLayout(my_h_layout);
@@ -129,7 +133,7 @@ Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :ap
         } catch (out_of_range) {
             r=nullptr;
         }
-        allf->addWidget(new Flat_Details_UI(nullptr,s,r,flats[aptr.get_id()][j],nullptr),j,0,Qt::AlignCenter);
+        allf->addWidget(new Flat_Details_UI(0,nullptr,s,r,flats[aptr.get_id()][j],nullptr),j,0,Qt::AlignCenter);
     }
      all->addLayout(temp);
      QWidget* scrtemp=new QWidget;
@@ -162,6 +166,7 @@ Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :ap
 
               scr->setWidgetResizable(true);
 
+         connect(btn_Exit,SIGNAL(clicked()),this,SLOT(close()));
 
 
          //scrtemp->setModal(true);

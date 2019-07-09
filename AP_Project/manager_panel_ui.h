@@ -56,6 +56,9 @@ class Manager_Panel_UI : public QWidget
     manager& mgr;
     QWidget* parent;
     FileManagement_UI * files;
+    ChangeUserStatus_UI * userStatus;
+    EditPanel_UI *edit;
+    ShowLog_UI *showlog;
 public:
     explicit Manager_Panel_UI(manager& mgr,QWidget *parent = nullptr);
 

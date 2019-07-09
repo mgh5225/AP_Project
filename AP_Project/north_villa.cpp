@@ -1,4 +1,24 @@
 #include "north_villa.h"
+long long north_villa::getFront_yard_area() const
+{
+    return front_yard_area;
+}
+
+void north_villa::setFront_yard_area(long long value)
+{
+    front_yard_area = value;
+}
+
+long long north_villa::getBack_yard_area() const
+{
+    return back_yard_area;
+}
+
+void north_villa::setBack_yard_area(long long value)
+{
+    back_yard_area = value;
+}
+
 north_villa::north_villa():villa(){}
 north_villa::north_villa(double _base_price,long long _total_area,QString _address,QString _picture,int _rooms,long long _building_area,long long _front_yard_area,long long _back_yard_area):villa (_base_price,_total_area,_address,_picture,_rooms,_building_area){
     front_yard_area=_front_yard_area;
@@ -29,3 +49,5 @@ void north_villa::write(QJsonObject& json){
    json["front_yard_area"]=QString::fromStdString(to_string(front_yard_area));
    json["back_yard_area"]=QString::fromStdString(to_string(back_yard_area));
 }
+
+

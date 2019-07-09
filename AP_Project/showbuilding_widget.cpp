@@ -96,7 +96,7 @@ void ShowBuilding_widget::mousePressEvent(QMouseEvent *event){
 
     }
     else if(fl){
-        Flat_Details_UI* test=new Flat_Details_UI(p,s,r,*fl,nullptr);
+        Flat_Details_UI* test=new Flat_Details_UI(1,p,s,r,*fl,nullptr);
         test->show();
     }
     else if(nv){

@@ -27,7 +27,7 @@
 #include "headers.h"//prob?
 #include "file.h"
 
-class Flat_Details_UI : public QWidget
+class Flat_Details_UI : public QDialog
 {
     Q_OBJECT
 
@@ -50,6 +50,7 @@ class Flat_Details_UI : public QWidget
     QPushButton *btn_Rent;
     QPushButton *btn_Edit;
     QPushButton *btn_Save;
+    QPushButton *btn_Exit;
 
 
 
@@ -98,7 +99,7 @@ class Flat_Details_UI : public QWidget
 
 
 public:
-    explicit Flat_Details_UI(person*,sale_file*,rent_file*,flat &flt,QWidget *parent = nullptr);
+    explicit Flat_Details_UI(bool b,person*,sale_file*,rent_file*,flat &flt,QWidget *parent = nullptr);
     void AdminMode();
     void UserMode();
     void SaleMode();

@@ -1,6 +1,6 @@
 #include "flat_details_ui.h"
 
-Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &flt,QWidget *parent) : flt(flt),QWidget(parent)
+Flat_Details_UI::Flat_Details_UI(bool b,person* _p,sale_file* _s,rent_file* _r,flat &flt,QWidget *parent) : flt(flt),QDialog(parent)
 {
 
     s=_s;
@@ -37,6 +37,7 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
     btn_Rent = new QPushButton("Rent");
     btn_Edit = new QPushButton("Edit");
     btn_Save = new QPushButton("Save");
+    btn_Exit = new QPushButton("Exit");
     btn_Buy->hide();
     btn_Rent->hide();
     btn_Edit->hide();
@@ -54,13 +55,13 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
 
     my_v_layout = new QVBoxLayout;
     my_v_layout->addWidget(lbl_detail,0,Qt::AlignTop);
-    my_v_layout->addWidget(lbl_BuildArea);
-    my_v_layout->addWidget(led_BuildArea);
-    my_v_layout->addWidget(lbl_Elevator);
-    my_v_layout->addWidget(comboBox_Elevator);
-    my_v_layout->addWidget(lbl_FloorNumber);
-    my_v_layout->addWidget(led_FloorNumber);
-    my_v_layout->addWidget(lbl_NumberOfRooms);
+    my_v_layout->addWidget(lbl_BuildArea,Qt::AlignTop);
+    my_v_layout->addWidget(led_BuildArea,Qt::AlignTop);
+    my_v_layout->addWidget(lbl_Elevator,Qt::AlignTop);
+    my_v_layout->addWidget(comboBox_Elevator,Qt::AlignTop);
+    my_v_layout->addWidget(lbl_FloorNumber,Qt::AlignTop);
+    my_v_layout->addWidget(led_FloorNumber,Qt::AlignTop);
+    my_v_layout->addWidget(lbl_NumberOfRooms,Qt::AlignTop);
     my_v_layout->addWidget(led_NumberOfRooms);
 
 
@@ -88,16 +89,16 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
     my_rent_layout = new QVBoxLayout();
 
     my_rent_layout->addWidget(lbl_RentalTerms,0,Qt::AlignTop);
-    my_rent_layout->addWidget(lbl_Commission);
-    my_rent_layout->addWidget(led_Commission);
-    my_rent_layout->addWidget(lbl_MortgageDuration);
-    my_rent_layout->addWidget(led_MortgageDuration);
-    my_rent_layout->addWidget(lbl_RentAmount);
-    my_rent_layout->addWidget(led_RentAmount);
-    my_rent_layout->addWidget(lbl_RentDuration);
-    my_rent_layout->addWidget(led_RentDuration);
-    my_rent_layout->addWidget(lbl_RentFinalPrice);
-    my_rent_layout->addWidget(led_RentFinalPrice);
+    my_rent_layout->addWidget(lbl_Commission,Qt::AlignTop);
+    my_rent_layout->addWidget(led_Commission,Qt::AlignTop);
+    my_rent_layout->addWidget(lbl_MortgageDuration,Qt::AlignTop);
+    my_rent_layout->addWidget(led_MortgageDuration,Qt::AlignTop);
+    my_rent_layout->addWidget(lbl_RentAmount,Qt::AlignTop);
+    my_rent_layout->addWidget(led_RentAmount,Qt::AlignTop);
+    my_rent_layout->addWidget(lbl_RentDuration,Qt::AlignTop);
+    my_rent_layout->addWidget(led_RentDuration,Qt::AlignTop);
+    my_rent_layout->addWidget(lbl_RentFinalPrice,Qt::AlignTop);
+    my_rent_layout->addWidget(led_RentFinalPrice,Qt::AlignTop);
 
     lbl_RentalTerms ->    hide();
     lbl_Commission->      hide();
@@ -142,13 +143,13 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
 
     my_sale_layout = new QVBoxLayout;
 
-    my_sale_layout->addWidget(lbl_SalesTerms,0,Qt::AlignTop);
-    my_sale_layout->addWidget(lbl_SaleCommission,1,Qt::AlignTop);
-    my_sale_layout->addWidget(led_SaleCommission,2,Qt::AlignTop);
-    my_sale_layout->addWidget(lbl_Condition,3,Qt::AlignTop);
-    my_sale_layout->addWidget(led_Condition,4,Qt::AlignTop);
-    my_sale_layout->addWidget(lbl_SaleFinalPrice,5,Qt::AlignTop);
-    my_sale_layout->addWidget(led_SaleFinalPrice,6,Qt::AlignTop);
+    my_sale_layout->addWidget(lbl_SalesTerms,Qt::AlignTop);
+    my_sale_layout->addWidget(lbl_SaleCommission,Qt::AlignTop);
+    my_sale_layout->addWidget(led_SaleCommission,Qt::AlignTop);
+    my_sale_layout->addWidget(lbl_Condition,Qt::AlignTop);
+    my_sale_layout->addWidget(led_Condition,Qt::AlignTop);
+    my_sale_layout->addWidget(lbl_SaleFinalPrice,Qt::AlignTop);
+    my_sale_layout->addWidget(led_SaleFinalPrice,Qt::AlignTop);
 
     led_SaleCommission->hide();
     led_Condition->hide();
@@ -182,6 +183,9 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
     tmp->addWidget(btn_Edit);
     tmp->addWidget(btn_Save);
     tmp->addLayout(tmp_h);
+    tmp->addWidget(btn_Exit);
+    tmp->setSpacing(4);
+    tmp->setMargin(0);
 
     my_h_layout = new QHBoxLayout;
 
@@ -189,7 +193,7 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
     my_h_layout->addLayout(my_v_layout);
     my_h_layout->addLayout(my_rent_layout);
     my_h_layout->addLayout(my_sale_layout,Qt::AlignBottom);
-    this->setLayout(my_h_layout);
+
     /////////css//////////
 
     lbl_detail->setStyleSheet("font: bold;font-size: 12px");
@@ -215,13 +219,14 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
     btn_Save->setStyleSheet("QPushButton:pressed {background-color: #00cc00;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} QPushButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} ");
     btn_Buy->setStyleSheet("QPushButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QPushButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
     btn_Rent->setStyleSheet("QPushButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QPushButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
-
+    btn_Exit->setStyleSheet("QPushButton:pressed {background-color:#ff1a1a;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif } QPushButton{ background-color:#ffb3b3;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif }");
     /////////////
     connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()));
     connect(btn_Save,SIGNAL(clicked()),this,SLOT(SaveClicked()));
     connect(btn_Buy,SIGNAL(clicked()),this,SLOT(BuyClicked()));
     connect(btn_Rent,SIGNAL(clicked()),this,SLOT(RentClicked()));
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
+    connect(btn_Exit,SIGNAL(clicked()),this,SLOT(close()));
+    //this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::FramelessWindowHint);
     if(r){
         RentMode();
@@ -235,6 +240,41 @@ Flat_Details_UI::Flat_Details_UI(person* _p,sale_file* _s,rent_file* _r,flat &fl
     if(m){
         AdminMode();
     }
+    if(b){
+    QSize availableSize = qApp->desktop()->availableGeometry().size();
+             int width = availableSize.width();
+             int height = availableSize.height();
+             //qDebug() << "Available dimensions " << width << "x" << height;
+             width *= 0.73; // 90% of the screen size
+             height *= 0.8; // 90% of the screen size
+             //qDebug() << "Computed dimensions " << width << "x" << height;
+             //this->move(width/2 , height/2);
+             QSize newSize( width - 128, height - 95);
+
+             this->setGeometry(
+                 QStyle::alignedRect(
+                     Qt::LeftToRight,
+                     Qt::AlignCenter,
+                     newSize,
+                     qApp->desktop()->availableGeometry()
+                 )
+             );
+            QWidget *tmp = new QWidget;
+            tmp->setLayout(my_h_layout);
+
+             tmp->setFixedSize(950,270);
+            QHBoxLayout *tHbox = new QHBoxLayout;
+
+            tHbox->addWidget(tmp);
+            this->setLayout(tHbox);
+            this->setFixedSize(width-128,height-95);
+            this->move(availableSize.width() *0.27 /2 + 138,availableSize.height() * 0.1 + 95);
+
+    }else {
+        this->setLayout(my_h_layout);
+    }
+
+
 }
 
 void Flat_Details_UI::AdminMode()
@@ -356,8 +396,8 @@ void Flat_Details_UI::BuyClicked()
     QMessageBox msg;
     if(p->get_balance()>s->final_price()){
         s->set_user_ID(p->get_user());
-        QJsonObject temp;
-        s->write(temp);
+	QJsonObject temp;	
+        s->write(temp);	
         salesjson[flt.get_id()]=temp;
         msg.setText("Your request for buying this flat has submitted!");
         msg.exec();
@@ -366,7 +406,7 @@ void Flat_Details_UI::BuyClicked()
     else{
         msg.setText("Your account balance is not enough!");
          msg.exec();
-         close();
+	close();
     }
 
 }
@@ -374,9 +414,9 @@ void Flat_Details_UI::RentClicked(){
     QMessageBox msg;
     if(p->get_balance()>r->final_price()){
         r->set_user_ID(p->get_user());
-        QJsonObject temp;
-        r->write(temp);
-        salesjson[flt.get_id()]=temp;
+	QJsonObject temp;	
+        r->write(temp);	
+        rentsjson[flt.get_id()]=temp;
         msg.setText("Your request for renting this flat has submitted!");
         msg.exec();
         close();
@@ -384,6 +424,6 @@ void Flat_Details_UI::RentClicked(){
     else{
         msg.setText("Your account balance is not enough!");
         msg.exec();
-        close();
+	close();
 }
 }

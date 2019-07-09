@@ -12,6 +12,11 @@ public:
     double total_price();
     void read(QJsonObject& json);
     void write(QJsonObject& json);
+
+    long long getFront_yard_area() const;
+    void setFront_yard_area(long long value);
+    long long getBack_yard_area() const;
+    void setBack_yard_area(long long value);
 };
 
 #endif // NORTH_VILLA_H

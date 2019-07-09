@@ -1,6 +1,6 @@
 #include "northvilla_details_ui.h"
 
-NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file* _r,north_villa& nv,QWidget *parent) :nv(nv), QWidget(parent)
+NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file* _r,north_villa& nv,QWidget *parent) :nv(nv), QDialog(parent)
 {
     s=_s;
     r=_r;
@@ -24,6 +24,14 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     lineEdit_BasePrice = new QLineEdit;
     lineEdit_Address = new QLineEdit;
 
+    lineEdit_Address->setText(nv.get_address());
+    lineEdit_FullArea->setText(QString::number(nv.get_total_area()));
+    lineEdit_BasePrice->setText(QString::number(nv.get_base_price()));
+    lineEdit_BuildArea->setText(QString::number(nv.getBuilding_area()));
+    lineEdit_BackYardArea->setText(QString::number(nv.getBack_yard_area()));
+    lineEdit_FrontYardArea->setText(QString::number(nv.getFront_yard_area()));
+    lineEdit_NumberOfRooms->setText(QString::number(nv.getRooms()));
+
     my_v_layout = new QVBoxLayout;
 
     lineEdit_BuildArea->setEnabled(false);
@@ -34,15 +42,6 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     lineEdit_BasePrice->setEnabled(false);
     lineEdit_Address->setEnabled(false);
 
-    QHBoxLayout *tmp_H2 = new QHBoxLayout;
-    QLabel *labelFor = new QLabel("For");
-    rbtn_both= new QRadioButton(tr("Both"));
-    rbtn_rent= new QRadioButton(tr("Rent"));
-    rbtn_sale= new QRadioButton(tr("Sale"));
-    tmp_H2->addWidget(rbtn_sale);
-    tmp_H2->addWidget(rbtn_rent);
-    tmp_H2->addWidget(rbtn_both);
-
     my_v_layout->addWidget(label_BuildArea);
     my_v_layout->addWidget(lineEdit_BuildArea);
     my_v_layout->addWidget(label_BackyardArea);
@@ -51,8 +50,8 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     my_v_layout->addWidget(lineEdit_FrontYardArea);
     my_v_layout->addWidget(label_FullArea);
     my_v_layout->addWidget(lineEdit_FullArea);
-    my_v_layout->addWidget(labelFor);
-    my_v_layout->addLayout(tmp_H2);
+
+
     my_v_layout->addWidget(label_Address);
     my_v_layout->addWidget(lineEdit_Address);
     my_v_layout->addWidget(label_BasePrice);
@@ -64,6 +63,7 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     btn_Rent = new QPushButton("Rent");
     btn_Edit = new QPushButton("Edit");
     btn_Save = new QPushButton("Save");
+    btn_Exit = new QPushButton("Exit");
     btn_Buy->hide();
     btn_Rent->hide();
     btn_Edit->hide();
@@ -92,6 +92,13 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     led_RentAmount->setEnabled(false);
     led_RentDuration->setEnabled(false);
     led_RentFinalPrice->setEnabled(false);
+    if(r){
+        led_Commission->setText(QString::number(r->get_commission()));
+        led_MortgageDuration->setText(QString::number(r->mortgage_price()));
+        led_RentAmount->setText(QString::number(r->rent_price()));
+        led_RentDuration->setText(QString::number(r->get_duration()));
+        led_RentFinalPrice->setText(QString::number(r->final_price()));
+    }
 
 
     SellAndRent_layout->addWidget(lbl_RentalTerms,0,Qt::AlignTop);
@@ -162,7 +169,13 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     lbl_Condition ->hide();
     lbl_SaleFinalPrice->hide();
     led_SaleFinalPrice->hide();
-    //led_MortgageDuration->setText(QString::number(r->mortgage_price()));
+
+    if(s){
+        led_SaleCommission->setText(QString::number(s->get_commission()));
+        led_Condition->setText(s->get_condition());
+        led_SaleFinalPrice->setText(QString::number(s->final_price()));
+    }
+
     lbl_VillaPicture = new QLabel;
     //////////
     lbl_VillaPicture->setFixedSize(280,165);
@@ -181,6 +194,7 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     tmp->addWidget(btn_Edit);
     tmp->addWidget(btn_Save);
     tmp->addLayout(tmp_h);
+    tmp->addWidget(btn_Exit);
 
     my_h_layout = new QHBoxLayout;
 
@@ -199,14 +213,17 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     btn_Save->setStyleSheet("QPushButton:pressed {background-color: #00cc00;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} QPushButton{ background-color:#b3ffb3;color:#009900;padding:10px;border:1px solid #009900; font-weight:bold;font-family:Serif;margin-top:20px} ");
     btn_Buy->setStyleSheet("QPushButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QPushButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
     btn_Rent->setStyleSheet("QPushButton:pressed {background:none; background-color: #999999;color:#d9d9d9;} QPushButton{ background-color:#d9d9d9;color:#999999;padding:10px;border:1px solid #999999; font-weight:bold;font-family:Serif;border-radius : 5px;} ");
+    btn_Exit->setStyleSheet("QPushButton:pressed {background-color:#ff1a1a;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif } QPushButton{ background-color:#ffb3b3;color:#b30000;padding:10px;border:1px solid #b30000; font-weight:bold;font-family:Serif }");
 
     /////////////
+
+    connect(btn_Exit,SIGNAL(clicked()),this,SLOT(close()));
     connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()) );
     connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()));
     connect(btn_Save,SIGNAL(clicked()),this,SLOT(SaveClicked()));
     connect(btn_Buy,SIGNAL(clicked()),this,SLOT(BuyClicked()));
     connect(btn_Rent,SIGNAL(clicked()),this,SLOT(RentClicked()));
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
+    //this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::FramelessWindowHint);
     if(r){
         RentMode();
@@ -220,6 +237,37 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     if(m){
         AdminMode();
     }
+
+
+    QSize availableSize = qApp->desktop()->availableGeometry().size();
+             int width = availableSize.width();
+             int height = availableSize.height();
+             //qDebug() << "Available dimensions " << width << "x" << height;
+             width *= 0.73; // 90% of the screen size
+             height *= 0.8; // 90% of the screen size
+             //qDebug() << "Computed dimensions " << width << "x" << height;
+             //this->move(width/2 , height/2);
+             QSize newSize( width - 128, height - 95);
+
+             this->setGeometry(
+                 QStyle::alignedRect(
+                     Qt::LeftToRight,
+                     Qt::AlignCenter,
+                     newSize,
+                     qApp->desktop()->availableGeometry()
+                 )
+             );
+            QWidget *tmp1 = new QWidget;
+            tmp1->setLayout(my_h_layout);
+
+            tmp1->setFixedSize(750,450);
+            QHBoxLayout *tHbox = new QHBoxLayout;
+
+            tHbox->addWidget(tmp1);
+            this->setLayout(tHbox);
+            this->setFixedSize(width-128,height-95);
+            this->move(availableSize.width() *0.27 /2 + 138,availableSize.height() * 0.1 + 95);
+
 
 
 }
@@ -294,4 +342,15 @@ void NorthVilla_Details_UI::EditClicked()
     btn_Rent->hide();
     btn_Edit->hide();
     btn_Save->show();
+
+
+    if(r){
+    led_Commission ->setEnabled(true);
+    led_RentDuration->setEnabled(true);
+    }
+    if(s){
+    led_SaleCommission->setEnabled(true);
+    led_Condition ->setEnabled(true);
+    }
+
 }

@@ -25,7 +25,7 @@
 #include <QGridLayout>
 #include <QFont>
 #include "headers.h" //prob?
-class Apartment_Details_UI : public QWidget
+class Apartment_Details_UI : public QDialog
 {
     Q_OBJECT
 
@@ -49,6 +49,7 @@ class Apartment_Details_UI : public QWidget
 
     QPushButton *btn_Edit;
     QPushButton *btn_Save;
+    QPushButton *btn_Exit;
     apartment& aptr;
 
     QHBoxLayout *my_h_layout;
