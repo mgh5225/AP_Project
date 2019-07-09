@@ -211,15 +211,15 @@ void myThread::showLogs(QJsonObject &json)
 void myThread::addNewBuilding(QJsonObject &json)
 {
     QJsonObject ans;
-    if(json["mode"]=="apartmnet"){
-        apartment a(json["base_price"].toDouble(),json["apartment_area"].toString().toLongLong(),json["address"].toString(),"",json["floors"].toInt(),json["units"].toInt(),json["status"].toString());
+    if(json["mode"]=="apartment"){
+        apartment a(json["base_price"].toString().toDouble(),json["apartment_area"].toString().toLongLong(),json["address"].toString(),"",json["floors"].toString().toInt(),json["units"].toString().toInt(),json["status"].toString());
         apartments[a.get_id()]=a;
         QJsonObject j;
         a.write(j);
         apartmentsjson[a.get_id()]=j;
 
     }else if(json["mode"]=="flat"){
-        flat f(&apartments[json["current_apartment_ID"].toString()],json["floor_num"].toInt(),json["lift"].toBool(),json["rooms"].toInt(),json["full_area"].toString().toLongLong(),"",json["unit_number"].toInt());
+        flat f(&apartments[json["current_apartment_ID"].toString()],json["floor_num"].toString().toInt(),json["lift"].toBool(),json["rooms"].toString().toInt(),json["full_area"].toString().toLongLong(),"",json["unit_number"].toString().toInt());
         flats[json["current_apartment_ID"].toString()].push_back(f);
         QJsonObject j;
         f.write(j);
@@ -251,7 +251,7 @@ void myThread::addNewBuilding(QJsonObject &json)
             rentsjson[f.get_id()]=j3;
         }
     }else if(json["mode"]=="nvilla"){
-        north_villa n(json["base_price"].toDouble(),json["full_area"].toString().toLongLong(),json["address"].toString()," " ,json["rooms"].toInt(),json["build_area"].toString().toLongLong(),json["front_yard_area"].toString().toLongLong(),json["back_yard_area"].toString().toLongLong());
+        north_villa n(json["base_price"].toString().toDouble(),json["full_area"].toString().toLongLong(),json["address"].toString()," " ,json["rooms"].toString().toInt(),json["build_area"].toString().toLongLong(),json["front_yard_area"].toString().toLongLong(),json["back_yard_area"].toString().toLongLong());
         nvillas[n.get_id()]=n;
         QJsonObject j;
         n.write(j);
@@ -284,7 +284,7 @@ void myThread::addNewBuilding(QJsonObject &json)
         }
 
     }else if(json["mode"]=="svilla"){
-        south_villa n(json["base_price"].toDouble(),json["full_area"].toString().toLongLong(),json["address"].toString()," " ,json["rooms"].toInt(),json["build_area"].toString().toLongLong(),json["yard_area"].toString().toLongLong(),json["parking_area"].toString().toLongLong());
+        south_villa n(json["base_price"].toString().toDouble(),json["full_area"].toString().toLongLong(),json["address"].toString()," " ,json["rooms"].toString().toInt(),json["build_area"].toString().toLongLong(),json["yard_area"].toString().toLongLong(),json["parking_area"].toString().toLongLong());
         svillas[n.get_id()]=n;
         QJsonObject j;
         n.write(j);
@@ -316,6 +316,7 @@ void myThread::addNewBuilding(QJsonObject &json)
             rentsjson[n.get_id()]=j3;
         }
     }
+    ans["code"]=true;
     QByteArray arr=QJsonDocument(ans).toJson();
     socket->write(arr);
 }
