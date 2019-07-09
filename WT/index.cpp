@@ -840,7 +840,14 @@ AddNewFlat::AddNewFlat(){
 	le_flatArea->setPlaceholderText("Flat Area");
 	le_numberOfRooms = new WLineEdit;
 	le_numberOfRooms->setPlaceholderText("Number Of Rooms");
-
+	int max_unit = apartment["units"].toNumber();
+	for (int i = 0; i < max_unit; i++) {
+		le_whichUnit->addItem(to_string(i + 1));
+	}
+	int max_floor = apartment["floors"].toNumber();
+	for (int i = 0; i < max_floor; i++) {
+		le_floorNum->addItem(to_string(i + 1));
+	}
 	lbl_dragAndDropArea = new WLabel("Please Drag And Drop your Image\nOr\nClick here for explore!");
 
 	radio_rent = new WRadioButton("Rent");
@@ -899,6 +906,30 @@ AddNewFlat::AddNewFlat(){
 	this->setLayout(unique_ptr<WVBoxLayout>(my_V_layout));
 }
 void AddNewFlat::on_btn_add_click() {
+	Json::Object data;
+	data["req"] = "add_building";
+	data["mode"] = "flat";
+	data["ID"] = person["ID"].toString();
+	data["current_apartment_ID"] = apartment["ID"].toString();
+	data["floor_num"] = le_floorNum->currentText();
+	data["rooms"] = le_numberOfRooms->text();
+	if (le_haveElev->currentIndex() == 0) data["lift"] = true;
+	else if (le_haveElev->currentIndex() == 0) data["lift"] = false;
+	data["full_area"] = le_flatArea->text();
+	data["unit_number"] = le_flatArea->text();
+	if (radio_sale->isChecked()) data["status"] = "sale";
+	else if (radio_rent->isChecked()) data["status"] = "rent";
+	else if (radio_both->isChecked()) data["status"] = "both";
+	request newRequest(data);
+	Json::Object answer = newRequest.answer();
+	if (answer["code"].toBool()) {
+		app->root()->clear();
+		app->instance()->useStyleSheet("userPanel.css");
+		app->instance()->removeStyleSheet("main.css");
+		app->instance()->removeStyleSheet("index.css");
+		ManagerPanel* managerPanel = new ManagerPanel;
+		app->root()->addWidget(unique_ptr<WContainerWidget>(managerPanel));
+	}
 }
 void AddNewFlat::on_btn_cancel_click() {
 	app->root()->clear();
@@ -989,7 +1020,7 @@ void AddNewNVilla::on_btn_add_click() {
 	data["back_yard_area"] = le_backYardArea->text();
 	data["full_area"] = le_fullArea->text();
 	data["base_price"] = le_basePrice->text();
-	data["build_arae"] = le_buildArea->text();
+	data["build_area"] = le_buildArea->text();
 	data["rooms"] = le_numberOfRooms->text();
 	data["address"] = le_address->text();
 	if (radio_sale->isChecked()) data["status"] = "sale";
@@ -1095,7 +1126,7 @@ void AddNewSVilla::on_btn_add_click() {
 	data["parking_area"] = le_parkingArea->text();
 	data["full_area"] = le_fullArea->text();
 	data["base_price"] = le_basePrice->text();
-	data["build_arae"] = le_buildArea->text();
+	data["build_area"] = le_buildArea->text();
 	data["rooms"] = le_numberOfRooms->text();
 	data["address"] = le_address->text();
 	if (radio_sale->isChecked()) data["status"] = "sale";
