@@ -13,6 +13,7 @@ Requests_Ui::Requests_Ui(QWidget *parent) : QWidget(parent)
     btn_Accept = new QPushButton(tr("Accept"));
 
     widget_Request = new QWidget();
+    widget_Request->setFixedWidth(700);
     lbl_Request = new QLabel(tr("Accept or Deny the Request!"));
 
     layout_all = new QVBoxLayout;
@@ -20,6 +21,7 @@ Requests_Ui::Requests_Ui(QWidget *parent) : QWidget(parent)
     //layout_all->addWidget(widget_Request);
 
     layout_widget_H_Btn = new QHBoxLayout();
+
     layout_widget_H_Btn->addWidget(btn_Accept);
     layout_widget_H_Btn->addWidget(btn_deny);
 

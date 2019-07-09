@@ -29,6 +29,8 @@
 #include <QToolButton>
 #include "manager.h"
 #include"filemanagement_ui.h"
+#include "editpanel_ui.h"
+#include "showlog_ui.h"
 class Manager_Panel_UI : public QWidget
 {
     Q_OBJECT
@@ -41,6 +43,9 @@ class Manager_Panel_UI : public QWidget
     QToolButton *btn_Icon;
     QToolButton *btn_explore;
     QToolButton *btn_file_Management;
+    QToolButton *btn_Change_User_Status;
+    QToolButton *btn_Edit_Panel;
+    QToolButton *btn_Show_Log;
 
     QVBoxLayout *my_v_layout;
     QHBoxLayout *my_h_layout;
@@ -60,9 +65,13 @@ public slots:
         void add_building_clicked();
         void explorer_clicked();
         void on_btn_exit_clicked();
+        void change_user_status_cliced();
         //void on_btn_show_balance_clicked();
         void on_btn_logOut_clicked();
         void FileManageClicked();
+        void edit_panel_clicked();
+        void show_log_clicked();
+
 };
 
 #endif // MANAGER_PANEL_UI_H

@@ -11,6 +11,10 @@ FileManagement_UI::FileManagement_UI(QWidget *parent) : QWidget(parent)
     GridLayoutButtons->addWidget(PushButtonRentsFile,0,1);
     GridLayoutButtons->addWidget(PushButtonRequests,1,0,1,2);
 
+    PushButtonRequests->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+    PushButtonRentsFile->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+    PushButtonSalesFile->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+
     Requests = nullptr;
     sales=nullptr;
     rents=nullptr;

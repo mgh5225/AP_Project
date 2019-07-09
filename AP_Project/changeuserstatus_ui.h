@@ -1,8 +1,6 @@
-#ifndef FILEMANAGEMENT_UI_H
-#define FILEMANAGEMENT_UI_H
+#ifndef CHANGEUSERSTATUS_UI_H
+#define CHANGEUSERSTATUS_UI_H
 
-#include "requests_ui.h"
-#include "changeuserstatus_ui.h"
 #include <QWidget>
 #include <QObject>
 #include <QWidget>
@@ -26,31 +24,29 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QRadioButton>
-#include "salerent_ui.h"
+#include <QListWidget>
+#include <QDialog>
 
-class FileManagement_UI : public QWidget
+class ChangeUserStatus_UI : public QWidget
 {
     Q_OBJECT
-    QPushButton *PushButtonSalesFile;
-    QPushButton *PushButtonRentsFile;
-    QPushButton *PushButtonRequests;
 
-    QGridLayout *GridLayoutButtons;
+     QListWidget * ListWidgetUsers;
+     QWidget * WidgetUser;
+     QPushButton *PushButtonActive;
+     QPushButton *PushButtonBan;
+     QLabel *LabelMassage;
+     QGridLayout *GridLayout_all;
+
 
 public:
-
-    Requests_Ui *Requests;
-    SaleRent_ui *sales;
-    SaleRent_ui *rents;
-
-
-    explicit FileManagement_UI(QWidget *parent = nullptr);
-
+    explicit ChangeUserStatus_UI(QWidget *parent = nullptr);
 
 signals:
 
 public slots:
-    void PushButtonRequestsClicked();
+
+     void ListWidgetDoubleClicked(QListWidgetItem *);
 };
 
-#endif // FILEMANAGEMENT_UI_H
+#endif // CHANGEUSERSTATUS_UI_H

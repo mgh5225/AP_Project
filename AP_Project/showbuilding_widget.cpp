@@ -85,6 +85,7 @@ void ShowBuilding_widget::mousePressEvent(QMouseEvent *event){
     }
     if(ap){
         Apartment_Details_UI* test=new Apartment_Details_UI(*ap,nullptr);
+
         test->show();
         if(u){
             test->UserMode();

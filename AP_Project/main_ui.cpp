@@ -7,6 +7,9 @@ void Main_UI::on_btn_log_in_clicked()
 {
     this->hide();
     Login *l=new Login(this);
+    l->adjustSize();
+    l->move(QApplication::desktop()->screen()->rect().center()
+                         - l->rect().center());
     l->show();
 }
 
@@ -15,6 +18,10 @@ void Main_UI::on_btn_sign_up_clicked()
     try{
     this->hide();
     Register_UI *r=new Register_UI(this);
+    r->adjustSize();
+    r->move(QApplication::desktop()->screen()->rect().center()
+                         - r->rect().center());
+
     r->show();
     }catch(exception ex){
 

@@ -14,6 +14,9 @@
         <file>resource/icons/Exit_Icon.png</file>
         <file>resource/icons/Black_Exit_Icon.png</file>
         <file>resource/icons/File_Management.png</file>
+        <file>resource/icons/Ban.png</file>
+        <file>resource/icons/Edit.png</file>
+        <file>resource/icons/Log.png</file>
     </qresource>
     <qresource prefix="/Images">
         <file>resource/imgs/LoginBG.jpg</file>

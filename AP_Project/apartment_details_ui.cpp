@@ -145,7 +145,8 @@ Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :ap
          height *= 0.8; // 90% of the screen size
          //qDebug() << "Computed dimensions " << width << "x" << height;
 
-     scr->setFixedSize(width-128,100);
+         scr->setFixedSize(1100,880);
+         scr->setWidgetResizable(true);
 
 
 

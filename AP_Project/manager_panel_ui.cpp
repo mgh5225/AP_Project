@@ -11,6 +11,9 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
    btn_Icon = new QToolButton();
    btn_explore      = new QToolButton();
    btn_file_Management = new QToolButton();
+   btn_Change_User_Status = new QToolButton();
+   btn_Edit_Panel = new QToolButton;
+   btn_Show_Log  = new QToolButton;
 
 
    btn_Exit->setMinimumSize(70,70);
@@ -19,12 +22,19 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
    btn_addFile->setMinimumSize(90,70);
    btn_LogOut->setMinimumSize(90,70);
    btn_Icon->setMinimumSize(90,80);
+   btn_Change_User_Status->setMinimumSize(90,70);
+   btn_Edit_Panel->setMinimumSize(90,70);
+   btn_Show_Log->setMinimumSize(90,70);
 
    btn_LogOut->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_explore->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_addFile->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
    btn_Exit->setSizePolicy(QSizePolicy ::Minimum , QSizePolicy ::Expanding );
    btn_file_Management->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+   btn_Change_User_Status->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+    btn_Edit_Panel->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+    btn_Show_Log->setSizePolicy(QSizePolicy ::Expanding , QSizePolicy ::Minimum );
+
 
    QPixmap pixmap(":/icons/resource/icons/Exit_Icon.png");
    QIcon btn_log_in_Icon(pixmap);
@@ -75,6 +85,35 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
      btn_file_Management->setIconSize(QSize(30, 30));
      btn_file_Management->setText(" File Management");
 
+     QPixmap pixmap7(":/icons/resource/icons/Ban.png");
+     QIcon btn_Change_User_Status_Icon(pixmap7);
+
+     btn_Change_User_Status->setIcon(btn_Change_User_Status_Icon);
+     btn_Change_User_Status->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+     btn_Change_User_Status->setIconSize(QSize(30, 30));
+     btn_Change_User_Status->setText(" Change User Status");
+
+     QPixmap pixmap8(":/icons/resource/icons/Edit.png");
+     QIcon btn_Edit_Panel_Icon(pixmap8);
+
+     btn_Edit_Panel->setIcon(btn_Edit_Panel_Icon);
+     btn_Edit_Panel->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+     btn_Edit_Panel->setIconSize(QSize(30, 30));
+     btn_Edit_Panel->setText(" Edit Panel");
+
+     QPixmap pixmap9(":/icons/resource/icons/Log.png");
+     QIcon btn_Show_Log_Icon(pixmap9);
+
+     btn_Show_Log->setIcon(btn_Show_Log_Icon);
+     btn_Show_Log->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+     btn_Show_Log->setIconSize(QSize(30, 30));
+     btn_Show_Log->setText("Show Log");
+
+
+
+
+
+
 
    //h layout
    my_h_layout = new QHBoxLayout();
@@ -94,6 +133,10 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
    my_v_layout->addWidget(btn_addFile);
    my_v_layout->addWidget(btn_explore);
       my_v_layout->addWidget(btn_file_Management);
+      my_v_layout->addWidget(btn_Edit_Panel);
+      my_v_layout->addWidget(btn_Show_Log);
+      my_v_layout->addWidget(btn_Change_User_Status);
+
    my_v_layout->addWidget(btn_LogOut);
 
    my_v_layout->setSpacing(0);
@@ -125,6 +168,10 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
    H_frame->setFixedSize(width,85);
 
 
+
+   btn_Show_Log->setStyleSheet("QToolButton:hover{ background-color: #d35400; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
+   btn_Edit_Panel->setStyleSheet("QToolButton:hover{ background-color: #d35400; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
+   btn_Change_User_Status->setStyleSheet("QToolButton:hover{ background-color: #d35400; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
    btn_LogOut->setStyleSheet("QToolButton:hover{ background-color: #d35400; color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
    btn_addFile->setStyleSheet("QToolButton:hover{ background-color: #d35400;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
    btn_explore->setStyleSheet("QToolButton:hover{ background-color: #d35400;color: black;}QToolButton{border:0px;color:white;padding:10px;text-align:center}");
@@ -162,9 +209,13 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
     connect(btn_addFile,SIGNAL(clicked()),this,SLOT(add_building_clicked()));
     connect(btn_Exit,SIGNAL(clicked()),this,SLOT(on_btn_exit_clicked()));
     connect(btn_explore,SIGNAL(clicked()),this,SLOT(explorer_clicked()));
+    connect(btn_Change_User_Status,SIGNAL(clicked()),this,SLOT(change_user_status_cliced()));
+    connect(btn_Edit_Panel,SIGNAL(clicked()),this,SLOT(edit_panel_clicked()));
    // connect(btn_showBalance,SIGNAL(clicked()),this,SLOT(on_btn_show_balance_clicked()));
     connect(btn_LogOut,SIGNAL(clicked()),this,SLOT(on_btn_logOut_clicked()));
     connect(btn_file_Management,SIGNAL(clicked()),this,SLOT(FileManageClicked()));
+
+    connect(btn_Show_Log,SIGNAL(clicked()),this,SLOT(show_log_clicked()));
     Building=nullptr;
     Explorer=nullptr;
     files=nullptr;
@@ -208,7 +259,13 @@ void Manager_Panel_UI::add_building_clicked()
         files=nullptr;
     }
     Building=new AddBuilding(mgr);
+
+    //////vasat mian:)////////
+    QLabel *l = new QLabel("");
+    l->setFixedWidth(700);
+    l->setAttribute(Qt::WA_TranslucentBackground, true);
     my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
+    my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
 }
 void Manager_Panel_UI::explorer_clicked()
 {
@@ -247,7 +304,11 @@ void Manager_Panel_UI::explorer_clicked()
         files=nullptr;
     }
     Explorer=new explorer(&mgr,this);
+    QLabel *l = new QLabel("");
+    l->setFixedWidth(700);
+    l->setAttribute(Qt::WA_TranslucentBackground, true);
     my_grid_layout->addWidget(Explorer,3,4,1,1,Qt::AlignCenter);
+    my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
 }
 
 /*
@@ -285,6 +346,8 @@ void Manager_Panel_UI::on_btn_exit_clicked(){
     unloading();
     close();
 }
+
+
 void Manager_Panel_UI::FileManageClicked()
 {
     if(Building!=nullptr){
@@ -323,6 +386,37 @@ void Manager_Panel_UI::FileManageClicked()
     }
 
     files= new FileManagement_UI();
-    my_grid_layout->addWidget(files,3,4,1,1,Qt::AlignCenter);
 
+
+    QLabel *l = new QLabel("");
+    l->setFixedWidth(700);
+    l->setAttribute(Qt::WA_TranslucentBackground, true);
+    my_grid_layout->addWidget(files,3,4,1,1,Qt::AlignCenter);
+    my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
+
+}
+/////////////////////////////newwwwwwwww//////////////////////////
+
+///////////Yout need to fix this!
+void Manager_Panel_UI::change_user_status_cliced()
+{
+    ChangeUserStatus_UI *t = new ChangeUserStatus_UI;
+    my_grid_layout->addWidget(t,3,4,1,1,Qt::AlignCenter);
+
+}
+
+void Manager_Panel_UI::edit_panel_clicked()
+{
+    EditPanel_UI *t = new EditPanel_UI();
+    QLabel *l = new QLabel("");
+    l->setFixedWidth(700);
+    l->setAttribute(Qt::WA_TranslucentBackground, true);
+    my_grid_layout->addWidget(t,3,4,1,1,Qt::AlignCenter);
+    my_grid_layout->addWidget(l,3,4,1,1,Qt::AlignCenter);
+}
+
+void Manager_Panel_UI::show_log_clicked()
+{
+    ShowLog_UI *t = new ShowLog_UI();
+    my_grid_layout->addWidget(t,3,4,1,1,Qt::AlignCenter);
 }

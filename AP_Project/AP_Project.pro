@@ -36,6 +36,8 @@ SOURCES += \
         apartment.cpp \
         apartment_details_ui.cpp \
         building.cpp \
+        changeuserstatus_ui.cpp \
+        editpanel_ui.cpp \
         explorer.cpp \
         file.cpp \
         filemanagement_ui.cpp \
@@ -57,6 +59,7 @@ SOURCES += \
         showallbuildings.cpp \
         showapartments.cpp \
         showbuilding_widget.cpp \
+        showlog_ui.cpp \
         shownorthvillas.cpp \
         showsouthvillas.cpp \
         south_villa.cpp \
@@ -76,6 +79,8 @@ HEADERS += \
         apartment.h \
         apartment_details_ui.h \
         building.h \
+        changeuserstatus_ui.h \
+        editpanel_ui.h \
         explorer.h \
         file.h \
         filemanagement_ui.h \
@@ -97,6 +102,7 @@ HEADERS += \
         showallbuildings.h \
         showapartments.h \
         showbuilding_widget.h \
+        showlog_ui.h \
         shownorthvillas.h \
         showsouthvillas.h \
         south_villa.h \
