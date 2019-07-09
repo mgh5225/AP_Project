@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        Flat_details_ui.cpp \
         addbuilding.cpp \
         addnewapartment_ui.cpp \
         addnewflat_ui.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
         building.cpp \
         explorer.cpp \
         file.cpp \
+        filemanagement_ui.cpp \
         have_file.cpp \
         headers.cpp \
         login.cpp \
@@ -45,16 +47,20 @@ SOURCES += \
         manager.cpp \
         manager_panel_ui.cpp \
         north_villa.cpp \
+        northvilla_details_ui.cpp \
         person.cpp \
         register_ui.cpp \
         rent_file.cpp \
+        requests_ui.cpp \
         sale_file.cpp \
+        salerent_ui.cpp \
         showallbuildings.cpp \
         showapartments.cpp \
         showbuilding_widget.cpp \
         shownorthvillas.cpp \
         showsouthvillas.cpp \
         south_villa.cpp \
+        southvilla_details_ui.cpp \
         user.cpp \
         user_panel_ui.cpp \
         villa.cpp
@@ -72,6 +78,8 @@ HEADERS += \
         building.h \
         explorer.h \
         file.h \
+        filemanagement_ui.h \
+        flat_details_ui.h \
         have_file.h \
         headers.h \
         login.h \
@@ -79,16 +87,20 @@ HEADERS += \
         manager.h \
         manager_panel_ui.h \
         north_villa.h \
+        northvilla_details_ui.h \
         person.h \
         register_ui.h \
         rent_file.h \
+        requests_ui.h \
         sale_file.h \
+        salerent_ui.h \
         showallbuildings.h \
         showapartments.h \
         showbuilding_widget.h \
         shownorthvillas.h \
         showsouthvillas.h \
         south_villa.h \
+        southvilla_details_ui.h \
         user.h \
         user_panel_ui.h \
         villa.h

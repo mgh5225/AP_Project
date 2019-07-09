@@ -28,7 +28,7 @@
 #include <QSizePolicy>
 #include <QToolButton>
 #include "manager.h"
-
+#include"filemanagement_ui.h"
 class Manager_Panel_UI : public QWidget
 {
     Q_OBJECT
@@ -50,6 +50,7 @@ class Manager_Panel_UI : public QWidget
     explorer* Explorer;
     manager& mgr;
     QWidget* parent;
+    FileManagement_UI * files;
 public:
     explicit Manager_Panel_UI(manager& mgr,QWidget *parent = nullptr);
 
@@ -61,6 +62,7 @@ public slots:
         void on_btn_exit_clicked();
         //void on_btn_show_balance_clicked();
         void on_btn_logOut_clicked();
+        void FileManageClicked();
 };
 
 #endif // MANAGER_PANEL_UI_H

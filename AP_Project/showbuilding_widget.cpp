@@ -1,5 +1,9 @@
 #include "showbuilding_widget.h"
 #include "main_ui.h"
+#include "apartment_details_ui.h"
+#include "flat_details_ui.h"
+#include "northvilla_details_ui.h"
+#include "southvilla_details_ui.h"
 ShowBuilding_widget::ShowBuilding_widget(QWidget *parent,have_file* _file) : QWidget(parent)
 {
    if(!_file) throw "FUCK YOU";
@@ -45,4 +49,44 @@ ShowBuilding_widget::ShowBuilding_widget(QWidget *parent,have_file* _file) : QWi
    this->setLayout(lay);
    this->setMaximumSize(260,260);
    installEventFilter(this);
+}
+bool ShowBuilding_widget::eventFilter(QObject *object, QEvent *event){
+    if(object==this && (event->type()==QEvent::Enter || event->type()==QEvent::Leave)){
+        if(event->type()==QEvent::Enter){
+            pal->setColor(QPalette::Background,QColor(130, 130, 130));
+            frame->setPalette(*pal);
+        }
+        else {
+            pal->setColor(QPalette::Background,QColor(255, 255, 255));
+            frame->setPalette(*pal);
+        }
+    }
+}
+void ShowBuilding_widget::mousePressEvent(QMouseEvent *event){
+    north_villa* nv=dynamic_cast<north_villa*>(file);
+    south_villa* sv=dynamic_cast<south_villa*>(file);
+    apartment* ap=dynamic_cast<apartment*>(file);
+    flat* fl=dynamic_cast<flat*>(file);
+    if(ap){
+        Apartment_Details_UI* test=new Apartment_Details_UI(*ap,nullptr);
+        test->show();
+    }
+    else if(fl){
+        Flat_Details_UI* test=new Flat_Details_UI(*fl,nullptr);
+        test->show();
+        test->UserMode();
+        test->RentMode();
+        test->SaleMode();
+    }
+    else if(nv){
+       NorthVilla_Details_UI* test=new NorthVilla_Details_UI;
+       test->show();
+
+       test->SaleMode();
+
+
+    }
+    else if(sv){
+
+    }
 }

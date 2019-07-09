@@ -1,6 +1,6 @@
 #include "apartment_details_ui.h"
 
-Apartment_Details_UI::Apartment_Details_UI(QWidget *parent) : QWidget(parent)
+Apartment_Details_UI::Apartment_Details_UI(apartment &aptr ,QWidget *parent) :aptr(aptr), QWidget(parent)
 {
 
 
@@ -14,7 +14,7 @@ Apartment_Details_UI::Apartment_Details_UI(QWidget *parent) : QWidget(parent)
     lbl_FullPrice = new QLabel(tr("Full Price"));
     lbl_NumberOfUnits = new QLabel(tr("Number Of Units"));
 
-    lbl_Picture->setPixmap(QPixmap(":/Images/resource/imgs/temp.jpeg").scaled(270,185));
+
     lbl_Picture->setFixedSize(280,165);
 
 
@@ -25,29 +25,35 @@ Apartment_Details_UI::Apartment_Details_UI(QWidget *parent) : QWidget(parent)
     led_Address = new QLineEdit();
     led_BasePrice = new QLineEdit();
     led_FullArea = new QLineEdit();
-    led_Elevator = new QLineEdit();
+
     led_NumberOfFloors = new QLineEdit();
     led_FullPrice = new QLineEdit();
     led_NumberOfUnits = new QLineEdit();
 
     led_Address->setEnabled(false);
-    led_Elevator->setEnabled(false);
+
     led_FullArea->setEnabled(false);
     led_BasePrice->setEnabled(false);
     led_NumberOfFloors->setEnabled(false);
     led_FullPrice->setEnabled(false);
     led_NumberOfUnits->setEnabled(false);
 
-    led_Address->setText("Gorgan iran golshahr");
-    led_Elevator->setText("Yes");
-    led_FullArea->setText("70");
-    led_BasePrice->setText("700000");
-    led_NumberOfFloors->setText("4");
-    led_FullPrice->setText("90000000");
-    led_NumberOfUnits->setText("12");
+
+    led_Address->setText(aptr.get_address());
+    led_FullArea->setText(QString::number(aptr.get_total_area()));
+    led_BasePrice->setText(QString::number(aptr.get_base_price()));
+    led_NumberOfFloors->setText(QString::number(aptr.get_floors()));
+    led_FullPrice->setText(QString::number(aptr.total_price()));
+    led_NumberOfUnits->setText(QString::number(aptr.get_units()));
+    lbl_Picture->setPixmap(QPixmap(aptr.get_picture()).scaled(256,150));
+
+
+    btn_Edit = new QPushButton("Edit");
+    btn_Edit->hide();
 
 
     my_v_layout = new QVBoxLayout;
+    QVBoxLayout *my_v_temp = new QVBoxLayout;
     my_h_layout = new QHBoxLayout;
 
 
@@ -63,8 +69,7 @@ Apartment_Details_UI::Apartment_Details_UI(QWidget *parent) : QWidget(parent)
     my_v_layout->addWidget(led_FullArea);
     my_v_layout->addWidget(lbl_NumberOfFloors);
     my_v_layout->addWidget(led_NumberOfFloors);
-    my_v_layout->addWidget(lbl_Elevator);
-    my_v_layout->addWidget(led_Elevator);
+
 
 
 
@@ -72,13 +77,14 @@ Apartment_Details_UI::Apartment_Details_UI(QWidget *parent) : QWidget(parent)
 
 
     led_Address->setStyleSheet("border: 0px");
-
-    my_h_layout->addWidget(lbl_Picture);
+    my_v_temp->addWidget(lbl_Picture);
+    my_v_temp->addWidget(btn_Edit);
+    my_h_layout->addLayout(my_v_temp);
     my_h_layout->addLayout(my_v_layout);
     my_h_layout->setSpacing(30);
 
     lbl_Address->setStyleSheet("font: bold; font-size: 12px");
-    lbl_Elevator->setStyleSheet("font: bold;font-size: 12px");
+
     lbl_FullArea->setStyleSheet("font: bold;font-size: 12px");
     lbl_BasePrice->setStyleSheet("font: bold;font-size: 12px");
     lbl_NumberOfFloors->setStyleSheet("font: bold;font-size: 12px");
@@ -89,11 +95,12 @@ Apartment_Details_UI::Apartment_Details_UI(QWidget *parent) : QWidget(parent)
     led_Address->setStyleSheet("border: white 1px;font-size: 14px");
     led_BasePrice->setStyleSheet("border: white 1px;font-size: 14px");
     led_FullArea ->setStyleSheet("border: white 1px;font-size: 14px");
-    led_Elevator ->setStyleSheet("border: white 1px;font-size: 14px");
+
     led_FullPrice->setStyleSheet("border: white 1px;font-size: 14px");
     led_NumberOfUnits->setStyleSheet("border: white 1px;font-size: 14px");
     led_NumberOfFloors->setStyleSheet(" border: white 1px;font-size: 14px");
 
+    btn_Edit->setStyleSheet("QPushButton:pressed {background-color: #0D47A1;color:#3498db;padding:10px;border:1px solid #2980b9; font-weight:bold;font-family:Serif;margin-top:20px} QPushButton{ background-color:#3498db;color:#0D47A1;padding:10px;border:1px solid #2980b9; font-weight:bold;font-family:Serif;margin-top:20px} ");
 
     QFrame *myFrame = new QFrame;
     myFrame->setLayout(my_h_layout);
@@ -104,5 +111,15 @@ Apartment_Details_UI::Apartment_Details_UI(QWidget *parent) : QWidget(parent)
 
    this->setAttribute(Qt::WA_TranslucentBackground, true);
         this->setLayout(temp);
-   this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::FramelessWindowHint);
+}
+
+void Apartment_Details_UI::AdminMode()
+{
+    btn_Edit->show();
+}
+
+void Apartment_Details_UI::UserMode()
+{
+    btn_Edit->hide();
 }

@@ -43,17 +43,8 @@ class ShowBuilding_widget : public QWidget
     QPalette *pal;
     QGridLayout *lay;
 protected:
-bool eventFilter(QObject *object, QEvent *event){
-if(object==this && (event->type()==QEvent::Enter || event->type()==QEvent::Leave))
-    if(event->type()==QEvent::Enter){
-        pal->setColor(QPalette::Background,QColor(130, 130, 130));
-        frame->setPalette(*pal);
-    }
-    else {
-        pal->setColor(QPalette::Background,QColor(255, 255, 255));
-        frame->setPalette(*pal);
-    }
-}
+bool eventFilter(QObject *object, QEvent *event);
+void mousePressEvent(QMouseEvent *event);
 public:
     explicit ShowBuilding_widget(QWidget *parent = nullptr,have_file* _file=nullptr);
     //QPropertyAnimation *animation;

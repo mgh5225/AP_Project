@@ -24,7 +24,7 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QFont>
-
+#include "headers.h" //prob?
 class Apartment_Details_UI : public QWidget
 {
     Q_OBJECT
@@ -46,14 +46,22 @@ class Apartment_Details_UI : public QWidget
     QLineEdit *led_FullPrice;
     QLineEdit *led_NumberOfUnits;
 
+
+    QPushButton *btn_Edit;
+
+    apartment& aptr;
+
     QHBoxLayout *my_h_layout;
 
     QVBoxLayout *my_v_layout;
 
 
 
+
 public:
-    explicit Apartment_Details_UI(QWidget *parent = nullptr);
+    explicit Apartment_Details_UI(apartment &aptr ,QWidget *parent = nullptr);
+    void AdminMode();
+    void UserMode();
 
 signals:
 

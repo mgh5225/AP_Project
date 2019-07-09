@@ -13,6 +13,7 @@
         <file>resource/icons/house.png</file>
         <file>resource/icons/Exit_Icon.png</file>
         <file>resource/icons/Black_Exit_Icon.png</file>
+        <file>resource/icons/File_Management.png</file>
     </qresource>
     <qresource prefix="/Images">
         <file>resource/imgs/LoginBG.jpg</file>

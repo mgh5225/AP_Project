@@ -164,8 +164,10 @@ Manager_Panel_UI::Manager_Panel_UI(manager& mgr,QWidget *parent) :mgr(mgr), QWid
     connect(btn_explore,SIGNAL(clicked()),this,SLOT(explorer_clicked()));
    // connect(btn_showBalance,SIGNAL(clicked()),this,SLOT(on_btn_show_balance_clicked()));
     connect(btn_LogOut,SIGNAL(clicked()),this,SLOT(on_btn_logOut_clicked()));
+    connect(btn_file_Management,SIGNAL(clicked()),this,SLOT(FileManageClicked()));
     Building=nullptr;
     Explorer=nullptr;
+    files=nullptr;
 }
 
 
@@ -197,6 +199,13 @@ void Manager_Panel_UI::add_building_clicked()
         }
         Explorer->close();
         Explorer=nullptr;
+    }
+    if(files!=nullptr){
+        if(files->Requests) files->Requests->close();
+        if(files->rents) files->rents->close();
+        if(files->sales) files->sales->close();
+        files->close();
+        files=nullptr;
     }
     Building=new AddBuilding(mgr);
     my_grid_layout->addWidget(Building,3,4,1,1,Qt::AlignCenter);
@@ -230,6 +239,13 @@ void Manager_Panel_UI::explorer_clicked()
         }
         Explorer->close();
     }
+    if(files!=nullptr){
+        if(files->Requests) files->Requests->close();
+        if(files->rents) files->rents->close();
+        if(files->sales) files->sales->close();
+        files->close();
+        files=nullptr;
+    }
     Explorer=new explorer(this);
     my_grid_layout->addWidget(Explorer,3,4,1,1,Qt::AlignCenter);
 }
@@ -240,7 +256,6 @@ void Manager_Panel_UI::on_btn_show_balance_clicked()
     QMessageBox msg;
     msg.setText(QString::number(mgr.get_balance()));
     msg.exec();
-
 }
 */
 void Manager_Panel_UI::on_btn_logOut_clicked()
@@ -270,4 +285,44 @@ void Manager_Panel_UI::on_btn_exit_clicked(){
     unloading();
     close();
 }
+void Manager_Panel_UI::FileManageClicked()
+{
+    if(Building!=nullptr){
+        if(Building->apartment) Building->apartment->close();
+        if(Building->flat) Building->flat->close();
+        if(Building->northVilla) Building->northVilla->close();
+        if(Building->soutVilla) Building->soutVilla->close();
+        Building->close();
+        Building=nullptr;
+    }
+    if(Explorer!=nullptr){
+        if(Explorer->aptrs){
+            if(Explorer->aptrs->body)Explorer->aptrs->body->close();
+            Explorer->aptrs->body=nullptr;
+        }
+        if(Explorer->svillas){
+            if(Explorer->svillas->scr)Explorer->svillas->scr->close();
+            Explorer->svillas->scr=nullptr;
+        }
+        if(Explorer->nvillas){
+            if(Explorer->nvillas->scr)Explorer->nvillas->scr->close();
+             Explorer->nvillas->scr=nullptr;
+        }
+        if(Explorer->allb){
+            if(Explorer->allb->body)Explorer->allb->body->close();
+            Explorer->allb->body=nullptr;
+        }
+        Explorer->close();
+        Explorer=nullptr;
+    }
+    if(files!=nullptr){
+        if(files->Requests) files->Requests->close();
+        if(files->rents) files->rents->close();
+        if(files->sales) files->sales->close();
+        files->close();
+    }
 
+    files= new FileManagement_UI();
+    my_grid_layout->addWidget(files,3,4,1,1,Qt::AlignCenter);
+
+}
