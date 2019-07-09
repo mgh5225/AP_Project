@@ -385,7 +385,7 @@ void Manager_Panel_UI::FileManageClicked()
         files->close();
     }
 
-    files= new FileManagement_UI();
+    files= new FileManagement_UI(mgr,nullptr);
 
 
     QLabel *l = new QLabel("");

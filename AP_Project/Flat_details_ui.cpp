@@ -355,7 +355,10 @@ void Flat_Details_UI::BuyClicked()
 {
     QMessageBox msg;
     if(p->get_balance()>s->final_price()){
-        s->set_user_ID(p->get_id());
+        s->set_user_ID(p->get_user());
+        QJsonObject temp;
+        s->write(temp);
+        salesjson[flt.get_id()]=temp;
         msg.setText("Your request for buying this flat has submitted!");
         msg.exec();
         close();
@@ -363,13 +366,17 @@ void Flat_Details_UI::BuyClicked()
     else{
         msg.setText("Your account balance is not enough!");
          msg.exec();
+         close();
     }
 
 }
 void Flat_Details_UI::RentClicked(){
     QMessageBox msg;
     if(p->get_balance()>r->final_price()){
-        r->set_user_ID(p->get_id());
+        r->set_user_ID(p->get_user());
+        QJsonObject temp;
+        r->write(temp);
+        salesjson[flt.get_id()]=temp;
         msg.setText("Your request for renting this flat has submitted!");
         msg.exec();
         close();
@@ -377,5 +384,6 @@ void Flat_Details_UI::RentClicked(){
     else{
         msg.setText("Your account balance is not enough!");
         msg.exec();
+        close();
 }
 }

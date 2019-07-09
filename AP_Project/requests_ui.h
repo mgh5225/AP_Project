@@ -26,7 +26,7 @@
 #include <QRadioButton>
 #include <QListWidget>
 #include <QDialog>
-
+#include "manager.h"
 class Requests_Ui : public QWidget
 {
     Q_OBJECT
@@ -37,17 +37,19 @@ class Requests_Ui : public QWidget
     QPushButton *btn_deny;
     QWidget *widget_Request;
     QLabel *lbl_Request;
-
+    QString *which;
     QVBoxLayout *layout_all;
     QVBoxLayout *layout_widget_V;
     QHBoxLayout *layout_widget_H_Btn;
 public:
-    explicit Requests_Ui(QWidget *parent = nullptr);
+    manager& mgr;
+    explicit Requests_Ui(manager&,QWidget *parent = nullptr);
 
 signals:
-
 public slots:
     void ListWidgetDoubleClicked(QListWidgetItem *item);
+    void AccClicked();
+    void DenClicked();
 };
 
 #endif // REQUESTS_UI_H

@@ -162,7 +162,7 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(person* _p,sale_file* _s,rent_file*
     lbl_Condition ->hide();
     lbl_SaleFinalPrice->hide();
     led_SaleFinalPrice->hide();
-    led_MortgageDuration->setText(QString::number(r->mortgage_price()));
+    //led_MortgageDuration->setText(QString::number(r->mortgage_price()));
     lbl_VillaPicture = new QLabel;
     //////////
     lbl_VillaPicture->setFixedSize(280,165);
@@ -294,5 +294,4 @@ void NorthVilla_Details_UI::EditClicked()
     btn_Rent->hide();
     btn_Edit->hide();
     btn_Save->show();
-
 }

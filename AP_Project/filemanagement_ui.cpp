@@ -1,6 +1,6 @@
 #include "filemanagement_ui.h"
 
-FileManagement_UI::FileManagement_UI(QWidget *parent) : QWidget(parent)
+FileManagement_UI::FileManagement_UI(manager& mgr,QWidget *parent) : mgr(mgr),QWidget(parent)
 {
     PushButtonRequests = new QPushButton(tr("Requests"));
     PushButtonRentsFile = new QPushButton(tr("Rent Files"));
@@ -26,7 +26,7 @@ FileManagement_UI::FileManagement_UI(QWidget *parent) : QWidget(parent)
 
 void FileManagement_UI::PushButtonRequestsClicked()
 {
-    Requests = new Requests_Ui(this);
+    Requests = new Requests_Ui(mgr,this);
     PushButtonRequests->hide();
     PushButtonRentsFile->hide();
     PushButtonSalesFile->hide();

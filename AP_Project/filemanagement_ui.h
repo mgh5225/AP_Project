@@ -27,7 +27,7 @@
 #include <QGridLayout>
 #include <QRadioButton>
 #include "salerent_ui.h"
-
+#include "manager.h"
 class FileManagement_UI : public QWidget
 {
     Q_OBJECT
@@ -42,9 +42,9 @@ public:
     Requests_Ui *Requests;
     SaleRent_ui *sales;
     SaleRent_ui *rents;
+    manager& mgr;
 
-
-    explicit FileManagement_UI(QWidget *parent = nullptr);
+    explicit FileManagement_UI(manager&,QWidget *parent = nullptr);
 
 
 signals:

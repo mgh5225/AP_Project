@@ -37,6 +37,11 @@ void file::set_building(have_file * _b)
     building=_b;
 }
 
+have_file *file::get_building()
+{
+    return building;
+}
+
 double file::get_commission()
 {
     return commission;
