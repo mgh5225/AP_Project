@@ -2,24 +2,25 @@
 #include "headers.h"
 #include <map>
 #include <utility>
-ShowAllBuildings::ShowAllBuildings(QWidget *parent) : QWidget(nullptr)
+ShowAllBuildings::ShowAllBuildings(person* _p,QWidget *parent) : QWidget(nullptr)
 {
+    p=_p;
     this->parent=parent;
     all=new QGridLayout;
     scr=new QScrollArea;
     for(auto i=apartments.begin();i!=apartments.end();i++){
-        allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for(auto i=flats.begin();i!=flats.end();i++){
         for(int j=0;j<i->second.size();j++){
-             allbu.push_back(new ShowBuilding_widget(nullptr,&i->second[j]));
+             allbu.push_back(new ShowBuilding_widget(p,parent,&i->second[j]));
         }
     }
     for(auto i=svillas.begin();i!=svillas.end();i++){
-        allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for(auto i=nvillas.begin();i!=nvillas.end();i++){
-        allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     int k=0;
     bool flag=false;
@@ -153,18 +154,18 @@ void ShowAllBuildings::on_btn_search_by_price_meter_clicked()
     if(!in2.exec())return;
     if(!allbu.empty()) allbu.clear();
     for(auto i=apartments.begin();i!=apartments.end();i++){
-        if(i->second.get_base_price()<in.doubleValue()&&i->second.get_total_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        if(i->second.get_base_price()<in.doubleValue()&&i->second.get_total_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for(auto i=flats.begin();i!=flats.end();i++){
         for(int j=0;j<i->second.size();j++){
-             if(i->second[j].total_price()<in.doubleValue()&&i->second[j].get_building_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(nullptr,&i->second[j]));
+             if(i->second[j].total_price()<in.doubleValue()&&i->second[j].get_building_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(p,parent,&i->second[j]));
         }
     }
     for(auto i=svillas.begin();i!=svillas.end();i++){
-        if(i->second.get_base_price()<in.doubleValue()&&i->second.get_total_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        if(i->second.get_base_price()<in.doubleValue()&&i->second.get_total_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for(auto i=nvillas.begin();i!=nvillas.end();i++){
-        if(i->second.get_base_price()<in.doubleValue()&&i->second.get_total_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        if(i->second.get_base_price()<in.doubleValue()&&i->second.get_total_area()>in2.doubleValue())allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for (int i = 0; i < all->count(); ++i)
     {
@@ -200,13 +201,13 @@ void ShowAllBuildings::on_btn_search_by_perimeter_clicked()
     if(!in.exec())return;
     if(!allbu.empty()) allbu.clear();
     for(auto i=apartments.begin();i!=apartments.end();i++){
-        if(i->second.get_address().contains(in.textValue()))allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        if(i->second.get_address().contains(in.textValue()))allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for(auto i=svillas.begin();i!=svillas.end();i++){
-       if(i->second.get_address().contains(in.textValue()))allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+       if(i->second.get_address().contains(in.textValue()))allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for(auto i=nvillas.begin();i!=nvillas.end();i++){
-        if(i->second.get_address().contains(in.textValue()))allbu.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        if(i->second.get_address().contains(in.textValue()))allbu.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     for (int i = 0; i < all->count(); ++i)
     {
@@ -251,7 +252,7 @@ void ShowAllBuildings::on_btn_sort_by_price_clicked()
        temp.insert({i->second.get_base_price(),&i->second});
     }
     for(auto i=temp.begin();i!=temp.end();i++){
-        allbu.push_back(new ShowBuilding_widget(nullptr,i->second));
+        allbu.push_back(new ShowBuilding_widget(p,parent,i->second));
     }
     for (int i = 0; i < all->count(); ++i)
     {

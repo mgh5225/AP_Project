@@ -246,7 +246,7 @@ void Manager_Panel_UI::explorer_clicked()
         files->close();
         files=nullptr;
     }
-    Explorer=new explorer(this);
+    Explorer=new explorer(&mgr,this);
     my_grid_layout->addWidget(Explorer,3,4,1,1,Qt::AlignCenter);
 }
 

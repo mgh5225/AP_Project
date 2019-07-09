@@ -1,12 +1,13 @@
 #include "showsouthvillas.h"
 #include "headers.h"
-ShowSouthVillas::ShowSouthVillas(QWidget *parent) : QWidget(parent)
+ShowSouthVillas::ShowSouthVillas(person* _p,QWidget *parent) : QWidget(nullptr)
 {
+    p=_p;
     this->parent=parent;
     all=new QGridLayout;
     scr=new QScrollArea(parent);
     for(auto i=svillas.begin();i!=svillas.end();i++){
-        aptrs.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        aptrs.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     int k=0;
     bool flag=false;

@@ -46,6 +46,11 @@ double person::get_balance()
 }
 size_t person::get_pass(){return password;}
 
+person::~person()
+{
+
+}
+
 log::log(QString _ID, tm t, bool b)
 {
     string temp=to_string(t.tm_year)+to_string(t.tm_mon)+to_string(t.tm_mday)+to_string(t.tm_hour)+to_string(t.tm_min)+to_string(t.tm_sec);

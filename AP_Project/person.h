@@ -55,6 +55,7 @@ public:
     QString get_user();
     double get_balance();
     size_t get_pass();
+    virtual ~person();
 };
 
 #endif

@@ -21,11 +21,12 @@ class explorer : public QWidget
     QGridLayout *my_grid_Layout;
 
 public:
-    explicit explorer(QWidget *parent = nullptr);
+    explicit explorer(person*,QWidget *parent = nullptr);
     ShowApartments* aptrs;
     ShowSouthVillas* svillas;
     ShowNorthVillas* nvillas;
     ShowAllBuildings* allb;
+    person*  p;
 
 signals:
 

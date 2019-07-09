@@ -24,7 +24,8 @@ class ShowApartments : public QWidget
     QWidget* temp;
 
 public:
-    explicit ShowApartments(QWidget *parent = nullptr);
+    person*  p;
+    explicit ShowApartments(person*,QWidget *parent = nullptr);
     QWidget* body;
 
 signals:

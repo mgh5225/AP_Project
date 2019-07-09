@@ -4,8 +4,11 @@
 #include "flat_details_ui.h"
 #include "northvilla_details_ui.h"
 #include "southvilla_details_ui.h"
-ShowBuilding_widget::ShowBuilding_widget(QWidget *parent,have_file* _file) : QWidget(parent)
+ShowBuilding_widget::ShowBuilding_widget(person* _p,QWidget *parent,have_file* _file) : QWidget(nullptr)
 {
+    p=_p;
+    this->parent=parent;
+
    if(!_file) throw "FUCK YOU";
    file=_file;
    final_price=new QLabel(QString::fromStdString("Final Price: "+to_string(file->total_price())));

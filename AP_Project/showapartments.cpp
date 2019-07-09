@@ -1,12 +1,13 @@
 #include "showapartments.h"
 #include "headers.h"
-ShowApartments::ShowApartments(QWidget *parent) : QWidget(nullptr)
+ShowApartments::ShowApartments(person* _p,QWidget *parent) : QWidget(nullptr)
 {
+    p=_p;
     this->parent=parent;
     all=new QGridLayout;
     scr=new QScrollArea;
     for(auto i=apartments.begin();i!=apartments.end();i++){
-        aptrs.push_back(new ShowBuilding_widget(nullptr,&i->second));
+        aptrs.push_back(new ShowBuilding_widget(p,parent,&i->second));
     }
     int k=0;
     bool flag=false;
@@ -135,7 +136,7 @@ void ShowApartments::on_btn_search_by_flat_clicked()
     if(!aptrs.empty()) aptrs.clear();
     for(auto i=flats.begin();i!=flats.end();i++){
         if(i->second.size()>in.intValue()){
-            aptrs.push_back(new ShowBuilding_widget(nullptr,&apartments[i->first]));
+            aptrs.push_back(new ShowBuilding_widget(p,parent,&apartments[i->first]));
         }
     }
     for (int i = 0; i < all->count(); ++i)
@@ -174,7 +175,7 @@ void ShowApartments::on_btn_search_by_meter_clicked()
     for(auto i=flats.begin();i!=flats.end();i++){
         for(auto j=i->second.begin();j!=i->second.end();j++){
             if(j->get_building_area()>in.doubleValue()){
-                aptrs.push_back(new ShowBuilding_widget(nullptr,&apartments[i->first]));
+                aptrs.push_back(new ShowBuilding_widget(p,parent,&apartments[i->first]));
                 break;
             }
         }
@@ -215,7 +216,7 @@ void ShowApartments::on_btn_search_by_rooms_clicked()
     for(auto i=flats.begin();i!=flats.end();i++){
         for(auto j=i->second.begin();j!=i->second.end();j++){
             if(j->get_rooms()>in.intValue()){
-                aptrs.push_back(new ShowBuilding_widget(nullptr,&apartments[i->first]));
+                aptrs.push_back(new ShowBuilding_widget(p,parent,&apartments[i->first]));
                 break;
             }
         }

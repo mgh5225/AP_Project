@@ -22,7 +22,8 @@ class ShowAllBuildings : public QWidget
     QWidget* temp;
 
 public:
-    explicit ShowAllBuildings(QWidget *parent = nullptr);
+    person*  p;
+    explicit ShowAllBuildings(person*,QWidget *parent = nullptr);
     QWidget* body;
 
 signals:

@@ -14,7 +14,8 @@ class ShowNorthVillas : public QWidget
     QWidget* temp;
 
 public:
-    explicit ShowNorthVillas(QWidget *parent = nullptr);
+    person*  p;
+    explicit ShowNorthVillas(person*,QWidget *parent = nullptr);
     QScrollArea* scr;
 
 signals:

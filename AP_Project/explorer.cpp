@@ -1,6 +1,7 @@
 #include "explorer.h"
-explorer::explorer(QWidget *parent) : QWidget(nullptr)
+explorer::explorer(person* _p,QWidget *parent) : QWidget(nullptr)
 {
+    p=_p;
     this->parent=parent;
     btn_ShowApartments = new QToolButton();
     btn_ShowNorthVillas = new QToolButton();
@@ -60,7 +61,7 @@ explorer::explorer(QWidget *parent) : QWidget(nullptr)
 }
 void explorer::show_aptrs()
 {
-    aptrs=new ShowApartments(parent);
+    aptrs=new ShowApartments(p,parent);
     btn_ShowApartments->hide();
     btn_ShowNorthVillas->hide();
     btn_ShowSouthVillas->hide();
@@ -69,7 +70,7 @@ void explorer::show_aptrs()
 }
 void explorer::show_svillas()
 {
-    svillas=new ShowSouthVillas(parent);
+    svillas=new ShowSouthVillas(p,parent);
     btn_ShowApartments->hide();
     btn_ShowNorthVillas->hide();
     btn_ShowSouthVillas->hide();
@@ -78,7 +79,7 @@ void explorer::show_svillas()
 }
 void explorer::show_nvillas()
 {
-    nvillas=new ShowNorthVillas(parent);
+    nvillas=new ShowNorthVillas(p,parent);
     btn_ShowApartments->hide();
     btn_ShowNorthVillas->hide();
     btn_ShowSouthVillas->hide();
@@ -87,7 +88,7 @@ void explorer::show_nvillas()
 }
 void explorer::show_allb()
 {
-    allb=new ShowAllBuildings(parent);
+    allb=new ShowAllBuildings(p,parent);
     btn_ShowApartments->hide();
     btn_ShowNorthVillas->hide();
     btn_ShowSouthVillas->hide();

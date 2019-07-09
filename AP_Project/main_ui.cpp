@@ -60,18 +60,18 @@ Main_UI::Main_UI(QWidget *parent,have_file* files[12]) : QMainWindow(parent)
     btn_sign_up->setText("Sign up");
 
 
-    obj_1=new ShowBuilding_widget(nullptr,files[0]);
-    obj_2=new ShowBuilding_widget(nullptr,files[1]);
-    obj_3=new ShowBuilding_widget(nullptr,files[2]);
-    obj_4=new ShowBuilding_widget(nullptr,files[3]);
-    obj_5=new ShowBuilding_widget(nullptr,files[4]);
-    obj_6=new ShowBuilding_widget(nullptr,files[5]);
-    obj_7=new ShowBuilding_widget(nullptr,files[6]);
-    obj_8=new ShowBuilding_widget(nullptr,files[7]);
-    obj_9=new ShowBuilding_widget(nullptr,files[8]);
-    obj_10=new ShowBuilding_widget(nullptr,files[9]);
-    obj_11=new ShowBuilding_widget(nullptr,files[10]);
-    obj_12=new ShowBuilding_widget(nullptr,files[11]);
+    obj_1=new ShowBuilding_widget(nullptr,nullptr,files[0]);
+    obj_2=new ShowBuilding_widget(nullptr,nullptr,files[1]);
+    obj_3=new ShowBuilding_widget(nullptr,nullptr,files[2]);
+    obj_4=new ShowBuilding_widget(nullptr,nullptr,files[3]);
+    obj_5=new ShowBuilding_widget(nullptr,nullptr,files[4]);
+    obj_6=new ShowBuilding_widget(nullptr,nullptr,files[5]);
+    obj_7=new ShowBuilding_widget(nullptr,nullptr,files[6]);
+    obj_8=new ShowBuilding_widget(nullptr,nullptr,files[7]);
+    obj_9=new ShowBuilding_widget(nullptr,nullptr,files[8]);
+    obj_10=new ShowBuilding_widget(nullptr,nullptr,files[9]);
+    obj_11=new ShowBuilding_widget(nullptr,nullptr,files[10]);
+    obj_12=new ShowBuilding_widget(nullptr,nullptr,files[11]);
 
 
 
