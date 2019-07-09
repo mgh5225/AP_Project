@@ -31,6 +31,7 @@ void myThread::readyRead()
     if(json_data["req"]=="register") reg(json_data);
     else if(json_data["req"]=="logout") logout(json_data);
     else if(json_data["req"]=="show_buildings") showBuildings(json_data);
+    else if(json_data["req"]=="add_building") addNewBuilding(json_data);
     else if(json_data["req"]=="logs") showLogs(json_data);
 
 }
@@ -203,6 +204,118 @@ void myThread::showLogs(QJsonObject &json)
         json_l[ll.get_ID()]=temp;
     }
     ans["logs"]=json_l;
+    QByteArray arr=QJsonDocument(ans).toJson();
+    socket->write(arr);
+}
+
+void myThread::addNewBuilding(QJsonObject &json)
+{
+    QJsonObject ans;
+    if(json["mode"]=="apartmnet"){
+        apartment a(json["base_price"].toDouble(),json["apartment_area"].toString().toLongLong(),json["address"].toString(),"",json["floors"].toInt(),json["units"].toInt(),json["status"].toString());
+        apartments[a.get_id()]=a;
+        QJsonObject j;
+        a.write(j);
+        apartmentsjson[a.get_id()]=j;
+
+    }else if(json["mode"]=="flat"){
+        flat f(&apartments[json["current_apartment_ID"].toString()],json["floor_num"].toInt(),json["lift"].toBool(),json["rooms"].toInt(),json["full_area"].toString().toLongLong(),"",json["unit_number"].toInt());
+        flats[json["current_apartment_ID"].toString()].push_back(f);
+        QJsonObject j;
+        f.write(j);
+        flatsjson[f.get_id()]=j;
+        if(json["status"]=="sale"){
+            sale_file s(50000,json["ID"].toString(),&f,"Sale a building In website");
+            sales[f.get_id()]=s;
+            QJsonObject j2;
+            s.write(j2);
+            salesjson[f.get_id()]=j2;
+        }
+        else if(json["status"]=="rent"){
+            rent_file r(50000,json["ID"].toString(),&f,100);
+            rents[f.get_id()]=r;
+            QJsonObject j3;
+            r.write(j3);
+            rentsjson[f.get_id()]=j3;
+        }
+        else if(json["status"]=="both"){
+            sale_file s(50000,json["ID"].toString(),&f,"Sale a building In website");
+            sales[f.get_id()]=s;
+            QJsonObject j2;
+            s.write(j2);
+            salesjson[f.get_id()]=j2;
+            rent_file r(50000,json["ID"].toString(),&f,100);
+            rents[f.get_id()]=r;
+            QJsonObject j3;
+            r.write(j3);
+            rentsjson[f.get_id()]=j3;
+        }
+    }else if(json["mode"]=="nvilla"){
+        north_villa n(json["base_price"].toDouble(),json["full_area"].toString().toLongLong(),json["address"].toString()," " ,json["rooms"].toInt(),json["build_area"].toString().toLongLong(),json["front_yard_area"].toString().toLongLong(),json["back_yard_area"].toString().toLongLong());
+        nvillas[n.get_id()]=n;
+        QJsonObject j;
+        n.write(j);
+        nvillasjson[n.get_id()]=j;
+        if(json["status"]=="sale"){
+            sale_file s(50000,json["ID"].toString(),&n,"Sale a building In website");
+            sales[n.get_id()]=s;
+            QJsonObject j2;
+            s.write(j2);
+            salesjson[n.get_id()]=j2;
+        }
+        else if(json["status"]=="rent"){
+            rent_file r(50000,json["ID"].toString(),&n,100);
+            rents[n.get_id()]=r;
+            QJsonObject j3;
+            r.write(j3);
+            rentsjson[n.get_id()]=j3;
+        }
+        else if(json["status"]=="both"){
+            sale_file s(50000,json["ID"].toString(),&n,"Sale a building In website");
+            sales[n.get_id()]=s;
+            QJsonObject j2;
+            s.write(j2);
+            salesjson[n.get_id()]=j2;
+            rent_file r(50000,json["ID"].toString(),&n,100);
+            rents[n.get_id()]=r;
+            QJsonObject j3;
+            r.write(j3);
+            rentsjson[n.get_id()]=j3;
+        }
+
+    }else if(json["mode"]=="svilla"){
+        south_villa n(json["base_price"].toDouble(),json["full_area"].toString().toLongLong(),json["address"].toString()," " ,json["rooms"].toInt(),json["build_area"].toString().toLongLong(),json["yard_area"].toString().toLongLong(),json["parking_area"].toString().toLongLong());
+        svillas[n.get_id()]=n;
+        QJsonObject j;
+        n.write(j);
+        svillasjson[n.get_id()]=j;
+        if(json["status"]=="sale"){
+            sale_file s(50000,json["ID"].toString(),&n,"Sale a building In website");
+            sales[n.get_id()]=s;
+            QJsonObject j2;
+            s.write(j2);
+            salesjson[n.get_id()]=j2;
+        }
+        else if(json["status"]=="rent"){
+            rent_file r(50000,json["ID"].toString(),&n,100);
+            rents[n.get_id()]=r;
+            QJsonObject j3;
+            r.write(j3);
+            rentsjson[n.get_id()]=j3;
+        }
+        else if(json["status"]=="both"){
+            sale_file s(50000,json["ID"].toString(),&n,"Sale a building In website");
+            sales[n.get_id()]=s;
+            QJsonObject j2;
+            s.write(j2);
+            salesjson[n.get_id()]=j2;
+            rent_file r(50000,json["ID"].toString(),&n,100);
+            rents[n.get_id()]=r;
+            QJsonObject j3;
+            r.write(j3);
+            rentsjson[n.get_id()]=j3;
+        }
+    }
     QByteArray arr=QJsonDocument(ans).toJson();
     socket->write(arr);
 }

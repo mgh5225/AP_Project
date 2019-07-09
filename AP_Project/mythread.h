@@ -25,6 +25,7 @@ public:
     void logout(QJsonObject& json);
     void showBuildings(QJsonObject& json);
     void showLogs(QJsonObject& json);
+    void addNewBuilding(QJsonObject& json);
 signals:
     void error(QTcpSocket::SocketError err);
 public slots:
