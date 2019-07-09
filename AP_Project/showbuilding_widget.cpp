@@ -10,9 +10,9 @@ ShowBuilding_widget::ShowBuilding_widget(person* _p,QWidget *parent,have_file* _
     this->parent=parent;
 
    if(!_file) throw "FUCK YOU";
-   file=_file;
-   final_price=new QLabel(QString::fromStdString("Final Price: "+to_string(file->total_price())));
-   building* b=dynamic_cast<building*>(file);
+   file_p=_file;
+   final_price=new QLabel(QString::fromStdString("Final Price: "+to_string(file_p->total_price())));
+   building* b=dynamic_cast<building*>(file_p);
    if(b){
        pic=new QLabel;
        pic->setPixmap(QPixmap(b->get_picture()).scaled(256,150));
@@ -20,7 +20,7 @@ ShowBuilding_widget::ShowBuilding_widget(person* _p,QWidget *parent,have_file* _
        total_area=new QLabel(QString::fromStdString("Total Area: "+to_string(b->get_total_area())));
 
    }else {
-       flat* f=dynamic_cast<flat*>(file);
+       flat* f=dynamic_cast<flat*>(file_p);
        if(f){
            pic=new QLabel;
            pic->setPixmap(QPixmap(f->get_picture()).scaled(256,150));
@@ -66,30 +66,63 @@ bool ShowBuilding_widget::eventFilter(QObject *object, QEvent *event){
     }
 }
 void ShowBuilding_widget::mousePressEvent(QMouseEvent *event){
-    north_villa* nv=dynamic_cast<north_villa*>(file);
-    south_villa* sv=dynamic_cast<south_villa*>(file);
-    apartment* ap=dynamic_cast<apartment*>(file);
-    flat* fl=dynamic_cast<flat*>(file);
+    north_villa* nv=dynamic_cast<north_villa*>(file_p);
+    south_villa* sv=dynamic_cast<south_villa*>(file_p);
+    apartment* ap=dynamic_cast<apartment*>(file_p);
+    flat* fl=dynamic_cast<flat*>(file_p);
+    user* u=dynamic_cast<user*>(p);
+    manager* m=dynamic_cast<manager*>(p);
+    try{
+        s=&sales.at(file_p->get_id());
+    }
+    catch(out_of_range){
+        s=nullptr;
+    }
+    try {
+        r=&rents.at(file_p->get_id());
+    } catch (out_of_range) {
+        r=nullptr;
+    }
     if(ap){
         Apartment_Details_UI* test=new Apartment_Details_UI(*ap,nullptr);
         test->show();
+        if(u){
+            test->UserMode();
+        }
+        else if(m){
+            test->AdminMode();
+        }
+
     }
     else if(fl){
-        Flat_Details_UI* test=new Flat_Details_UI(*fl,nullptr);
+        Flat_Details_UI* test=new Flat_Details_UI(s,r,*fl,nullptr);
         test->show();
-        test->UserMode();
-        test->RentMode();
-        test->SaleMode();
+        if(u){
+            test->UserMode();
+        }
+        else if(m){
+            test->AdminMode();
+        }
+
     }
     else if(nv){
-       NorthVilla_Details_UI* test=new NorthVilla_Details_UI;
+       NorthVilla_Details_UI* test=new NorthVilla_Details_UI(s,r,*nv,nullptr);
        test->show();
-
-       test->SaleMode();
-
-
+       if(u){
+           test->UserMode();
+       }
+       else if(m){
+           test->AdminMode();
+       }
     }
     else if(sv){
-
+        SouthVilla_Details_UI* test=new SouthVilla_Details_UI(s,r,*sv,nullptr);
+        test->show();
+        if(u){
+            test->UserMode();
+        }
+        else if(m){
+            test->AdminMode();
+        }
     }
 }

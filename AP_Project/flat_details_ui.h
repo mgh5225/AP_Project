@@ -25,6 +25,7 @@
 #include <QGridLayout>
 #include <QFont>
 #include "headers.h"//prob?
+#include "file.h"
 
 class Flat_Details_UI : public QWidget
 {
@@ -88,12 +89,14 @@ class Flat_Details_UI : public QWidget
     QLabel *lbl_SaleFinalPrice;
     QLineEdit *led_SaleFinalPrice;
     QVBoxLayout *my_sale_layout;
-
+    flat& flt;
+    sale_file* s;
+    rent_file* r;
 
 
 
 public:
-    explicit Flat_Details_UI(flat &flt,QWidget *parent = nullptr);
+    explicit Flat_Details_UI(sale_file*,rent_file*,flat &flt,QWidget *parent = nullptr);
     void AdminMode();
     void UserMode();
     void SaleMode();

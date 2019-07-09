@@ -1,6 +1,6 @@
 #include "southvilla_details_ui.h"
 
-SouthVilla_Details_UI::SouthVilla_Details_UI(QWidget *parent) : QWidget(parent)
+SouthVilla_Details_UI::SouthVilla_Details_UI(sale_file* _s,rent_file* _r,south_villa& sv,QWidget *parent) :sv(sv), QWidget(parent)
 {
     label_BuildArea  = new QLabel(tr("Build Area"));
     label_ParkingArea  = new QLabel(tr("Parking Area"));

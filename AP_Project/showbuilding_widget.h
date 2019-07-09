@@ -29,12 +29,14 @@
 #include "north_villa.h"
 #include "south_villa.h"
 #include "person.h"
+#include "sale_file.h"
+#include "rent_file.h"
 #include <QPropertyAnimation>
 class ShowBuilding_widget : public QWidget
 {
     Q_OBJECT
     QWidget* parent;
-    have_file* file;
+    have_file* file_p;
     QLabel *pic;
     QLabel *total_area;
     QLabel *address;
@@ -45,6 +47,8 @@ class ShowBuilding_widget : public QWidget
     QGridLayout *lay;
 protected:
     person*  p;
+    sale_file* s;
+    rent_file* r;
 bool eventFilter(QObject *object, QEvent *event);
 void mousePressEvent(QMouseEvent *event);
 public:

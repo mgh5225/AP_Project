@@ -48,7 +48,7 @@ class Apartment_Details_UI : public QWidget
 
 
     QPushButton *btn_Edit;
-
+    QPushButton *btn_Save;
     apartment& aptr;
 
     QHBoxLayout *my_h_layout;
@@ -66,6 +66,8 @@ public:
 signals:
 
 public slots:
+    void EditClicked();
+    void SaveClicked();
 };
 
 #endif // APARTMENT_DETAILS_UI_H

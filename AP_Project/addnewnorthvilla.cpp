@@ -136,36 +136,36 @@ void AddNewNorthVilla::BothClicked()
 
 void AddNewNorthVilla::AddClicked()
 {
-    north_villa n(lineEdit_BasePrice->text().toDouble(),lineEdit_FullArea->text().toLongLong(),lineEdit_Address->text(),fileName,lineEdit_NumberOfRooms->text().toInt(),lineEdit_BuildArea->text().toLongLong(),lineEdit_FrontYardArea->text().toLongLong(),lineEdit_BackYardArea->text().toLongLong());
-    nvillas[n.get_id()]=n;
+    north_villa *n=new north_villa(lineEdit_BasePrice->text().toDouble(),lineEdit_FullArea->text().toLongLong(),lineEdit_Address->text(),fileName,lineEdit_NumberOfRooms->text().toInt(),lineEdit_BuildArea->text().toLongLong(),lineEdit_FrontYardArea->text().toLongLong(),lineEdit_BackYardArea->text().toLongLong());
+    nvillas[n->get_id()]=*n;
     QJsonObject j;
-    n.write(j);
-    nvillasjson[n.get_id()]=j;
+    n->write(j);
+    nvillasjson[n->get_id()]=j;
     if(rbtn_sale->isChecked()){
-        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),&n,sale_input->get_con());
-        sales[n.get_id()]=s;
+        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),n,sale_input->get_con());
+        sales[n->get_id()]=s;
         QJsonObject j2;
         s.write(j2);
-        salesjson[n.get_id()]=j2;
+        salesjson[n->get_id()]=j2;
     }
     else if(rbtn_rent->isChecked()){
-        rent_file r(rent_input->get_com(),mgr.get_id(),&n,rent_input->get_dur());
-        rents[n.get_id()]=r;
+        rent_file r(rent_input->get_com(),mgr.get_id(),n,rent_input->get_dur());
+        rents[n->get_id()]=r;
         QJsonObject j3;
         r.write(j3);
-        rentsjson[n.get_id()]=j3;
+        rentsjson[n->get_id()]=j3;
     }
     else if(rbtn_both->isChecked()){
-        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),&n,sale_input->get_con());
-        sales[n.get_id()]=s;
+        sale_file s(sale_input->get_com().toDouble(),mgr.get_id(),n,sale_input->get_con());
+        sales[n->get_id()]=s;
         QJsonObject j2;
         s.write(j2);
-        salesjson[n.get_id()]=j2;
-        rent_file r(rent_input->get_com(),mgr.get_id(),&n,rent_input->get_dur());
-        rents[n.get_id()]=r;
+        salesjson[n->get_id()]=j2;
+        rent_file r(rent_input->get_com(),mgr.get_id(),n,rent_input->get_dur());
+        rents[n->get_id()]=r;
         QJsonObject j3;
         r.write(j3);
-        rentsjson[n.get_id()]=j3;
+        rentsjson[n->get_id()]=j3;
     }
     else {
      QMessageBox msg;

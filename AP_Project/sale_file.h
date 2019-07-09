@@ -10,6 +10,7 @@ public:
     ~sale_file();
     sale_file(double _commission,QString _manager_ID,have_file* _building,QString _condition);
     double final_price();
+    QString get_condition();
     void read(QJsonObject& json);
     void write(QJsonObject& json);
 };

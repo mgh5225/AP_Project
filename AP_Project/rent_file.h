@@ -10,6 +10,8 @@ public:
     double mortgage_price();
     double rent_price();
     double final_price();
+    int get_duration();
+    void set_duration(int);
     void read(QJsonObject& json);
     void write(QJsonObject& json);
 };

@@ -1,8 +1,10 @@
 #include "flat_details_ui.h"
 
-Flat_Details_UI::Flat_Details_UI(flat &flt,QWidget *parent) : QWidget(parent)
+Flat_Details_UI::Flat_Details_UI(sale_file* _s,rent_file* _r,flat &flt,QWidget *parent) : flt(flt),QWidget(parent)
 {
 
+    s=_s;
+    r=_r;
     lbl_FloorNumber = new QLabel(tr("Floor Number"));
     lbl_UnitPicture = new QLabel;
     lbl_NumberOfRooms = new QLabel(tr("Number Of Rooms"));
@@ -37,7 +39,12 @@ Flat_Details_UI::Flat_Details_UI(flat &flt,QWidget *parent) : QWidget(parent)
     btn_Edit->hide();
     btn_Save->hide();
 
-
+    led_FloorNumber->setText(QString::number(flt.get_floor_num()));
+    led_NumberOfRooms->setText(QString::number(flt.get_rooms()));
+    led_BuildArea->setText(QString::number(flt.get_building_area()));
+    if(flt.get_lift())comboBox_Elevator->setCurrentIndex(0);
+    else comboBox_Elevator->setCurrentIndex(1);
+    lbl_UnitPicture-> setPixmap(QPixmap(flt.get_picture()).scaled(256,150));
 
 
 
@@ -107,7 +114,13 @@ Flat_Details_UI::Flat_Details_UI(flat &flt,QWidget *parent) : QWidget(parent)
     led_RentAmount->hide();
     led_RentDuration->hide();
     led_RentFinalPrice->hide();
-
+    if(r){
+        led_Commission->setText(QString::number(r->get_commission()));
+        led_MortgageDuration->setText(QString::number(r->mortgage_price()));
+        led_RentAmount->setText(QString::number(r->rent_price()));
+        led_RentDuration->setText(QString::number(r->get_duration()));
+        led_RentFinalPrice->setText(QString::number(r->final_price()));
+    }
 
     /////////sale///////////
     led_SaleCommission = new QLineEdit;
@@ -142,6 +155,12 @@ Flat_Details_UI::Flat_Details_UI(flat &flt,QWidget *parent) : QWidget(parent)
     lbl_Condition ->hide();
     lbl_SaleFinalPrice->hide();
     led_SaleFinalPrice->hide();
+
+    if(s){
+        led_SaleCommission->setText(QString::number(s->get_commission()));
+        led_Condition->setText(s->get_condition());
+        led_SaleFinalPrice->setText(QString::number(s->final_price()));
+    }
 
     //////////
     lbl_UnitPicture->setFixedSize(280,165);
@@ -196,7 +215,12 @@ Flat_Details_UI::Flat_Details_UI(flat &flt,QWidget *parent) : QWidget(parent)
 
     /////////////
     connect(btn_Edit,SIGNAL(clicked()),this ,SLOT(EditClicked()) );
-
+    if(r){
+        RentMode();
+    }
+    if(s){
+        SaleMode();
+    }
 }
 
 void Flat_Details_UI::AdminMode()

@@ -33,4 +33,14 @@ void file::set_building(have_file * _b)
 {
     building=_b;
 }
+
+double file::get_commission()
+{
+    return commission;
+}
+
+void file::set_commission(double _com)
+{
+    commission=_com;
+}
 file::~file(){}

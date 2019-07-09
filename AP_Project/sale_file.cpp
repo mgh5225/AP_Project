@@ -7,6 +7,11 @@ sale_file::sale_file(double _commission,QString _manager_ID,have_file* _building
 double sale_file::final_price(){
     return building->total_price()+(commission*building->total_price());
 }
+
+QString sale_file::get_condition()
+{
+    return condition;
+}
 void sale_file::read(QJsonObject& json){
     commission=json["commission"].toDouble();
     building_ID=json["building_ID"].toString();

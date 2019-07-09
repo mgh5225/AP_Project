@@ -15,6 +15,8 @@ public:
     double total_price();
     void read(QJsonObject& json);
     void write(QJsonObject& json);
+    void set_floors(int);
+    void set_units(int);
     int get_floors();
     int get_units();
     QString get_picture();

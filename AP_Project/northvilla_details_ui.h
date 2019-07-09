@@ -24,7 +24,7 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QRadioButton>
-
+#include "headers.h"
 class NorthVilla_Details_UI : public QWidget
 {
     Q_OBJECT
@@ -99,11 +99,13 @@ class NorthVilla_Details_UI : public QWidget
     QLabel *lbl_SaleFinalPrice;
     QLineEdit *led_SaleFinalPrice;
     QVBoxLayout *my_sale_layout;
-
+    sale_file* s;
+    rent_file* r;
+    north_villa& nv;
 
     bool IsRentMode = false;
 public:
-    explicit NorthVilla_Details_UI(QWidget *parent = nullptr);
+    explicit NorthVilla_Details_UI(sale_file*,rent_file*,north_villa&,QWidget *parent = nullptr);
     void AdminMode();
     void UserMode();
 

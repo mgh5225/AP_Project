@@ -23,7 +23,7 @@
 #include <QComboBox>
 #include <QGridLayout>
 #include <QRadioButton>
-
+#include "headers.h"
 class SouthVilla_Details_UI : public QWidget
 {
     Q_OBJECT
@@ -97,11 +97,14 @@ class SouthVilla_Details_UI : public QWidget
     QLabel *lbl_SaleFinalPrice;
     QLineEdit *led_SaleFinalPrice;
     QVBoxLayout *my_sale_layout;
+    sale_file* s;
+    rent_file* r;
+    south_villa& sv;
 
 
     bool IsRentMode = false;
 public:
-    explicit SouthVilla_Details_UI(QWidget *parent = nullptr);
+    explicit SouthVilla_Details_UI(sale_file*,rent_file*,south_villa&,QWidget *parent = nullptr);
     void AdminMode();
     void UserMode();
 

@@ -21,6 +21,8 @@ public:
     bool get_is_accpted();
     void set_is_accpted(bool);
     void set_building(have_file*);
+    double get_commission();
+    void set_commission(double);
 
 };
 #endif // FILE_H

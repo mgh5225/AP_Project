@@ -18,6 +18,9 @@ public:
     long long get_total_area();
     QString get_address();
     QString get_picture();
+    void set_address(QString);
+    void set_base_price(double);
+    void set_total_area(long long);
 };
 
 #endif // BUILDING_H

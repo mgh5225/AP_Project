@@ -28,6 +28,16 @@ void apartment::write(QJsonObject& json){
    json["units"]=units;
    json["apply"]=apply;
 }
+
+void apartment::set_floors(int _f)
+{
+    floors=_f;
+}
+
+void apartment::set_units(int _u)
+{
+    units=_u;
+}
 int apartment::get_floors(){return floors;}
 flat::flat():have_file (){}
 flat::flat(apartment *_current_apartment,int _floor_num,bool _lift,int _rooms,long long _building_area,QString _picture,int _units):have_file (){

@@ -1,6 +1,6 @@
 #include "northvilla_details_ui.h"
 
-NorthVilla_Details_UI::NorthVilla_Details_UI(QWidget *parent) : QWidget(parent)
+NorthVilla_Details_UI::NorthVilla_Details_UI(sale_file* _s,rent_file* _r,north_villa& nv,QWidget *parent) :nv(nv), QWidget(parent)
 {
     label_BuildArea  = new QLabel(tr("Build Area"));
     label_FrontYardArea  = new QLabel(tr("Front yard Area"));
@@ -157,7 +157,7 @@ NorthVilla_Details_UI::NorthVilla_Details_UI(QWidget *parent) : QWidget(parent)
     lbl_Condition ->hide();
     lbl_SaleFinalPrice->hide();
     led_SaleFinalPrice->hide();
-
+    led_MortgageDuration->setText(QString::number(r->mortgage_price()));
     lbl_VillaPicture = new QLabel;
     //////////
     lbl_VillaPicture->setFixedSize(280,165);
